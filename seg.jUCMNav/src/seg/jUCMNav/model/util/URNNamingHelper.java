@@ -1,5 +1,19 @@
 package seg.jUCMNav.model.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Vector;
+
+import org.eclipse.emf.ecore.EObject;
+
 import fm.Feature;
 import fm.MandatoryFMLink;
 import fm.OptionalFMLink;
@@ -16,21 +30,6 @@ import grl.IntentionalElementRef;
 import grl.IntentionalElementType;
 import grl.kpimodel.KPIInformationElement;
 import grl.kpimodel.KPIInformationElementRef;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Vector;
-
-import org.eclipse.emf.ecore.EObject;
-
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.ModelCreationFactory;
 import ucm.UCMspec;
@@ -51,10 +50,12 @@ import ucm.map.WaitingPlace;
 import ucm.scenario.ScenarioDef;
 import ucm.scenario.ScenarioGroup;
 import ucm.scenario.Variable;
+import urn.URNlink;
 import urn.URNspec;
 import urn.dyncontext.Change;
 import urn.dyncontext.DeactivationChange;
 import urn.dyncontext.PropertyChange;
+import urn.dyncontext.TimepointGroup;
 import urncore.Component;
 import urncore.Condition;
 import urncore.GRLmodelElement;
@@ -729,28 +730,19 @@ public class URNNamingHelper {
             else
                 var.setName(var.getType() + var.getId());
 
-        } else if (o instanceof URNmodelElement) {
-            URNmodelElement model = (URNmodelElement) o;
-            if (model.getId() == null || model.getId().trim().length() == 0) {
-                model.setId(getNewID(urn));
-            }
-
-            if (model.getName() == null || model.getName().trim().length() == 0) {
-                model.setName(getPrefix(o.getClass()));
-            }
-            // } else if (o instanceof URNlink) {
-            // URNlink model = (URNlink) o;
-            // if (model.getId() == null || model.getId().trim().length() == 0)
-            // {
-            // model.setId(getNewID(urn));
-            // }
-            //
-            // if (model.getName() == null || model.getName().trim().length() ==
-            // 0) {
-            // model.setName(getPrefix(o.getClass()));
-            // }
+//        } else if (o instanceof URNmodelElement) {
+//            URNmodelElement model = (URNmodelElement) o;
+//            if (model.getId() == null || model.getId().trim().length() == 0) {
+//                model.setId(getNewID(urn));
+//            }
+//
+//            if (model.getName() == null || model.getName().trim().length() == 0) {
+//                model.setName(getPrefix(o.getClass()));
+//            }
+            } else if ((o instanceof URNlink) || (o instanceof TimepointGroup)) {
+            // do nothing
         } else {
-            System.out.println(Messages.getString("URNNamingHelper.unknownClass")); //$NON-NLS-1$
+            System.out.println(Messages.getString("URNNamingHelper.unknownClass") + ": " + o.getClass().toString()); //$NON-NLS-1$
         }
     }
 
