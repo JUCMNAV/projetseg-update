@@ -631,11 +631,16 @@ public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPa
         boolean scenariosActive = ScenarioUtils.getActiveScenario(node) != null && ScenarioUtils.getTraversalHitCount(node) > 0;
         nodeFigure.setTraversed(scenariosActive);
         if(node instanceof RespRef){
-        	String deactStatus = MetadataHelper.getMetaData(((RespRef) node).getRespDef(), EvaluationStrategyManager.METADATA_DEACTSTATUS);
-        	String deactStatusRef = MetadataHelper.getMetaData(node, EvaluationStrategyManager.METADATA_DEACTSTATUS);
-        	if (((deactStatus != null && deactStatus.equalsIgnoreCase("true")) || (deactStatusRef != null && deactStatusRef.equalsIgnoreCase("true"))) && ScenarioTraversalPreferences.getIsTimedUcmEnabled())
-                nodeFigure.setDeactivated(scenariosActive);
-            else
+        	Responsibility resp=((RespRef) node).getRespDef();
+        	if (resp!=null){
+	        	String deactStatus = MetadataHelper.getMetaData(resp, EvaluationStrategyManager.METADATA_DEACTSTATUS);
+	        	String deactStatusRef = MetadataHelper.getMetaData(node, EvaluationStrategyManager.METADATA_DEACTSTATUS);
+	        	if (((deactStatus != null && deactStatus.equalsIgnoreCase("true")) || (deactStatusRef != null && deactStatusRef.equalsIgnoreCase("true"))) && ScenarioTraversalPreferences.getIsTimedUcmEnabled())
+	                nodeFigure.setDeactivated(scenariosActive);
+	            else
+	                nodeFigure.setDeactivated(false);
+        	}
+        	else
                 nodeFigure.setDeactivated(false);
         }
         // Set tool tip or hit count.
