@@ -109,12 +109,23 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </url>
 
    <requires>
+      <import feature="org.eclipse.gef"/>
+      <import feature="org.eclipse.emf.ecore"/>
       <import feature="org.eclipse.platform"/>
       <import feature="org.eclipse.jdt"/>
       <import feature="org.eclipse.rcp"/>
       <import feature="org.eclipse.gef"/>
       <import feature="org.eclipse.emf.ecore"/>
       <import feature="org.eclipse.ocl"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.core.expressions"/>
    </requires>
 
    <plugin
