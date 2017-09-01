@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="seg.jUCMNav"
-      label="jUCMNav: URN Editor (UCM and GRL)"
-      version="7.0.0"
-      provider-name="UseCaseMaps.ORG">
+      label="jUCMNav: URN Editor (UCM, GRL, and FM)"
+      version="8.0.0"
+      provider-name="UseCaseMaps.org">
 
    <description url="http://jucmnav.softwareengineering.ca/twiki/bin/view/ProjetSEG/WebHome">
-      jUCMNav is a graphical editor for the User Requirements Notation (URN),
-      which includes both the Use Case Map (UCM) notation and the 
-      Goal-oriented Requirement Language (GRL).
+      jUCMNav is a graphical editor for the User Requirements Notation
+(URN), which includes both the Use Case Map (UCM) notation and the 
+Goal-oriented Requirement Language (GRL). Support for Feature 
+Models (FM) is also integrated.
    </description>
 
    <copyright url="jUCMNav is a graphical editor for the User Requirements Notation (URN)">
@@ -104,7 +105,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="jUCMNav: URN Editor (UCM and GRL)" url="http://jucmnav.softwareengineering.ca/jucmnav/updatesite/site.xml"/>
+      <update label="jUCMNav: URN Editor (UCM, GRL, and FM)" url="http://jucmnav.softwareengineering.ca/jucmnav/updatesite/site.xml"/>
    </url>
 
    <requires>
@@ -120,7 +121,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="seg.jUCMNav"
          download-size="0"
          install-size="0"
-         version="7.0.0"
+         version="8.0.0"
          unpack="false"/>
 
    <plugin
