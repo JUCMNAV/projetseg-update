@@ -9,6 +9,13 @@ Bundle-ClassPath: jUCMNav.jar,
  lib/meval.jar,
  lib/JaCoP-3.0-final.jar,
  lib/core.jar
+ lib/mxparser.jar,
+ lib/axis.jar,
+ lib/de.cau.cs.kieler.core_0.8.0.201212192152.jar,
+ lib/jaxrpc.jar,
+ lib/org-eclipse-gmf-runtime-diagram-ui-parts.jar,
+ lib/xerces.jar,
+ lib/org.swtchart.jar
 Bundle-Activator: seg.jUCMNav.JUCMNavPlugin
 Bundle-Vendor: UseCaseMaps.org
 Bundle-Localization: plugin
