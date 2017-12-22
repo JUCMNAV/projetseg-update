@@ -5,6 +5,7 @@ import java.util.EventObject;
 import java.util.Iterator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.Disposable;
@@ -493,9 +494,10 @@ public abstract class UrnEditor extends GraphicalEditorWithFlyoutPalette impleme
         // getSite().registerContextMenu("seg.jUCMNav.editors.actionContributors.UrnContextMenuProvider", provider, viewer); //$NON-NLS-1$
         menuExtenders = new ArrayList(1);
         
+        PartSite site = (PartSite)( (MultiPageEditorSite) getSite() ).getMultiPageEditor().getSite();
         PartSite.registerContextMenu("seg.jUCMNav.editors.actionContributors.UrnContextMenuProvider", provider, viewer, true, //$NON-NLS-1$
                 	// DB: Fix for internal API removed from E4.2.
-                this, ( (PartSite)( (MultiPageEditorSite) getSite() ).getMultiPageEditor().getSite() ).getContext(), menuExtenders);
+                this, site.getContext(), menuExtenders); 
         // bug 531
         if (menuExtenders.get(0) != null) {
             provider.removeMenuListener((IMenuListener) menuExtenders.get(0));

@@ -178,6 +178,7 @@ Export-Package: .,
  org.apache.xerces.validators.schema,
  org.apache.xerces.validators.schema.identity,
  org.apache.xml.serialize,
+ org.eclipse.e4.core.contexts,
  org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.gmf.runtime.diagram.ui.actions,
  org.eclipse.gmf.runtime.diagram.ui.commands,
@@ -423,7 +424,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.search,
  org.eclipse.ui.views.properties.tabbed,
  org.eclipse.jface.text,
- org.eclipse.ui.navigator
+ org.eclipse.ui.navigator,
+ seg.jUCMNav
 Bundle-ActivationPolicy: lazy
-Eclipse-LazyStart: true
-
+Eclipse-LazyStart: true 

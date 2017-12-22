@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Display;
 
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.extensionpoints.IURNExport;
+import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.strategies.EvaluationStrategyManager;
 import seg.jUCMNav.views.preferences.ReportGeneratorPreferences;
 import seg.jUCMNav.views.wizards.importexport.ExportPreferenceHelper;
@@ -292,24 +293,32 @@ public class ExportCSV implements IURNExport {
         	stopPoint = index + columnWidth;
         }
         
-        for( int j = index; j < stopPoint; j++ ) {
-        	if( elements[j] instanceof Actor ) { // Write evaluation for actors
-              Actor actor = (Actor) elements[j];
-              int evaluation = esm.getActorEvaluation(actor);
-              write(COMMA + evaluation);
-        	} else { // Write evaluation for intentional elements
-              IntentionalElement element = (IntentionalElement) elements[j];
-              Evaluation evaluation = esm.getEvaluationObject(element);
+		for (int j = index; j < stopPoint; j++) {
+			if (elements[j] instanceof Actor) { // Write evaluation for actors
+				Actor actor = (Actor) elements[j];
+				int evaluation = esm.getActorEvaluation(actor);
+				write(COMMA + evaluation);
+			} else { // Write evaluation for intentional elements
+				IntentionalElement element = (IntentionalElement) elements[j];
+				// Check for grayed-out elements that are disconnected
+				if (MetadataHelper.getMetaDataObj(element, "IgnoreNodeInEvaluation") == null) {  //$NON-NLS-1$
+					// Not a gray-out element
+					Evaluation evaluation = esm.getEvaluationObject(element);
 
-              int val = evaluation.getEvaluation();
-              //val = StrategyEvaluationPreferences.getValueToVisualize(val);
+					int val = evaluation.getEvaluation();
+					// val =
+					// StrategyEvaluationPreferences.getValueToVisualize(val);
 
-              if (evaluation.getStrategies() != null) {
-                  write(COMMA + val);
-              } else {
-                  write(COMMA + val + "#"); //$NON-NLS-1$
-              }
-        	}
+					if (evaluation.getStrategies() != null) {
+						write(COMMA + val);
+					} else {
+						write(COMMA + val + "#"); //$NON-NLS-1$
+					}
+				} else {
+					// Grayed-out, disconnected element
+					write(COMMA + "#"); //$NON-NLS-1$
+				}
+			}
         }
     }
 }
