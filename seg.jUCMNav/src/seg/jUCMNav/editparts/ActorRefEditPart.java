@@ -5,7 +5,7 @@ package seg.jUCMNav.editparts;
 
 import grl.Actor;
 import grl.ActorRef;
-import grl.ElementLink;
+//import grl.ElementLink; // Never Used
 import grl.QualitativeLabel;
 
 import org.eclipse.draw2d.FreeformLayeredPane;
@@ -37,7 +37,7 @@ import seg.jUCMNav.strategies.QuantitativeGRLStrategyAlgorithm;
 import seg.jUCMNav.views.preferences.GeneralPreferencePage;
 import seg.jUCMNav.views.property.ContainerPropertySource;
 import urn.URNspec;
-import urncore.Metadata;
+//import urncore.Metadata; // Never Used
 
 /**
  * Edit part for the Actor Ref, who listen for changes in both ref and def
