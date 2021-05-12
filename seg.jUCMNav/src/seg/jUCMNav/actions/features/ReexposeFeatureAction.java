@@ -1,7 +1,7 @@
 package seg.jUCMNav.actions.features;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.Vector;
 
 import org.eclipse.emf.common.util.EList;
@@ -22,13 +22,13 @@ import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.actions.URNSelectionAction;
 import seg.jUCMNav.editparts.IntentionalElementEditPart;
 import seg.jUCMNav.model.commands.delete.DeleteEvaluationCommand;
-import seg.jUCMNav.model.commands.transformations.ChangeNumericalEvaluationCommand;
+//import seg.jUCMNav.model.commands.transformations.ChangeNumericalEvaluationCommand;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.strategies.EvaluationStrategyManager;
 import seg.jUCMNav.strategies.util.FeatureUtil;
 import seg.jUCMNav.strategies.util.ReusedElementUtil;
 import urn.URNspec;
-import urncore.Metadata;
+//import urncore.Metadata;
 import seg.jUCMNav.model.commands.transformations.ReexposeFeatureCommand;;
 /**
  * This action is used to reexpose one feature (add reexpose metamodel to strategy).
@@ -57,7 +57,7 @@ public class ReexposeFeatureAction extends URNSelectionAction {
 		if ( strategy == null)
 			return false;
 
-		boolean reexposable = false;
+		//boolean reexposable = false;
 		for (Iterator<?> iter = getSelectedObjects().iterator(); iter.hasNext();) {
 			Object obj = iter.next();
 			if (!(obj instanceof IntentionalElementEditPart) || 
