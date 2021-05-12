@@ -14,7 +14,7 @@ import seg.jUCMNav.editparts.ActorRefEditPart;
 import seg.jUCMNav.editparts.ComponentRefEditPart;
 import seg.jUCMNav.editparts.IntentionalElementEditPart;
 import seg.jUCMNav.editparts.LinkRefEditPart;
-import seg.jUCMNav.editparts.PathNodeEditPart;
+//import seg.jUCMNav.editparts.PathNodeEditPart;
 import seg.jUCMNav.editparts.RespRefEditPart;
 import seg.jUCMNav.editparts.dynamicContextTreeEditparts.ChangeTreeEditPart;
 import seg.jUCMNav.views.wizards.dynamicContexts.ManageChangeCustomDialog;
