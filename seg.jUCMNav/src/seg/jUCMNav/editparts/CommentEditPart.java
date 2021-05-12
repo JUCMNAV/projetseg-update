@@ -192,7 +192,7 @@ public class CommentEditPart extends GrlNodeEditPart implements NodeEditPart {
         refreshSourceConnections();
         refreshVisuals();
 
-        int featureId = notification.getFeatureID(Comment.class);
+        //int featureId = notification.getFeatureID(Comment.class);
 
         // we want the top level editpart to refresh its children so that the largest components are always in the back.
         if (notification.getEventType() == Notification.SET && getParent() != null)
