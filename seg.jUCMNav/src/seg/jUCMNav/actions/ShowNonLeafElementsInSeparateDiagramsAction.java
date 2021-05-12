@@ -3,7 +3,7 @@
  */
 package seg.jUCMNav.actions;
 import grl.GRLGraph;
-import grl.IntentionalElementRef;
+//import grl.IntentionalElementRef;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.IWorkbenchPart;
 
 import seg.jUCMNav.JUCMNavPlugin;
-import seg.jUCMNav.actions.hyperlinks.HyperlinkUtils;
-import seg.jUCMNav.model.commands.create.ShowLinkedElementCommand;
-import seg.jUCMNav.model.commands.create.ShowLinkedElementCompleteCommand;
+//import seg.jUCMNav.actions.hyperlinks.HyperlinkUtils;
+//import seg.jUCMNav.model.commands.create.ShowLinkedElementCommand;
+//import seg.jUCMNav.model.commands.create.ShowLinkedElementCompleteCommand;
 import seg.jUCMNav.model.commands.create.ShowNonLeafElementsInSeparateDiagramsCommand;
 import urn.URNspec;
-import urncore.URNmodelElement;
+//import urncore.URNmodelElement;
 
 /**
  * Action for showing linked element(s) in all level.
