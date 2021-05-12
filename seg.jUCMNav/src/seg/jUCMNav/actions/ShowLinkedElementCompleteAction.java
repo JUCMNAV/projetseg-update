@@ -11,7 +11,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.actions.hyperlinks.HyperlinkUtils;
-import seg.jUCMNav.model.commands.create.ShowLinkedElementCommand;
+//import seg.jUCMNav.model.commands.create.ShowLinkedElementCommand; // never Used
 import seg.jUCMNav.model.commands.create.ShowLinkedElementCompleteCommand;
 import urn.URNspec;
 import urncore.URNmodelElement;
