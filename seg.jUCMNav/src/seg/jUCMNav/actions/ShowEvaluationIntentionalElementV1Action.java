@@ -6,16 +6,16 @@ package seg.jUCMNav.actions;
 //import grl.Evaluation;
 import java.util.List;
 
-import grl.Evaluation;
+//import grl.Evaluation; never used
 import grl.EvaluationStrategy;
 import grl.GRLGraph;
-import grl.IntentionalElement;
+//import grl.IntentionalElement; never used
 //import grl.IntentionalElement;
-import grl.IntentionalElementRef;
+//import grl.IntentionalElementRef; // import never used
 
 //import java.util.List;
 
-import org.eclipse.gef.EditPartViewer;
+//import org.eclipse.gef.EditPartViewer; //Import never used
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -24,7 +24,7 @@ import org.eclipse.ui.PlatformUI;
 
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editors.UCMNavMultiPageEditor;
+//import seg.jUCMNav.editors.UCMNavMultiPageEditor; //import never used
 import seg.jUCMNav.model.commands.create.CreateGrlGraphCommand;
 import seg.jUCMNav.model.commands.create.ShowEvaluationIntentionalElementV1Command;
 //import seg.jUCMNav.strategies.EvaluationStrategyManager;
@@ -43,7 +43,7 @@ public class ShowEvaluationIntentionalElementV1Action extends URNSelectionAction
     public static final String SHOWEVALUATIONINTENTIONALELEMENT = "seg.jUCMNav.ShowEvaluationIntentionalElementV1Action"; //$NON-NLS-1$
     
     private URNmodelElement element;
-    private IntentionalElementRef elementRef;
+    //private IntentionalElementRef elementRef; //Private variable is never used
     private URNspec urnspec;
     private EvaluationStrategy strategy;
     private GRLGraph newGraph;
@@ -62,10 +62,10 @@ public class ShowEvaluationIntentionalElementV1Action extends URNSelectionAction
     protected boolean calculateEnabled() 
     {   
         List objects = getSelectedObjects();
-        List<Evaluation> evals;
-        List<IntentionalElement> nodesInStrategy;
-        List<grl.ElementLink> links;
-        List<IntentionalElement> contributorsNodesToSelectedNodes;
+//        List<Evaluation> evals; // Never called
+//        List<IntentionalElement> nodesInStrategy;
+//        List<grl.ElementLink> links;
+//        List<IntentionalElement> contributorsNodesToSelectedNodes;
         
         //UCMNavMultiPageEditor editor = getEditor();
         //EditPartViewer viewer = editor.getCurrentPage().getGraphicalViewer();
