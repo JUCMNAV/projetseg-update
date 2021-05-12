@@ -140,11 +140,13 @@ public class ComponentRefEditPart extends ModelElementEditPart implements Adapte
             UrnMetadata.setToolTip(comp, figure);
 
             //For TimedUCM
-            String deactStatus = MetadataHelper.getMetaData(comp, EvaluationStrategyManager.METADATA_DEACTSTATUS);
-            if (deactStatus != null && deactStatus.equalsIgnoreCase("true")&& ScenarioTraversalPreferences.getIsTimedUcmEnabled())
-                    ((ComponentRefFigure) figure).setColors("169,169,169", comp.getLineColor(), comp.isFilled());
-            else
-                    ((ComponentRefFigure) figure).setColors("25,25,25", comp.getLineColor(), comp.isFilled());
+            if (ScenarioTraversalPreferences.getIsTimedUcmEnabled()){
+	            String deactStatus = MetadataHelper.getMetaData(comp, EvaluationStrategyManager.METADATA_DEACTSTATUS);
+	            if (deactStatus != null && deactStatus.equalsIgnoreCase("true"))
+	            	((ComponentRefFigure) figure).setColors(comp.getLineColor(), "169,169,169", comp.isFilled());
+	            else
+	            	((ComponentRefFigure) figure).setColors(comp.getLineColor(), "25,25,25", comp.isFilled());
+            }
             
         }
 
