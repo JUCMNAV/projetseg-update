@@ -3,7 +3,7 @@ package seg.jUCMNav.actions;
 import grl.Decomposition;
 import grl.IntentionalElementRef;
 
-import java.util.Vector;
+//import java.util.Vector; // Only vector variable is never used, therefore no need
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.IWorkbenchPart;
@@ -19,7 +19,7 @@ import seg.jUCMNav.model.commands.transformations.ChangeDecompositionTypeCommand
 public class ChangeDecompositionTypeAction extends URNSelectionAction {
     public static final String CHANGEDECOMPOSITIONTYPE = "ChangeDecompositionTypeCommand.ChangeDecompositionType"; //$NON-NLS-1$
     private IntentionalElementRef selection;
-    private Vector intElementRefs;
+    //private Vector intElementRefs; // Variable is never used
     private int id;
     private static String[] values = { "AND", "OR", "XOR"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
