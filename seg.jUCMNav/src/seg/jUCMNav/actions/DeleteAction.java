@@ -20,7 +20,7 @@ import seg.jUCMNav.model.util.MetadataHelper;
 import ucm.map.UCMmap;
 import ucm.scenario.ScenarioDef;
 import urn.URNspec;
-import seg.jUCMNav.actions.SelectionHelper;
+//import seg.jUCMNav.actions.SelectionHelper; // Never Used
 /**
  * DeleteAction overridden from framework to delete small paths created after a mass deletion.
  * 
