@@ -212,8 +212,8 @@ public class PointcutMatcher {
 		MatchList matchList = new MatchList();
 		List<MatchableNeighbor> pointcutNeighbors = pointcutElement.getNeighbors(mapping);
 		List<MatchableNeighbor> joinpointNeighbors = joinpoint.getNeighbors();
-		int size1 = pointcutNeighbors.size();
-		int size2 = joinpointNeighbors.size();
+		//int size1 = pointcutNeighbors.size();
+		//int size2 = joinpointNeighbors.size();
 		// no need to check the previous mapping again, therefore remove these elements from the neighbors
 		// note that this is crucially important for anything pointcut elements
 		// 1) loop detection for the anything pointcut element depends on it (detection is based on duplicate mappings)
