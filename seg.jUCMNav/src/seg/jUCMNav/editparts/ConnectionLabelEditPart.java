@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Image;
 
 import fm.MandatoryFMLink;
 import fm.OptionalFMLink;
-import fm.impl.MandatoryFMLinkImpl;
+//import fm.impl.MandatoryFMLinkImpl;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.extensionpoints.IGRLStrategyAlgorithm;
 import seg.jUCMNav.figures.LabelFigure;
