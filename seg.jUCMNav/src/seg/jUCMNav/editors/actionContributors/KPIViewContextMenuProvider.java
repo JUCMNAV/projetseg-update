@@ -3,8 +3,8 @@ package seg.jUCMNav.editors.actionContributors;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.jface.action.IAction;
+//import org.eclipse.gef.ui.actions.GEFActionConstants;
+//import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 
 /**
@@ -31,10 +31,10 @@ public class KPIViewContextMenuProvider extends ContextMenuProvider {
      * @see org.eclipse.gef.ContextMenuProvider#buildContextMenu(org.eclipse.jface.action.IMenuManager)
      */
     public void buildContextMenu(IMenuManager menu) {
-        GEFActionConstants.addStandardActionGroups(menu);
-        IAction action;
-
-        // Add actions here
+//        GEFActionConstants.addStandardActionGroups(menu);
+//        IAction action;
+//
+//        // Add actions here
     }
 
     /**
