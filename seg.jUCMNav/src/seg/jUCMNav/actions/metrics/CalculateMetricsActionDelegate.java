@@ -18,7 +18,7 @@ public class CalculateMetricsActionDelegate extends VerifyStaticSemanticDelegate
             refreshProblemView(result);
 
             String header = Messages.getString("CalculateMetricsActionDelegate.MetricCalculation"); //$NON-NLS-1$
-            boolean hasError = false;
+            //boolean hasError = false;
 
             String message = Messages.getString("CalculateMetricsActionDelegate.NoMetrics"); //$NON-NLS-1$
             if (result.size() > 0) // first is the info message.
