@@ -8,7 +8,7 @@ import grl.IntentionalElementRef;
 import java.util.Iterator;
 import java.util.Vector;
 
-import org.eclipse.gef.commands.CommandStack;
+//import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.ui.IWorkbenchPart;
 
