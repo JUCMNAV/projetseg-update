@@ -48,7 +48,7 @@ public class TagElementAction extends URNSelectionAction {
     	URNmodelElement parentElement = null;
     	String parentClassName = null;
     	
-    	URNspec urnParentElement = null;
+    	//URNspec urnParentElement = null;
     	
         SelectionHelper sel = new SelectionHelper(getSelectedObjects());
         element = sel.getURNmodelElement();
