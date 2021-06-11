@@ -496,19 +496,19 @@
             class="seg.jUCMNav.importexport.ExportGRLMath"
             extension="py"
             id="seg.jUCMNav.ExportGRLMath"
-            name="%GRLMath"
+            name="GRL Math (*.py)"
             useStream="false"/>
       <exporter
             class="seg.jUCMNav.importexport.ExportGRLMathS"
             extension="py"
             id="seg.jUCMNav.ExportGRLMathS"
-            name="%GRLMathS"
+            name="GRL Math Split (*.py)"
             useStream="false"/>
 	  <exporter
             class="seg.jUCMNav.importexport.ExportGRLMathSimplify"
             extension="py"
             id="seg.jUCMNav.ExportGRLMathSimplify"
-            name="%GRLMathSimplify"
+            name="GRL Math Simplify (*.py)"
             useStream="false"/>
       <exporter
             class="seg.jUCMNav.importexport.ExportGRLCatalog"
