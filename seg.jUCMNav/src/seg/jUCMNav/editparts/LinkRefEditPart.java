@@ -20,7 +20,7 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Point;
+//import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-import org.eclipse.swt.graphics.Image;
+//import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 import seg.jUCMNav.JUCMNavPlugin;
@@ -39,7 +39,7 @@ import seg.jUCMNav.editpolicies.feedback.ConnectionFeedbackEditPolicy;
 import seg.jUCMNav.figures.ColorManager;
 import seg.jUCMNav.figures.LinkRefConnection;
 import seg.jUCMNav.figures.util.UrnMetadata;
-import seg.jUCMNav.model.ModelCreationFactory;
+//import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.strategies.EvaluationStrategyManager;
 import seg.jUCMNav.views.preferences.StrategyEvaluationPreferences;
@@ -60,7 +60,7 @@ public class LinkRefEditPart extends AbstractConnectionEditPart {
     private final IURNDiagram diagram;
     protected IPropertySource propertySource = null;
 
-    private Image img;
+    //private Image img;
     private Label decompLabel, contributionLabel, stereotypeLabel, changeLabel;
 
     /**
