@@ -22,7 +22,7 @@ Bundle-ClassPath: jUCMNav.jar,
 Bundle-Activator: seg.jUCMNav.JUCMNavPlugin
 Bundle-Vendor: UseCaseMaps.org
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: .,
  ExamplesJaCoP,
  ExamplesJaCoP.nonogramRepository,

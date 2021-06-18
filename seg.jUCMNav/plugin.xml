@@ -1434,5 +1434,37 @@
          name="Synchronized With Core File"
          point="org.eclipse.ui.commands">
    </extension>
+   
+   <extension point="org.eclipse.ui.editors" 
+   		id="seg.UCMScenarioViewer.UCMScenarioViewer"
+        name="UCMScenarioViewer">
+  	<editor
+  	     id="seg.UCMScenarioViewer.ucmscenarioviewer.ucm_scenario_viewer"
+         icon="icons/msc-icon-main.gif"
+         class="seg.UCMScenarioViewer.UCMScenarioViewer.UCMScenarioViewer"
+         name="UCM Scenario Viewer"
+         extensions="scenarios, jucmscenarios"
+         contributorClass="seg.UCMScenarioViewer.UCMScenarioViewer.actions.UCMScenarioViewerActionBarContributor"/> 
+   </extension>
+   
+   <extension point="org.eclipse.ui.importWizards">
+       <wizard
+             id="seg.UCMScenarioViewer.ucmscenarioviewer.wizards.ucm_import_wizard"
+             name="UCM Scenario"
+             class="seg.UCMScenarioViewer.UCMScenarioViewer.wizards.UCMScenarioImportWizard"
+             icon="icons/msc-icon-import.gif">
+             <description>Import contents of .msc or .xml files that contain Message Secuence Charts</description>
+       </wizard>
+    </extension>
+   
+   <extension point="org.eclipse.ui.exportWizards">
+       <wizard
+             id="seg.UCMScenarioViewer.ucmscenarioviewer.wizards.ucm_export_wizard"
+             name="UCM Scenario Image"
+             class="seg.UCMScenarioViewer.wizards.UCMScenarioExportWizard"
+             icon="icons/msc-icon-export.gif">
+             <description>Export MSC scenarios to image files</description>
+       </wizard>
+   </extension> 
 
 </plugin>

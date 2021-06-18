@@ -1,1 +1,0 @@
-These folders are the libraries for the python and need not use within this project but import for python.
