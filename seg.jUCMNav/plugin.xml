@@ -1441,17 +1441,17 @@
   	<editor
   	     id="seg.UCMScenarioViewer.ucmscenarioviewer.ucm_scenario_viewer"
          icon="icons/msc-icon-main.gif"
-         class="seg.UCMScenarioViewer.UCMScenarioViewer.UCMScenarioViewer"
+         class="seg.UCMScenarioViewer.UCMScenarioViewer"
          name="UCM Scenario Viewer"
          extensions="scenarios, jucmscenarios"
-         contributorClass="seg.UCMScenarioViewer.UCMScenarioViewer.actions.UCMScenarioViewerActionBarContributor"/> 
+         contributorClass="seg.UCMScenarioViewer.actions.UCMScenarioViewerActionBarContributor"/> 
    </extension>
    
    <extension point="org.eclipse.ui.importWizards">
        <wizard
              id="seg.UCMScenarioViewer.ucmscenarioviewer.wizards.ucm_import_wizard"
              name="UCM Scenario"
-             class="seg.UCMScenarioViewer.UCMScenarioViewer.wizards.UCMScenarioImportWizard"
+             class="seg.UCMScenarioViewer.wizards.UCMScenarioImportWizard"
              icon="icons/msc-icon-import.gif">
              <description>Import contents of .msc or .xml files that contain Message Secuence Charts</description>
        </wizard>
