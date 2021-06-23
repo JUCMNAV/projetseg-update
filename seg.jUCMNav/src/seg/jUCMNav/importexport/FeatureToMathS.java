@@ -29,6 +29,7 @@ import fm.OptionalFMLink;
 import grl.Decomposition;
 import grl.ElementLink;
 import grl.IntentionalElement;
+import grl.IntentionalElementType;
 import seg.jUCMNav.views.wizards.importexport.ExportWizard;
 import urn.URNlink;
 import urn.URNspec;
@@ -56,12 +57,15 @@ public class FeatureToMathS {
 	// stores the leaf elements
 	private HashSet<String> elementSet = new HashSet<String>();
 	// stores the separated elements
-	private HashSet<IntentionalElement> splitElements = new HashSet<IntentionalElement>();
+//private HashSet<IntentionalElement> splitElements = new HashSet<IntentionalElement>();
+    private Set<IntentionalElement> splitElements = new LinkedHashSet<IntentionalElement>();
 
 	// check if there are features in the feature diagram
 	public void export(URNspec urn, HashMap mapDiagrams, String filename, Set<IntentionalElement> featureElements) throws InvocationTargetException {
 		// adding the feature elements to split elements
-		splitElements.addAll(featureElements);
+		//System.out.println("featureelement="+featureElements.toString());
+		//splitElements.addAll(featureElements);
+		//splitElements.addAll(GRLspEle);
 		
 		boolean featurFound = false;
 		for (Iterator it = urn.getGrlspec().getIntElements().iterator(); it.hasNext();) {
@@ -95,7 +99,19 @@ public class FeatureToMathS {
 			}
 		}
 	}
-
+	//Transform the split elements
+public void setsplit(Set<IntentionalElement> GRLsplit ) throws IOException {
+	splitElements.clear();
+	System.out.println("Diagram information="+GRLsplit.toString());
+	if (!GRLsplit.isEmpty()){
+	for (IntentionalElement e : GRLsplit) {
+		if ((e instanceof Feature || e.getType().getName().equalsIgnoreCase("task"))  )
+		System.out.println("feature one by onen="+e.getName());
+			splitElements.add(e);
+	}
+		}
+	System.out.println("Baeed feature one by onen=====");
+}
 	/**
 	 * Write the string to the file output stream.
 	 * 
@@ -182,7 +198,7 @@ public class FeatureToMathS {
 					function.append(eleFormula);
 					write(function.toString());
 					write("\n");
-					splitElements.add(element);
+					//splitElements.add(element);
 					elementMap.put(element, eleFormula);
 				}
 			}
@@ -217,6 +233,7 @@ public class FeatureToMathS {
 	}
 
 
+	
 	// check leaf features
 	public boolean IsItLeaf(IntentionalElement element) throws IOException {
 		// feature has indicator only should consider as leaf feature
@@ -236,7 +253,32 @@ public class FeatureToMathS {
 			return true;
 		}
 	}
-
+	public boolean canSeplit(IntentionalElement element) throws IOException {
+		// feature has indicator only should consider as leaf feature
+		int count=0;
+				
+		if (element.getLinksDest().size() != 0 ){
+		  for (Iterator it2 = element.getLinksDest().iterator(); it2.hasNext();) { 
+			ElementLink scrLink = (ElementLink) it2.next();
+			//System.out.println("name of Link leaffffff"+scrLink.getName()+" Typename="+scrLink.getClass().getTypeName());
+			if (scrLink.getClass().getTypeName().contains("pendency")==false  ){
+			 //System.out.println("name of Link leaffffff"+scrLink.getName()+" Typename="+scrLink.getClass().getTypeName());
+			    IntentionalElement srcElement = (IntentionalElement) (scrLink.getSrc());
+		        if ((srcElement.getType().getName().toString().contains("ndicator") == false)) { 
+		    	     boolean ret=canSeplit(srcElement);
+		    	     if (!ret) {return false;}
+		          }
+		     
+		}else {count++;}
+			}
+		   
+		  if (element.getType() != IntentionalElementType.TASK_LITERAL ) {return true;}
+			else {if( count== element.getLinksDest().size()) {return false;}else {return true;}}
+		  }
+		else
+			{  if (element.getType() != IntentionalElementType.TASK_LITERAL ) {return true;}
+			else {return false;}}
+	}
 	// for exclude and include
 	private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOException {
 		StringBuffer formulaex = new StringBuffer();
@@ -423,17 +465,19 @@ public class FeatureToMathS {
 		}
 
 		if (minix3.length() > 0)
-			formula = minix3;
-		else if (minix2.length() > 0)
-			formula = minix2;
-		else
-			formula = minix;
-
-		if (formulaex.length() > 0) {
-			formula.insert(0, "Min(" + formulaex + COMMA);
-			formula.append(")");
-
-		}
+			  formula=minix3;
+			  else if (minix2.length() > 0)
+				      formula=minix2;
+			  else
+				  formula=minix;
+		
+    if (formulaex.length() > 0) {
+  	  // // // // // System.out.println(formula+ "before exclude insert");
+  	  formula.insert(0,"Min("+formulaex+COMMA);
+  	  formula.append(")");
+  	  // // // // // System.out.println(formula+ "baed exclude insert");
+  	  
+    }
 
 		for (Iterator<IntentionalElement> it = srcList.iterator(); it.hasNext();) {
 			IntentionalElement subEle = it.next();
@@ -470,6 +514,7 @@ public class FeatureToMathS {
 		return formula;
 	}
 
+
 	public StringBuffer MaxmaxFormat(Stack<StringBuffer> subst, String func) throws IOException {
 		Stack<StringBuffer> stMax = new Stack<StringBuffer>();
 		int stSize = subst.size();
@@ -492,26 +537,28 @@ public class FeatureToMathS {
 		}
 		return MaxmaxFormat(stMax, func);
 	}
-
+ 
 	// return v(f) function for leaf features only
-	private String v(IntentionalElement element) throws IOException {
-
-		String formula;
+	private String v( IntentionalElement element) throws IOException {
+		
+		String formula ;
 		// && element.getLinksDest().size() == 0 &&
 		if (elementMap.get(element) != null && IsItLeaf(element) && !splitElements.contains(element)) {
 			formula = elementMap.get(element).toString();
-
-		} else {
-			formula = modifyName(element.getName());
-		}
-
+		
+	      }
+		else {
+			 formula=modifyName(element.getName());
+			} 
+			
+		
 		return formula;
-	}
-
+		}
+	
 	private StringBuffer writeDecomMaxMin(List<IntentionalElement> list, String func, int v) throws IOException {
 		StringBuffer formula = new StringBuffer();
 		Stack<StringBuffer> st = new Stack<StringBuffer>();
-		if (v == 1) { // for v(f) calculate include and exclude links
+		if (v==1) {    // for v(f) calculate include and exclude links 
 			if (list.size() == 1) {
 				formula.append(v(list.get(0)));
 			} else if (list.size() == 2) {
@@ -529,193 +576,191 @@ public class FeatureToMathS {
 				}
 				formula.append(MaxmaxFormat(st, func));
 				for (int i = 0; i < list.size(); i++) {
-					formula = new StringBuffer(formula.toString().replaceAll(modifyName(list.get(i).getName()), v(list.get(i))));
+					formula = new StringBuffer(
+							formula.toString().replaceAll(modifyName(list.get(i).getName()), v(list.get(i))));
 				}
 			}
 		} // not for v(f)
-		else {
-			if (list.size() == 1) {
-				formula.append(modifyName(list.get(0).getName()));
-			} else if (list.size() == 2) {
-				formula.append(func);
-				formula.append(LEFT_BRACKET);
-				formula.append(modifyName(list.get(0).getName()));
-				formula.append(COMMA);
-				formula.append(modifyName(list.get(1).getName()));
-				formula.append(RIGHT_BRACKET);
-			} else if (list.size() > 2) {
+		else {if (list.size() == 1) {
+			formula.append(modifyName(list.get(0).getName()));
+		} else if (list.size() == 2) {
+			formula.append(func);
+			formula.append(LEFT_BRACKET);
+			formula.append(modifyName(list.get(0).getName()));
+			formula.append(COMMA);
+			formula.append(modifyName(list.get(1).getName()));
+			formula.append(RIGHT_BRACKET);
+		} else if (list.size() > 2) {
 
-				for (int i = 0; i < list.size(); i++) {
-					StringBuffer subfo = new StringBuffer(modifyName(list.get(i).getName()));
-					st.add(subfo);
-				}
-				formula.append(MaxmaxFormat(st, func));
-
+			for (int i = 0; i < list.size(); i++) {
+				StringBuffer subfo = new StringBuffer(modifyName(list.get(i).getName()));
+				st.add(subfo);
 			}
+			formula.append(MaxmaxFormat(st, func));
+			
+			
+		}
 		}
 		return formula;
 	}
-
-	// for function sum
+	
+    // for function sum
 	private StringBuffer writeSum(List<IntentionalElement> list) throws IOException {
 		StringBuffer formula = new StringBuffer();
 		if (list.size() == 1) {
 			formula.append(v(list.get(0)));
-		} else {
+		} else  {
 			formula.append(LEFT_BRACKET);
 			for (int i = 0; i < list.size(); i++) {
 				formula.append(v(list.get(i)));
-
-				if (i + 1 < list.size()) {
-					formula.append(PLUS);
+				
+				if (i+1 < list.size())
+				{
+					formula.append(PLUS);	
 				}
 			}
 			formula.append(RIGHT_BRACKET);
 		}
-
+		
 		return formula;
 	}
-
 	// for s() children
 	private List<IntentionalElement> S(IntentionalElement element) throws IOException {
 		List<IntentionalElement> formula = new ArrayList<IntentionalElement>();
 		Iterator it2 = element.getLinksDest().iterator();
 		if (!it2.hasNext()) {
-			if ((element.getType().getName().compareTo("Indicator") != 0)
-					&& (element instanceof Feature || element.getType().getName().equalsIgnoreCase("Task"))) {
-
+			if ((element.getType().getName().compareTo("Indicator") != 0)&& (element instanceof Feature || element.getType().getName().equalsIgnoreCase("Task"))) {
+			
 				formula.add(element);
-			}
-		} else {
+					}}	
+		else {
 			for (Iterator it = element.getLinksDest().iterator(); it.hasNext();) {
 				ElementLink scrLink = (ElementLink) it.next();
-				IntentionalElement srcElement = (IntentionalElement) (scrLink.getSrc());
-				if ((srcElement.getType().getName().compareTo("Indicator") != 0)
-						&& (srcElement instanceof Feature || srcElement.getType().getName().equalsIgnoreCase("Task"))) {
-					formula.add((IntentionalElement) S(srcElement).get(0));
-				} else {
-					if ((element.getType().getName().compareTo("Indicator") != 0)
-							&& (element instanceof Feature || element.getType().getName().equalsIgnoreCase("Task"))) {
-						formula.add(element);
-						break;
-					}
-				}
-
-			}
+			    IntentionalElement srcElement = (IntentionalElement) (scrLink.getSrc());
+			    if ((srcElement.getType().getName().compareTo("Indicator") != 0) && (srcElement instanceof Feature || srcElement.getType().getName().equalsIgnoreCase("Task"))){
+			    formula.add((IntentionalElement) S(srcElement).get(0));
+			    }
+			    else {
+			    	if ((element.getType().getName().compareTo("Indicator") != 0)&& (element instanceof Feature || element.getType().getName().equalsIgnoreCase("Task"))) {
+			    	formula.add(element);
+			    	break;
+			    }}
+			    
+			  	}	
 		}
-		return formula;
+		return formula;	
 	}
-
 	// for s() sum
 	private StringBuffer writeSSum(List<IntentionalElement> list) throws IOException {
 		StringBuffer formula = new StringBuffer();
-		// Stack<StringBuffer> st = new Stack<StringBuffer>();
-
+		//Stack<StringBuffer> st = new Stack<StringBuffer>();
+		
 		if (list.size() == 1) {
-			formula.append(writeDecomMaxMin(S(list.get(0)), "Max", 0));
-		} else {
-
+			 formula.append( writeDecomMaxMin(S(list.get(0)),"Max",0));
+		} else  {
+			
 			for (int i = 0; i < list.size(); i++) {
-
-				formula.append(writeDecomMaxMin(S(list.get(i)), "Max", 0));
-
-				if (i + 1 < list.size()) {
-
-					formula.append(PLUS);
-				}
+							
+			        formula.append(writeDecomMaxMin(S(list.get(i)),"Max",0));
+			    
+				    if (i+1 < list.size())
+				     {
+					
+					    formula.append(PLUS);	
+				    }
 			}
-
+				
 		}
-
+		
 		return formula;
 	}
-
-	// Return the s() function without plus used in optional links in Piecewise
+	
+	// Return the s() function without plus used in optional links in PIECEWISE
 	private StringBuffer writeSMax(List<IntentionalElement> list, String func) throws IOException {
 		StringBuffer formula = new StringBuffer();
 		List<IntentionalElement> Alllist = new ArrayList<IntentionalElement>();
-		// Stack<StringBuffer> st = new Stack<StringBuffer>();
-
+		//Stack<StringBuffer> st = new Stack<StringBuffer>();
+		
 		if (list.size() == 1) {
-			Alllist.addAll(S(list.get(0)));
-		} else {
-
+			Alllist.addAll( S(list.get(0)));
+		} else  {
+			
 			for (int i = 0; i < list.size(); i++) {
-
-				Alllist.addAll(S(list.get(i)));
-
-			}
-
+								
+				Alllist.addAll( S(list.get(i)));
+			    
+				}
+			
 		}
-		formula.append(writeDecomMaxMin(Alllist, func, 0));
+		formula.append(writeDecomMaxMin(Alllist,func,0));
 		return formula;
 	}
-
 	// for OR function
 	private StringBuffer writeORSum(List<IntentionalElement> list) throws IOException {
 		StringBuffer formula = new StringBuffer();
-
+			
+		
 		formula.append(writeSum(list));
-
+		
 		formula.append(DIVIDE);
 		formula.append("Max");
-		formula.append(LEFT_BRACKET + "1 " + COMMA);
+		formula.append(LEFT_BRACKET+"1 "+COMMA);
 		formula.append(writeSSum(list));
-		formula.append(RIGHT_BRACKET);
+		formula.append(LEFT_BRACKET);
 		formula.append(TIMES);
 		formula.append("100.0");
+		// System.out.println("writeOOOOOOOOOOOOOOOOR="+formula.toString());
 		return formula;
 	}
 
 	private StringBuffer writeXORSum(List<IntentionalElement> list) throws IOException {
 		StringBuffer formula = new StringBuffer();
-
+				
 		formula.append(LEFT_BRACKET);
-		formula.append(writeDecomMaxMin(list, "Max", 1));
+		formula.append(writeDecomMaxMin(list,"Max",1));
 		formula.append(RIGHT_BRACKET);
 		formula.append(DIVIDE);
 		formula.append("Max");
-		formula.append(LEFT_BRACKET + "1" + COMMA);
+		formula.append(LEFT_BRACKET+"1"+COMMA);
 		formula.append(writeSSum(list));
-		formula.append(RIGHT_BRACKET);
+		formula.append(RIGHT_BRACKET);		
 		formula.append(TIMES);
 		formula.append("100.0");
 		return formula;
 	}
-
 	private StringBuffer writeOptionalSum(List<IntentionalElement> list) throws IOException {
-		StringBuffer formula = new StringBuffer();
+		StringBuffer formula = new StringBuffer();	
 		StringBuffer Mxv = new StringBuffer();
-		formula.append("Piecewise");
+		formula.append("PIECEWISE");
 		formula.append(LEFT_BRACKET);
 		formula.append(LEFT_BRACKET);
 		formula.append("100");
 		formula.append(COMMA);
-		// formula.append(LeftBracker);
-		Mxv = writeSMax(list, "Max");
+		//formula.append(LEFT_BRACKET);
+		Mxv=writeSMax(list, "Max");
 		formula.append(Mxv);
 		formula.append("<=");
 		formula.append("0");
-		// formula.append(RightBracker);
+		//formula.append(RIGHT_BRACKET);
 		formula.append(RIGHT_BRACKET);
 		formula.append(COMMA);
 		formula.append(LEFT_BRACKET);
-		// formula.append(LeftBracker);
+		//formula.append(LEFT_BRACKET);
+		formula.append(" Min(100,");
 		formula.append(writeORSum(list));
-		// formula.append(RightBracker);
+		formula.append(RIGHT_BRACKET);
 		formula.append(COMMA);
-		// formula.append(LeftBracker);
-		// formula.append(Mxv);
-		// formula.append(">");
-		// formula.append("0");
+		//formula.append(LEFT_BRACKET);
+		//formula.append(Mxv);
+		//formula.append(">");
+		//formula.append("0");
 		formula.append("True");
-		// formula.append(RightBracker);
+		//formula.append(RIGHT_BRACKET);
 		formula.append(RIGHT_BRACKET);
 		formula.append(RIGHT_BRACKET);
-
+		
 		return formula;
 	}
-
 	/**
 	 * If none of the top-level intentional elements has a weight, then these
 	 * top-level intentional elements should be weighted equally. we assume only the
@@ -859,11 +904,17 @@ public class FeatureToMathS {
 	private void writeSeparatedFeatures(Set<String> list) throws IOException {
 		if (!splitElements.isEmpty()) {
 			String formula;
+			System.out.println("In split function elementMap= "+elementMap.toString());
 			for (IntentionalElement e : splitElements) {
+				if ((e instanceof Feature || e.getType().getName().equalsIgnoreCase("task"))  ) {
+				System.out.println("e name"+e.getName());
 				formula = new String(elementMap.get(e));
-				list.add("\t\t'" + modifyName(e.getName()) + "'" + COLON + "'" + formula + "'");
+				System.out.println("formula= "+formula);
+				list.add("\t\t'" + modifyName(e.getName()) + "'" + COLON + "'" + formula + "'");}
 			}
+			System.out.println("after loop");
 		}
+		System.out.println("after isempty");
 	}
 	
 	public String modifyName(String name) throws IOException {

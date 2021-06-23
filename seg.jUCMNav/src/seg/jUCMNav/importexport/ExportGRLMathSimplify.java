@@ -34,11 +34,10 @@ import urn.URNspec;
 import urncore.IURNDiagram;
 import urncore.IURNNode;
 
-
 /**
- * This class export the URN model into sympy function
+ * This class export the URN model into SymPy function
  * 
- * @author Yuxuan Fan and Amal Anda
+ * @author Amal Anda, Yuxuan, Manpreet
  *
  */
 public class ExportGRLMathSimplify extends GRLMathBase {
@@ -50,7 +49,7 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 	 * @throws IOException
 	 */
 	StringBuffer writeLink(IntentionalElement element) throws IOException {
-
+		System.out.println(element.getName() + " formulaKoshet to writelink fee mathS");
 		StringBuffer formula = new StringBuffer();
 		StringBuffer decomFor = new StringBuffer();
 		StringBuffer conFor = new StringBuffer();
@@ -63,7 +62,7 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 		List<IntentionalElement> conList = new ArrayList<IntentionalElement>();
 		List<ElementLink> conLink = new ArrayList<ElementLink>();
 		List<IntentionalElement> srcList = new ArrayList<IntentionalElement>();
-
+		
 		for (Iterator it = element.getLinksDest().iterator(); it.hasNext();) {
 			ElementLink scrLink = (ElementLink) it.next();
 			IntentionalElement srcElement = (IntentionalElement) (scrLink.getSrc());
@@ -75,7 +74,8 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 			}
 			if (scrLink instanceof Dependency) {
 				depenList.add(srcElement);
-				elementSet.add("'" + FeatureExport.modifyName(element.getName()) + "'");
+				//if (IsItLeafb(element)) {
+					//elementSet.add("'" + FeatureExport.modifyName(element.getName()) + "'");}
 			}
 			if (scrLink instanceof Contribution) {
 				conList.add(srcElement);
@@ -84,8 +84,7 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 			eleMap.put("Decomposition", decomList);
 			eleMap.put("Dependency", depenList);
 			eleMap.put("Contribution", conList);
-		} // for
-			// first decomposition; second contribution; third dependency
+		} // sequence- first decomposition; second contribution; third dependency
 		String funcTpye = " ";
 		if (!decomList.isEmpty()) {
 			if (element.getDecompositionType().getName() == "And")
@@ -115,6 +114,9 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 				conTimes = Integer.toString(((Contribution) conLink.get(i)).getQuantitativeContribution()) + TIMES
 						+ FeatureExport.modifyName(conList.get(i).getName());
 				conTimesList.add(conTimes);
+				if (hasTask==0) {
+					if (!FeatureExport.canSeplit(conList.get(i))) { hasTask=1;	
+					}}
 			}
 			if (!decomList.isEmpty()) {
 				conTimesList.add(decomFor + TIMES + "100.0");
@@ -146,18 +148,26 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 					subFor = elementMap.get(subElement);
 				}
 				// if the element is a feature/task and has a formula we separate
-				if (subElement.getType() == IntentionalElementType.TASK_LITERAL && subFor.toString().contains(LEFT_BRACKET)) {
+				
+				 boolean cans=FeatureExport.canSeplit(subElement);
+				 System.out.println(subElement.getName() + "before his continue"+hasTask+cans);
+				if ( hasTask==0 || cans) {
+					System.out.println(subElement.getName() + "in continue subfor="+subFor.toString());
 					continue;
 				}
-				if ((subElement.getType().getName().compareTo("Indicator") != 0) && (!FeatureExport.IsItLeaf(subElement)) && !conList.contains(subElement))
-					formula = new StringBuffer(formula.toString().replaceAll(FeatureExport.modifyName(subElement.getName()), subFor.toString()));
+				if (subElement.getType().getName().compareTo("Indicator") != 0 && ( hasTask==1)) {
+					System.out.println(subElement.getName() + "fee  replace");
+					formula = new StringBuffer(formula.toString().replaceAll(FeatureExport.modifyName(subElement.getName()), subFor.toString()));}
 			}
+			//else
+			//{if ((subElement.getType().getName().compareTo("Indicator") != 0)&& hasTask==1) {
+			//	formula = new StringBuffer(formula.toString().replaceAll(FeatureExport.modifyName(subElement.getName()), subFor.toString()));
+			//}}
 			// if the element is indicator
 			if (subElement.getType().getName().compareTo("Indicator") == 0) {
 				StringBuffer indicatorFor = new StringBuffer();
 				if (elementMap.get(subElement) == null) {
-					// System.out.println(element.getName() + "Went To indicator from writeLink
-					// where no formula");
+					//System.out.println(element.getName() + "Went To indicator from writeLinkwhere no formula");
 					// indicatorFor = indicatorFor(subElement);
 					writeIndicatorFunction(element, indicatorFor);
 				} // else { // replace indicator name with formula
@@ -168,20 +178,30 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 				// }
 			}
 		}
-		addElement(conList);
+		System.out.println(element.getName() + " formula="+formula+hasTask);
 		return formula;
 	}
-	
-	// add the separated elements except indicators to the set
-	private void addElement(List<IntentionalElement> list) throws IOException {
-		for (IntentionalElement e : list) {
-			if (e.getType() != IntentionalElementType.INDICATOR_LITERAL && !FeatureExport.IsItLeaf(e)) {
-				splitElements.add(e);
-			}
-		}
-	}
 
-	
+	public boolean IsItLeafb(IntentionalElement element) throws IOException {
+		// feature has indicator only should consider as leaf feature
+		
+		if (element.getLinksDest().size() != 0){
+		  for (Iterator it2 = element.getLinksDest().iterator(); it2.hasNext();) { 
+			ElementLink scrLink = (ElementLink) it2.next();
+			//System.out.println("name of Link leaffffff"+scrLink.getName()+" Typename="+scrLink.getClass().getTypeName());
+			if (scrLink.getClass().getTypeName().contains("pendency")==false  ){
+			  
+		    	     return false;
+		          
+		     
+		} 
+			}
+		   
+		  return true;
+		  }
+		else
+			{  return true;}
+	}
 	/**
 	 * If none of the top-level intentional elements has a weight, then these
 	 * top-level intentional elements should be weighted equally. we assume only the
@@ -208,6 +228,7 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 			List<IntentionalElement> elementList = new ArrayList<IntentionalElement>(); // the elements in the actor
 			List<Integer> quantList = new ArrayList<Integer>();
 			List<String> actorTimesWeight = new ArrayList<String>();
+			// add all the elements inside the actor to a list
 			for (Iterator itAct = actor.getContRefs().iterator(); itAct.hasNext();) {
 				ActorRef actorRef = (ActorRef) itAct.next();
 				Iterator itIEref = actorRef.getNodes().iterator();
@@ -239,22 +260,14 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 					elementFormula.append(elementMap.get(element));
 					elementFormula.append(RIGHT_BRACKET);
 					if (element.getLinksSrc().size() == 0) {
-						if (splitElements.contains(element)) {
-							actorTimesWeight.add(FeatureExport.modifyName(element.getName()) + TIMES + "100.0");
-						} else {
-							actorTimesWeight.add(elementFormula + TIMES + "100.0");
-						}
+						actorTimesWeight.add(elementFormula + TIMES + "100.0");
 						quantSum += 100;
 					} else {
-						// give the weight to top-level elements;
+						// give the weight to top-level elements
 						IntentionalElement srcElement = (IntentionalElement) (((ElementLink) (element.getLinksSrc().get(0)))
 								.getDest());
 						if (!elementList.contains(srcElement)) {
-							if (splitElements.contains(element)) {
-								actorTimesWeight.add(FeatureExport.modifyName(element.getName()) + TIMES + "100.0");
-							} else {
-								actorTimesWeight.add(elementFormula + TIMES + "100.0");
-							}
+							actorTimesWeight.add(elementFormula + TIMES + "100.0");
 							quantSum += 100;
 						}
 					}
@@ -267,29 +280,7 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 					if (element.getImportanceQuantitative() == 0) {
 						continue;
 					}
-					if (splitElements.contains(element)) {
-						actorTimesWeight.add(FeatureExport.modifyName(element.getName()) + TIMES + Integer.toString(element.getImportanceQuantitative()));
-					} else {
-						actorTimesWeight.add(elementMap.get(element) + TIMES + Integer.toString(element.getImportanceQuantitative()));
-					}
-//					actorTimesWeight.add(elementMap.get(element) + TIMES + Integer.toString(element.getImportanceQuantitative()));
-//					boolean hasIndicator = false;
-					// checking the element for indicator condition
-//					for (Iterator iterator = element.getLinksDest().iterator(); iterator.hasNext();) {
-//						ElementLink srcLink = (ElementLink) iterator.next();
-//						IntentionalElement srcElement = (IntentionalElement) (srcLink.getSrc());
-//						if (srcElement.getType().getName().equals("Indicator")) {
-//							hasIndicator = true;
-//						}
-//					}
-//					if (hasIndicator) {
-//						actorTimesWeight.add(FeatureExport.modifyName(element.getName()) + TIMES
-//								+ Integer.toString(element.getImportanceQuantitative()));
-//						splitElements.add(element);
-//					} else {
-//						actorTimesWeight
-//								.add(elementMap.get(element) + TIMES + Integer.toString(element.getImportanceQuantitative()));
-//					}
+					actorTimesWeight.add(elementMap.get(element) + TIMES + Integer.toString(element.getImportanceQuantitative()));
 				}
 			}
 			if (!hasElementInActor)
@@ -303,22 +294,7 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 				formula.append(Integer.toString(Math.max(quantSum, dNum)));
 			}
 			function.append(EQUALS);
-
-//			function.append(MAX);
-//			function.append(LEFT_BRACKET);
-//			function.append("0");
-//			function.append(COMMA);
-//			function.append(MIN);
-//			function.append(LEFT_BRACKET);
-//			function.append("100");
-//			function.append(COMMA);
-//			function.append(LEFT_BRACKET);
-
 			function.append(formula);
-
-//			function.append(RIGHT_BRACKET);
-//			function.append(RIGHT_BRACKET);
-//			function.append(RIGHT_BRACKET);
 
 			write("# " + FeatureExport.modifyName(actor.getName()) + " Actor function\n");
 			write(function.toString());
@@ -327,17 +303,18 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 		}
 	}
 
-
 	/**
 	 * Writes the separated indicators to SymPy
 	 *
 	 * @throws IOException
 	 */
 	void writeIndependentIndicators(Iterator iterator, Set<String> list) throws IOException {
+		String formula = new String();
 		while (iterator.hasNext()) {
 			IntentionalElement IndicatorV = (IntentionalElement) iterator.next();
 			if (IndicatorV.getType().getName().compareTo("Indicator") == 0) {
-				list.add("\t\t'" + FeatureExport.modifyName(IndicatorV.getName()) + "'" + COLON + "'" + elementMap.get(IndicatorV).toString() + "'");
+				list.add("\t\t'" + FeatureExport.modifyName(IndicatorV.getName()) + "'" + COLON + "'"
+						+ elementMap.get(IndicatorV).toString() + "'");
 			}
 		}
 	}
@@ -349,17 +326,6 @@ public class ExportGRLMathSimplify extends GRLMathBase {
 	 */
 	void writeSeparatedElements(Set<String> list) throws IOException {
 
-		// leaf features
-		String formula1 = null;
-		for (Map.Entry<IntentionalElement, StringBuffer> entry : elementMap.entrySet()) {
-			String elementName = FeatureExport.modifyName(entry.getKey().getName().toString());
-			if (FeatureExport.IsItLeaf(entry.getKey()) && !elementSet.contains("'" + elementName + "'")) {
-				formula1 = new String(entry.getValue());
-				list.add("\t\t'" + elementName + "'" + COLON + "'" + formula1 + "'");
-				splitElements.add(entry.getKey());
-			}
-		}
-		// independent elements for contribution
 		if (!splitElements.isEmpty()) {
 			String formula;
 			for (IntentionalElement e : splitElements) {

@@ -1,6 +1,7 @@
 package seg.jUCMNav.importexport;
 
 import java.io.FileOutputStream;
+import java.util.ListIterator;  
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -27,6 +27,35 @@ import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.views.wizards.importexport.ExportWizard;
 import urn.URNspec;
 import urncore.IURNDiagram;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
+import fm.Feature;
+import fm.FeatureDiagram;
+import grl.Actor;
+import grl.ActorRef;
+import grl.Belief;
+import grl.Contribution;
+import grl.Decomposition;
+import grl.Dependency;
+import grl.ElementLink;
+import grl.GRLGraph;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.kpimodel.Indicator;
+import seg.jUCMNav.extensionpoints.IURNExport;
+import seg.jUCMNav.views.wizards.importexport.ExportWizard;
+import urn.URNspec;
+import urncore.IURNDiagram;
+import urncore.IURNNode;
 
 // Base class for ExportGRLMath* implementing only default methods
 public abstract class GRLMathBase implements IURNExport {
@@ -34,6 +63,7 @@ public abstract class GRLMathBase implements IURNExport {
 	String GRLname;
 	FeatureToMathS FeatureExport = new FeatureToMathS();
 	FileOutputStream fos;
+	int hasTask;
 	// declaring string constants
 	static final String LEFT_BRACKET = "(";
 	static final String RIGHT_BRACKET = ")";
@@ -53,15 +83,15 @@ public abstract class GRLMathBase implements IURNExport {
 	static final String COLON = " : ";
 
 	// store elements and the functions
-	Map<IntentionalElement, StringBuffer> elementMap;
+	 Map<IntentionalElement, StringBuffer> elementMap;
 	// store actors and the functions
-	Map<Actor, StringBuffer> actorMap;
-	StringBuffer modelFormula;
+	 Map<Actor, StringBuffer> actorMap;
+	 StringBuffer modelFormula;
 	// stores the leaf element names
-	Set<String> elementSet = new LinkedHashSet<String>();
+	 Set<String> elementSet = new LinkedHashSet<String>();
 	// stores the elements except indicators which are separated from the main
 	// function
-	Set<IntentionalElement> splitElements = new LinkedHashSet<IntentionalElement>();
+	public Set<IntentionalElement> splitElements = new LinkedHashSet<IntentionalElement>();
 
 	abstract StringBuffer writeLink(IntentionalElement element) throws IOException;
 
@@ -72,7 +102,7 @@ public abstract class GRLMathBase implements IURNExport {
 	abstract void writeSeparatedElements(Set<String> list) throws IOException;
 
 	@Override
-	public void export(URNspec urn, HashMap mapDiagrams, FileOutputStream fos) throws InvocationTargetException {
+	public void export(URNspec urn, HashMap mapDiagrams, FileOutputStream fos ) throws InvocationTargetException {
 		// not used
 	}
 
@@ -103,14 +133,16 @@ public abstract class GRLMathBase implements IURNExport {
 						GRLname = purName;
 					}
 				}
-				
-				addSeparatingElements(urn, featureElements);
+				//System.out.println(" Koshet before calling writeformula****");
+				//addSeparatingElements(urn, featureElements); by me nowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+				//System.out.println(" Koshet before calling writeformula dirictly****");
 				writeFormula(urn);
+				System.out.println(" Koshet after calling writeformula****");
 				writeActor(urn);
 				writeModel(urn);
 				writeTranslation(urn);
 			}
-
+			FeatureExport.setsplit(splitElements);
 			FeatureExport.export(urn, mapDiagrams, filename, featureElements);
 
 		} catch (Exception e) {
@@ -452,15 +484,15 @@ public abstract class GRLMathBase implements IURNExport {
 			formula.append(LEFT_BRACKET);
 			formula.append(currentName);
 			formula.append(MINUS);
-
+			 
 			formula.append(Double.toString(threshold));
-
+			 
 			formula.append(RIGHT_BRACKET);
 			formula.append(DIVIDE);
 			double diNum = (threshold - target); // (target - threshold) * 200; changed by Amal
-
+			 
 			formula.append(Double.toString(diNum));
-
+			 
 			formula.append(RIGHT_BRACKET);
 			formula.append(MULTI); // added by Amal
 			formula.append("50"); // added by Amal
@@ -487,15 +519,15 @@ public abstract class GRLMathBase implements IURNExport {
 			formula.append(LEFT_BRACKET);
 			formula.append(currentName);
 			formula.append(MINUS);
-
+			 
 			formula.append(Double.toString(threshold));
-
+			 
 			formula.append(RIGHT_BRACKET);
 			formula.append(DIVIDE);
-			double diNum2 = (threshold - worst); // (worst - threshold); * 200; changed by Amal
-
+			double diNum2 = (threshold- worst); // (worst - threshold); * 200; changed by Amal
+			 
 			formula.append(Double.toString(diNum2));
-
+			 
 			formula.append(RIGHT_BRACKET);
 			formula.append(MULTI); // added by Amal
 			formula.append("50"); // added by Amal
@@ -527,7 +559,8 @@ public abstract class GRLMathBase implements IURNExport {
 
 			formula.append(RIGHT_BRACKET);
 		}
-
+		
+			System.out.println( "New Function="+formula.toString());
 		return formula;
 	}
 
@@ -597,13 +630,14 @@ public abstract class GRLMathBase implements IURNExport {
 		StringBuffer elementFormula;
 		StringBuffer function;
 		// initialize all the symbols
-
+		System.out.println(" Koshet fee writeformula begining****");
 		write("# initalize all the variables\n");
 		for (Iterator it = urn.getGrlspec().getIntElements().iterator(); it.hasNext();) {
 			IntentionalElement element = (IntentionalElement) it.next();
-
+			System.out.println(" befor if grlelement****");
 			if (isGRLElement(element)) {
 				StringBuffer variable = new StringBuffer();
+				
 				variable.append(FeatureExport.modifyName(element.getName()));
 				variable.append(EQUALS);
 				variable.append(SYMBOL);
@@ -648,18 +682,26 @@ public abstract class GRLMathBase implements IURNExport {
 		}
 
 		write("# Non-leaf element functions\n");
-
+		System.out.println(" after indicator before nonleaf****");
 		// checking the non leaf elements and adding the link
-		for (ListIterator it = urn.getGrlspec().getIntElements().listIterator(); it.hasPrevious();) {
-			IntentionalElement element = (IntentionalElement) it.previous();
-
+		//for (ListIterator it = urn.getGrlspec().getIntElements().listIterator(); it.hasPrevious();) {
+		//	IntentionalElement element = (IntentionalElement) it.previous();
+		//}
+		//for (ListIterator it = urn.getGrlspec().getIntElements().listIterator(urn.getGrlspec().getIntElements().size()); it.hasPrevious();)
+		for (ListIterator it = urn.getGrlspec().getIntElements().listIterator(); it.hasNext();) {
+			IntentionalElement element = (IntentionalElement) it.next();
+			System.out.println(element.getName() + " Koshet fee writeformula non-leaf elementname="+FeatureExport.modifyName(element.getName()));
 			if (isGRLElement(element)) {
+				System.out.println(element.getName() + " Koshet fee writeformula non-leaf after if grl"+FeatureExport.modifyName(element.getName()));
 				elementFormula = new StringBuffer();
 				function = new StringBuffer();
 				function.append(FeatureExport.modifyName(element.getName()));
 
 				if (element.getLinksDest().size() != 0) {
+					System.out.println(element.getName() + " Koshet before calling writelink");
+					hasTask=0;
 					elementFormula.append(writeLink(element));
+					System.out.println(element.getName() + " Koshet after caling writelinklink"+elementFormula.toString()+hasTask);
 					function.append(EQUALS);
 					function.append(elementFormula);
 					write(function.toString());
@@ -677,8 +719,9 @@ public abstract class GRLMathBase implements IURNExport {
 	// add the separated elements(leaf features/task with formula) except indicators
 	// to the set
 	void addFeature(IntentionalElement element, String formula) throws IOException {
-		if (element.getType() == IntentionalElementType.TASK_LITERAL && formula.contains(LEFT_BRACKET)) {
-			splitElements.add(element);
+		//if (element.getType() == IntentionalElementType.TASK_LITERAL && formula.contains(LEFT_BRACKET)) {
+		if (hasTask==0 ){	
+		splitElements.add(element);
 		}
 	}
 
@@ -821,26 +864,37 @@ public abstract class GRLMathBase implements IURNExport {
 
 	
 	StringBuffer writeDecomMaxMin(List<IntentionalElement> list, String func) throws IOException {
-		StringBuffer formula = new StringBuffer();
-		Stack<StringBuffer> st = new Stack<StringBuffer>();
-		if (list.size() == 1) {
-			formula.append(FeatureExport.modifyName(list.get(0).getName()));
-		} else if (list.size() == 2) {
-			formula.append(func);
-			formula.append(LEFT_BRACKET);
-			formula.append(FeatureExport.modifyName(FeatureExport.modifyName(list.get(0).getName())));
-			formula.append(COMMA);
-			formula.append(FeatureExport.modifyName(FeatureExport.modifyName(list.get(1).getName())));
-			formula.append(RIGHT_BRACKET);
-		} else if (list.size() > 2) {
+			StringBuffer formula = new StringBuffer();
+			Stack<StringBuffer> st = new Stack<StringBuffer>();
+			System.out.println("fee writedecom ");
+			if (list.size() == 1) {
+				if (hasTask==0) {
+				if (!FeatureExport.canSeplit(list.get(0))) { hasTask=1;	
+				}}
+				formula.append(FeatureExport.modifyName(list.get(0).getName()));
+			} else if (list.size() == 2) {
+				if (hasTask==0) {
+					if (!FeatureExport.canSeplit(list.get(0)) || !FeatureExport.canSeplit(list.get(1))) { hasTask=1;	
+					}}
+				formula.append(func);
+				formula.append(LEFT_BRACKET);
+				formula.append(FeatureExport.modifyName(FeatureExport.modifyName(list.get(0).getName())));
+				formula.append(COMMA);
+				formula.append(FeatureExport.modifyName(FeatureExport.modifyName(list.get(1).getName())));
+				formula.append(RIGHT_BRACKET);
+			} else if (list.size() > 2) {
 
-			for (int i = 0; i < list.size(); i++) {
-				StringBuffer subfo = new StringBuffer(FeatureExport.modifyName(list.get(i).getName()));
-				st.add(subfo);
+				for (int i = 0; i < list.size(); i++) {
+					StringBuffer subfo = new StringBuffer(FeatureExport.modifyName(list.get(i).getName()));
+					st.add(subfo);
+					if (hasTask==0) {
+						if (!FeatureExport.canSeplit(list.get(i))) { hasTask=1;	
+						}}
+				}
+				formula.append(FeatureExport.MaxmaxFormat(st, func));
 			}
-			formula.append(FeatureExport.MaxmaxFormat(st, func));
-		}
-		return formula;
+			System.out.println("fee writedecom "+hasTask);
+			return formula;
 	}
 
 	
@@ -851,15 +905,12 @@ public abstract class GRLMathBase implements IURNExport {
 		Stack<StringBuffer> st = new Stack<StringBuffer>();
 		StringBuffer indicatorFor = new StringBuffer();
 		if (element.getType().getName().compareTo("Indicator") == 0) {
-
-			// if (eleForMap.get(element) == null) {
-			// System.out.println(element.getName() + "Went To indicator from writeLink
-			// where no formula");
-			// indicatorFor = indicatorFor(element);
-			// TODO: check this
 			writeIndicatorFunction(element, indicatorFor);
 		}
 		if (func.length() == 0 && indicatorFor.length() == 0) {
+			if (hasTask==0) {
+				if (!FeatureExport.canSeplit(element)) { hasTask=1;	
+				}}
 			StringBuffer eleSt = new StringBuffer(FeatureExport.modifyName(element.getName()));
 			st.add(eleSt);
 		} else {
@@ -870,41 +921,33 @@ public abstract class GRLMathBase implements IURNExport {
 				st.add(indicatorFor);
 		}
 		for (int i = 0; i < list.size(); i++) {
+			if (hasTask==0) {
+			if (!FeatureExport.canSeplit(list.get(i))) { hasTask=1;	
+			}}
 			StringBuffer subfo = new StringBuffer(FeatureExport.modifyName(list.get(i).getName()));
 			// System.out.println(" subfo in for ="+subfo.toString());
 			st.add(subfo);
 		}
 
 		formula.append(FeatureExport.MaxmaxFormat(st, MIN));
-		// System.out.println(element.getName()+" Formula ===="+formula.toString());
+		 //System.out.println(element.getName()+" DependencyFormula ===="+formula.toString());
 		return formula;
-		// else { // replace indicator name with formula
-		// indicatorFor = eleForMap.get(subEle);
-		// formula = new StringBuffer(
-		// formula.toString().replaceAll(FeatureExport.modifyName(subEle.getName()),
-		// indicatorFor.toString()));
-		// }
-		// }
+		
 	}
 
 	
 	//add the elements in the list[]
-	Set<String> elementList() throws IOException {
+	Set<String> elementList(URNspec urn) throws IOException {
 		Set<String> elementListSet = new HashSet<String>();
-		for (Map.Entry<IntentionalElement, StringBuffer> entry : elementMap.entrySet()) {
-			String name = FeatureExport.modifyName(entry.getKey().getName().toString());
-			if (modelFormula.toString().contains(name)) {
-				elementListSet.add("'" + name + "'");
-			}
+		for (Iterator it = urn.getGrlspec().getIntElements().iterator(); it.hasNext();) {
+			IntentionalElement element = (IntentionalElement) it.next();
+			if (isGRLElement(element)) {
+
+				if (element.getType() == IntentionalElementType.TASK_LITERAL || element.getType() == IntentionalElementType.INDICATOR_LITERAL) {
+				elementListSet.add("'" + FeatureExport.modifyName(element.getName()) + "'");
+			}}
 		}
-		if (!splitElements.isEmpty()) {
-			for (IntentionalElement e : splitElements) {
-				elementListSet.add("'" + FeatureExport.modifyName(e.getName()) + "'");
-			}
-		}
-		if (!elementSet.isEmpty()) {
-			elementListSet.addAll(elementSet);
-		}
+		
 		return elementListSet;
 	}
 
@@ -950,8 +993,8 @@ public abstract class GRLMathBase implements IURNExport {
 		writeIndependentIndicators(urn.getGrlspec().getIntElements().iterator(), dictElements);
 		// writing all the separated functions in the dictionary
 		writeSeparatedElements(dictElements);
-
-		varList.append(String.join(",", elementList()));
+        
+		varList.append(String.join(",", elementList(urn)));
 		varList.append("]");
 		// printing all write() from here
 		write("\n# Variable list");

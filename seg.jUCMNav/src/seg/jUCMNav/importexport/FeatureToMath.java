@@ -26,6 +26,7 @@ import fm.OptionalFMLink;
 import grl.Decomposition;
 import grl.ElementLink;
 import grl.IntentionalElement;
+import grl.IntentionalElementType;
 import seg.jUCMNav.views.wizards.importexport.ExportWizard;
 import urn.URNlink;
 import urn.URNspec;
@@ -201,29 +202,31 @@ public class FeatureToMath   {
 	}
 	
 	// check leaf features
-		public boolean IsItLeaf(IntentionalElement element) throws IOException {
-			// feature has indicator only should consider as leaf feature
-			
-			if (element.getLinksDest().size() != 0){
-			  for (Iterator it2 = element.getLinksDest().iterator(); it2.hasNext();) { 
-				ElementLink scrLink = (ElementLink) it2.next();
-				if (scrLink.getClass().getTypeName().contains("pendency")==false){
-				//// System.out.println("name of Link leaffffff"+scrLink.getName()+" Typename="+scrLink.getClass().getTypeName());
-				    IntentionalElement srcElement = (IntentionalElement) (scrLink.getSrc());
-			        if ((srcElement.getType().getName().toString().contains("ndicator") == false)) { 
-			        	//// System.out.println("Not leaf"+element.getName());
-			    	     return false;
-			          }
-			     
-			} 
-				}
-			  //// System.out.println("from first true leaf"+element.getName());
-			  return true;
-			  }
-			else
-				{return true;}
-		}
-
+	public boolean IsItLeaf(IntentionalElement element) throws IOException {
+		// feature has indicator only should consider as leaf feature
+		
+		if (element.getLinksDest().size() != 0){
+		  for (Iterator it2 = element.getLinksDest().iterator(); it2.hasNext();) { 
+			ElementLink scrLink = (ElementLink) it2.next();
+			//System.out.println("name of Link leaffffff"+scrLink.getName()+" Typename="+scrLink.getClass().getTypeName());
+			if (scrLink.getClass().getTypeName().contains("pendency")==false  ){
+			 //System.out.println("name of Link leaffffff"+scrLink.getName()+" Typename="+scrLink.getClass().getTypeName());
+			    IntentionalElement srcElement = (IntentionalElement) (scrLink.getSrc());
+		        if ((srcElement.getType().getName().toString().contains("ndicator") == false)) { 
+		    	     return false;
+		          }
+		     
+		} 
+			}
+		   
+		  return true;
+		  }
+		else
+			{  return true;}
+	}
+	
+//---------------------------------------------------	
+	
 	// for exclude and include
 private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOException {
 		StringBuffer formulaex = new StringBuffer();
@@ -435,20 +438,20 @@ private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOExc
 			 }
 			 }
 			 
-		  if (minix3.length() > 0)
+		if (minix3.length() > 0)
 			  formula=minix3;
 			  else if (minix2.length() > 0)
 				      formula=minix2;
 			  else
 				  formula=minix;
 		
-      if (formulaex.length() > 0) {
-    	  // // // // // System.out.println(formula+ "before exclude insert");
-    	  formula.insert(0,"Min("+formulaex+Comma);
-    	  formula.append(")");
-    	  // // // // // System.out.println(formula+ "baed exclude insert");
-    	  
-      }
+    if (formulaex.length() > 0) {
+  	  // // // // // System.out.println(formula+ "before exclude insert");
+  	  formula.insert(0,"Min("+formulaex+Comma);
+  	  formula.append(")");
+  	  // // // // // System.out.println(formula+ "baed exclude insert");
+  	  
+    }
 			
 		// System.out.println(formula+ "before subEle");
 		for (Iterator<IntentionalElement> it = srcList.iterator(); it.hasNext();) {
@@ -461,19 +464,17 @@ private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOExc
 				// System.out.println("Deslink="+subEle.getLinksDest().size()+" sourceLink="+subEle.getLinksSrc().size()+" "+subEle.getName()+ "afer first if");
 			if  (!IsItLeaf(subEle)) //(subEle.getLinksDest().size() != 0 && ( (subEle instanceof Feature) && subEle.getType().getName().equalsIgnoreCase("Task")))
 			{
-				// System.out.println(subEle.getName()+ "afer two if");
 				
 				if (eleForMap.get(subEle) == null) {
-					// System.out.println(subEle.getName()+ "khash fe sub");
 					subFor = writeLink(subEle);
 				} else {
-					// // // // // System.out.println("you have subfor!");
+				
 					subFor = eleForMap.get(subEle);
 				}
-				// System.out.println(subFor.toString()+"  "+subEle.getName()+ " Kabel replace");
+				
 				 formula = new StringBuffer(
 						formula.toString().replaceAll(modifyName(subEle.getName()), subFor.toString()));
-				 // System.out.println(formula.toString()+"  "+subEle.getName()+ " baed replace");
+				 
 			}
 			
 			}
@@ -486,6 +487,7 @@ private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOExc
 	}
 
 	
+
 
 	public StringBuffer MaxmaxFormat(Stack<StringBuffer> subst, String func) throws IOException {
 		Stack<StringBuffer> stMax = new Stack<StringBuffer>();
@@ -720,8 +722,9 @@ private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOExc
 		formula.append(Comma);
 		formula.append(LeftBracker);
 		//formula.append(LeftBracker);
+		formula.append(" Min(100,");
 		formula.append(writeORSum(list));
-		//formula.append(RightBracker);
+		formula.append(RightBracker);
 		formula.append(Comma);
 		//formula.append(LeftBracker);
 		//formula.append(Mxv);
@@ -795,7 +798,7 @@ private StringBuffer ExcludeIncludeLink(IntentionalElement element) throws IOExc
 		varList.append("[");
 		List<String> eleList = new ArrayList<String>();
 		eleList.addAll(elementSet);
-		// String message = String.join("-", list); 
+		// String message = String.join("-", list); 
 		varList.append(String.join(",", eleList));
 		varList.append("]");
 		write("\n#variable list");
