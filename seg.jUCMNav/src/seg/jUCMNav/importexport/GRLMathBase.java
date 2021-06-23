@@ -1,7 +1,6 @@
 package seg.jUCMNav.importexport;
 
 import java.io.FileOutputStream;
-import java.util.ListIterator;  
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -27,35 +27,6 @@ import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.views.wizards.importexport.ExportWizard;
 import urn.URNspec;
 import urncore.IURNDiagram;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-
-import fm.Feature;
-import fm.FeatureDiagram;
-import grl.Actor;
-import grl.ActorRef;
-import grl.Belief;
-import grl.Contribution;
-import grl.Decomposition;
-import grl.Dependency;
-import grl.ElementLink;
-import grl.GRLGraph;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.kpimodel.Indicator;
-import seg.jUCMNav.extensionpoints.IURNExport;
-import seg.jUCMNav.views.wizards.importexport.ExportWizard;
-import urn.URNspec;
-import urncore.IURNDiagram;
-import urncore.IURNNode;
 
 // Base class for ExportGRLMath* implementing only default methods
 public abstract class GRLMathBase implements IURNExport {

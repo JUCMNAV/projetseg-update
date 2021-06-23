@@ -26,7 +26,6 @@ import fm.OptionalFMLink;
 import grl.Decomposition;
 import grl.ElementLink;
 import grl.IntentionalElement;
-import grl.IntentionalElementType;
 import seg.jUCMNav.views.wizards.importexport.ExportWizard;
 import urn.URNlink;
 import urn.URNspec;
