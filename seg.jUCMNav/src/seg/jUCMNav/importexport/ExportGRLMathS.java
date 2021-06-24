@@ -295,7 +295,7 @@ public class ExportGRLMathS extends GRLMathBase {
 	 * @throws IOException
 	 */
 	void writeIndependentIndicators(Iterator iterator, Set<String> list) throws IOException {
-		String formula = new String();
+		//String formula = new String();
 		while (iterator.hasNext()) {
 			IntentionalElement IndicatorV = (IntentionalElement) iterator.next();
 			if (IndicatorV.getType().getName().compareTo("Indicator") == 0) {

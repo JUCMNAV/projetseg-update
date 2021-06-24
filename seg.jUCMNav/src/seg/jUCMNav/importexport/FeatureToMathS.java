@@ -38,7 +38,7 @@ import urncore.IURNDiagram;
 public class FeatureToMathS {
 	private FileOutputStream fos;
 	private String FMname;
-	private String filename;
+	//private String filename;
 	public static final String LEFT_BRACKET = "(";
 	public static final String RIGHT_BRACKET = ")";
 	public static final String COMMA = " , ";
