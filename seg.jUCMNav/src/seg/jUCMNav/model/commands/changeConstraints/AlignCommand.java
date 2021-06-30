@@ -1,27 +1,15 @@
 package seg.jUCMNav.model.commands.changeConstraints;
 
-import grl.IntentionalElementRef;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-
-import org.eclipse.gef.NodeEditPart;
-import org.eclipse.ui.PlatformUI;
 
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.util.MetadataHelper;
-import ucm.map.Connect;
-import ucm.map.NodeConnection;
-import urncore.IURNConnection;
-import urncore.IURNContainer;
 import urncore.IURNContainerRef;
 import urncore.IURNNode;
 import urncore.URNmodelElement;
-import urncore.Metadata;
 
 /**
  * This command is used to align URNmodelElements.
@@ -225,7 +213,7 @@ public class AlignCommand extends AlignDistributeCommand {
 				// the height/width of the URNmodelElement in this iteration
 				int dimensionValue;
 				String currentMeta;
-				int tempNewCoordinate;
+				//int tempNewCoordinate;
 		
 				if (verticalMove){
 					currentMeta = MetadataHelper.getMetaData(currentElem, "_height");
@@ -274,7 +262,7 @@ public class AlignCommand extends AlignDistributeCommand {
 				// the height of the URNmodelElement in this iteration
 				
 				int dimensionValue; 
-				int tempNewCoordinate;
+				//int tempNewCoordinate;
 				
 				if ( verticalMove){
 					dimensionValue = currentRef.getHeight();

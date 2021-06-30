@@ -1,8 +1,5 @@
 package seg.jUCMNav.model.commands.changeImpactAnalysis;
 
-import java.util.ArrayList;
-
-import urncore.IURNContainerRef;
 import grl.Contribution;
 import grl.Dependency;
 import grl.IntentionalElementRef;

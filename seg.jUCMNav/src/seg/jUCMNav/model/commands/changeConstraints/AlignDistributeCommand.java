@@ -5,20 +5,19 @@ import java.util.List;
 
 import org.eclipse.gef.commands.CompoundCommand;
 
-import urn.URNspec;
 import urncore.IURNContainerRef;
 import urncore.IURNNode;
 import urncore.URNmodelElement;
 
 public class AlignDistributeCommand extends CompoundCommand {
 
-	private static final int SELTYPE_INTENTIONALELEMENT = 1;
+	//private static final int SELTYPE_INTENTIONALELEMENT = 1;
 	protected static final int SELTYPE_ACTOR = 2;
 	protected static final int SELTYPE_COMPONENT = 3;
-	private static final int SELTYPE_PATHNODE = 4;
+	//private static final int SELTYPE_PATHNODE = 4;
 	protected int selType;
 	protected String moveType;
-	private URNspec urnspec;
+	//private URNspec urnspec;
 	protected HashMap<String, HashMap <String, Integer>> coordinatesValues;
 	protected HashMap<IURNContainerRef, HashMap <String, Integer>> coordinatesValuesContainer;
 	protected List sel;

@@ -1,10 +1,7 @@
 package seg.jUCMNav.model.commands.Slicing;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * provides necessary functions to calculate data and control flow dependencies for slicing algorithm

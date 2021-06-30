@@ -21,7 +21,6 @@ import org.eclipse.ui.PlatformUI;
 import grl.Actor;
 import grl.IntentionalElement;
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
-import seg.jUCMNav.model.commands.create.CreateMapCommand;
 import seg.jUCMNav.model.commands.delete.DeleteActorCommand;
 import seg.jUCMNav.model.commands.delete.DeleteComponentCommand;
 import seg.jUCMNav.model.commands.delete.DeleteIntentionalElementCommand;

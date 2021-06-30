@@ -1,23 +1,18 @@
 package seg.jUCMNav.sourceProviders;
 
-import grl.ActorRef;
-import grl.IntentionalElementRef;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.NodeEditPart;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.AbstractSourceProvider;
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.ISources;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.AbstractSourceProvider;
+import org.eclipse.ui.ISources;
+import org.eclipse.ui.PlatformUI;
 
+import grl.ActorRef;
+import grl.IntentionalElementRef;
 import seg.jUCMNav.editparts.ActorRefEditPart;
 import seg.jUCMNav.editparts.ComponentRefEditPart;
 import seg.jUCMNav.editparts.IntentionalElementEditPart;

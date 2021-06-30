@@ -3,6 +3,12 @@
  */
 package seg.jUCMNav.model.commands.create;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.commands.Command;
+
 import grl.ElementLink;
 import grl.Evaluation;
 import grl.EvaluationStrategy;
@@ -10,22 +16,12 @@ import grl.GRLGraph;
 import grl.GRLLinkableElement;
 import grl.IntentionalElement;
 import grl.IntentionalElementRef;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.swt.widgets.Display;
-
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.importexport.ExportGRLCatalog;
 import seg.jUCMNav.importexport.ImportGRLCatalog;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import seg.jUCMNav.model.commands.delete.DeleteGRLGraphCommand;
-import seg.jUCMNav.views.preferences.DisplayPreferences;
 import urn.URNspec;
 import urncore.GRLmodelElement;
 

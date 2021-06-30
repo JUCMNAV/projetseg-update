@@ -2,14 +2,9 @@ package seg.jUCMNav.model.commands.changeImpactAnalysis;
 import java.util.ArrayList;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 
-import seg.jUCMNav.actions.StaticSlicingAction;
 import seg.jUCMNav.actions.UCMChangeImpactAnalysisModificationAction;
 /**
  * 

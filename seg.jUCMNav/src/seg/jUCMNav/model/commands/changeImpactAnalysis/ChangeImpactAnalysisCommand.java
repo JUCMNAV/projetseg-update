@@ -3,14 +3,6 @@ package seg.jUCMNav.model.commands.changeImpactAnalysis;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
@@ -19,6 +11,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
+import grl.EvaluationStrategy;
+import grl.GRLGraph;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.LinkRef;
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.editors.UrnEditor;
 import seg.jUCMNav.model.commands.JUCMNavCommand;

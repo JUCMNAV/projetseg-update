@@ -12,7 +12,6 @@ import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.editors.UrnEditor;
 import ucm.map.NodeConnection;
 import ucm.map.PathNode;
-import urncore.IURNDiagram;
 
 public class ColorUtils {
   static SliceColorList currentList=null;

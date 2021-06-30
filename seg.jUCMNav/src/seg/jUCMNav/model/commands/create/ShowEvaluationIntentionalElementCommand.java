@@ -1,27 +1,21 @@
 package seg.jUCMNav.model.commands.create;
 
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
-
-import seg.jUCMNav.JUCMNavPlugin;
-import seg.jUCMNav.views.preferences.DisplayPreferences;
-import grl.Evaluation;
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
+import grl.Evaluation;
+import grl.EvaluationStrategy;
+import grl.GRLGraph;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import seg.jUCMNav.model.commands.delete.DeleteGRLGraphCommand;
+import seg.jUCMNav.views.preferences.DisplayPreferences;
 //import seg.jUCMNav.model.commands.delete.DeleteAllLinkRefCommand;
 //import seg.jUCMNav.model.commands.delete.internal.DisconnectGRLNodeCommand;
 //import seg.jUCMNav.model.commands.delete.internal.RemoveURNmodelElementCommand;
@@ -82,8 +76,8 @@ public class ShowEvaluationIntentionalElementCommand extends Command implements 
     public boolean canExecute() 
     {
         boolean executable = false;
-        List <Evaluation> esList;
-        List <IntentionalElement> ieList;
+        //List <Evaluation> esList;
+        //List <IntentionalElement> ieList;
         positiveEvaluationIEList = new ArrayList<ArrayList<IntentionalElement>>();
                 
         for (EvaluationStrategy ES : urnspecEvaluationStrategyList)

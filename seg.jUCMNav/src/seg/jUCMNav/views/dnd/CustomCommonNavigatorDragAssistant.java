@@ -1,15 +1,5 @@
 package seg.jUCMNav.views.dnd;
 
-import grl.ContributionContext;
-import grl.EvaluationStrategy;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.kpimodel.KPIInformationElement;
-import grl.kpimodel.KPIInformationElementRef;
-
-import java.util.List;
-
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.dnd.TemplateTransfer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.DragSourceEvent;
@@ -19,13 +9,17 @@ import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.navigator.CommonDragAdapterAssistant;
 
-import seg.jUCMNav.editparts.treeEditparts.UrnAbstractTreeEditPart;
+import grl.ContributionContext;
+import grl.EvaluationStrategy;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.kpimodel.KPIInformationElement;
+import grl.kpimodel.KPIInformationElementRef;
 import ucm.map.RespRef;
 import ucm.scenario.ScenarioDef;
 import urncore.IURNContainer;
 import urncore.IURNContainerRef;
 import urncore.Responsibility;
-import urncore.URNmodelElement;
 
 public class CustomCommonNavigatorDragAssistant extends
 		CommonDragAdapterAssistant {

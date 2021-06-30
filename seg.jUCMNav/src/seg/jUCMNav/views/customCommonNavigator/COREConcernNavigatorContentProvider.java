@@ -34,7 +34,7 @@ public class COREConcernNavigatorContentProvider implements ITreeContentProvider
      * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
      */
     @Override 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public Object[] getChildren(Object parentElement) {
         Object[] children = null;
         
@@ -108,7 +108,7 @@ public class COREConcernNavigatorContentProvider implements ITreeContentProvider
      * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
      */
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public boolean hasChildren(Object element) {
         boolean hasChildren = false;
        

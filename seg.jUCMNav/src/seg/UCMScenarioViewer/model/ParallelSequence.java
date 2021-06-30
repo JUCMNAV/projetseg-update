@@ -169,7 +169,7 @@ public class ParallelSequence extends SequenceElement {
 		Iterator i = getChildren().iterator();
 		i.next(); // start from second child always.
 		while (i.hasNext()) {
-			list.add(new Integer( ((Sequence)i.next()).getYcoordinate() - getYcoordinate()));
+			list.add(Integer.valueOf( ((Sequence)i.next()).getYcoordinate() - getYcoordinate()));
 		}
 		return list;
 	}

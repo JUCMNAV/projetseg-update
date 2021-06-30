@@ -95,8 +95,8 @@ public class SetConstraintGrlNodeCommand extends CompoundCommand {
     protected void changeDimension(int width, int height) {
         if (width > 0 && height > 0) {
         	URNmodelElement thenode = (URNmodelElement) node;
-            MetadataHelper.addMetaData(node.getDiagram().getUrndefinition().getUrnspec(), thenode, MetadataHelper.WIDTH, (new Integer(width)).toString()); //$NON-NLS-1$
-            MetadataHelper.addMetaData(node.getDiagram().getUrndefinition().getUrnspec(), thenode, MetadataHelper.HEIGHT, (new Integer(height)).toString()); //$NON-NLS-1$
+            MetadataHelper.addMetaData(node.getDiagram().getUrndefinition().getUrnspec(), thenode, MetadataHelper.WIDTH, (Integer.valueOf(width)).toString()); //$NON-NLS-1$
+            MetadataHelper.addMetaData(node.getDiagram().getUrndefinition().getUrnspec(), thenode, MetadataHelper.HEIGHT, (Integer.valueOf(height)).toString()); //$NON-NLS-1$
         }
     }
 
@@ -111,8 +111,8 @@ public class SetConstraintGrlNodeCommand extends CompoundCommand {
         if(_width == null || _height == null)
             addedSize = true;
         
-        this.oldWidth = (new Integer(_width != null ? _width : "0")).intValue(); //$NON-NLS-1$
-        this.oldHeight = (new Integer(_height != null ? _height : "0")).intValue(); //$NON-NLS-1$
+        this.oldWidth = (Integer.valueOf(_width != null ? _width : "0")).intValue(); //$NON-NLS-1$
+        this.oldHeight = (Integer.valueOf(_height != null ? _height : "0")).intValue(); //$NON-NLS-1$
         
         changeDimension(width, height);
 

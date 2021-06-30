@@ -1,71 +1,30 @@
 package seg.jUCMNav.model.commands.changeImpactAnalysis;
-import org.eclipse.emf.ecore.EObject;
-
-import seg.jUCMNav.model.util.*;
-
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
-
-import seg.jUCMNav.Messages;
-import seg.jUCMNav.model.commands.JUCMNavCommand;
-import seg.jUCMNav.model.commands.delete.internal.RemovePathNodeCommand;
-import grl.Actor;
-import grl.ActorRef;
-import grl.Belief;
-import grl.Contribution;
-import grl.ContributionChange;
-import grl.ContributionContext;
-import grl.ContributionContextGroup;
-import grl.Decomposition;
-import grl.Dependency;
-import grl.ElementLink;
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.GRLNode;
-import grl.GRLspec;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-import grl.StrategiesGroup;
-import grl.kpimodel.IndicatorGroup;
-import grl.kpimodel.KPIConversion;
-import grl.kpimodel.KPIInformationElement;
-import grl.kpimodel.KPIInformationElementRef;
-import grl.kpimodel.KPIModelLink;
-import grl.kpimodel.KPIModelLinkRef;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Stack;
-import java.util.Vector;
 
-import javax.swing.JOptionPane;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.draw2d.geometry.Point;
+// color packages
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
+/*import org.eclipse.gmf.runtime.diagram.ui.figures.BorderedNodeFigure;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.RoundedRectangleBorder;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;*/
+import org.eclipse.swt.graphics.Color;
 
+import grl.Actor;
+import grl.ActorRef;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
-import seg.jUCMNav.editors.UrnEditor;
-import seg.jUCMNav.editparts.NodeConnectionEditPart;
-import seg.jUCMNav.editparts.treeEditparts.LabelTreeEditPart;
-import seg.jUCMNav.figures.PathNodeFigure;
-import ucm.UCMspec;
+import seg.jUCMNav.model.commands.delete.internal.RemovePathNodeCommand;
 import ucm.map.AndFork;
 import ucm.map.AndJoin;
-import ucm.map.Anything;
 import ucm.map.ComponentRef;
-import ucm.map.Connect;
-import ucm.map.DirectionArrow;
-import ucm.map.EmptyPoint;
 import ucm.map.EndPoint;
-import ucm.map.FailurePoint;
 import ucm.map.InBinding;
 import ucm.map.NodeConnection;
 import ucm.map.OrFork;
@@ -79,68 +38,11 @@ import ucm.map.Stub;
 import ucm.map.Timer;
 import ucm.map.UCMmap;
 import ucm.map.WaitingPlace;
-import ucm.scenario.EnumerationType;
-import ucm.scenario.Initialization;
-import ucm.scenario.ScenarioDef;
-import ucm.scenario.ScenarioGroup;
 import urn.URNlink;
 import urn.URNspec;
-import urncore.Comment;
 import urncore.Component;
-import urncore.ComponentLabel;
-import urncore.Concern;
-import urncore.Condition;
-import urncore.GRLmodelElement;
-import urncore.IURNConnection;
-import urncore.IURNContainerRef;
 import urncore.IURNDiagram;
-import urncore.IURNNode;
-import urncore.NodeLabel;
 import urncore.Responsibility;
-import urncore.UCMmodelElement;
-import urncore.URNmodelElement;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// color packages
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.draw2d.Shape;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartListener;
-import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.GraphicalViewer;
-/*import org.eclipse.gmf.runtime.diagram.ui.figures.BorderedNodeFigure;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.RoundedRectangleBorder;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;*/
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
 
 /**
  *  Change impact Algorithm algorithm that performs Forward slicing technique given a resp ref as a criterion
@@ -194,7 +96,7 @@ public class ForSlicingAlg {
     public static ArrayList<NodeConnection> concurrencyNodeConnections=new ArrayList<NodeConnection>();
     private ArrayList<RespRef> relevantRespRefList=new ArrayList<RespRef>();
     private ArrayList<RespRef> NotRelevantRespRefList=new ArrayList<RespRef>();
-    private ForSlicingAlg branch;
+    //private ForSlicingAlg branch;
     public static ArrayList<ForSlicingAlg> allPaths=new ArrayList<ForSlicingAlg>();
     public static ArrayList<RespRef> allRelevantRespRefList=new ArrayList<RespRef>();
     public static ArrayList<RespRef> allRelevantRespRefListTemp=new ArrayList<RespRef>();
@@ -244,13 +146,13 @@ public ForSlicingAlg( NodeConnection startingNodeConnection,ArrayList<String> ba
  */
 public  ArrayList<String> executeAlg(ArrayList<String> criVar,NodeConnection startNC,Stack<Stub> stubStack, ArrayList<EObject> pathVisitedJoins, UnrelatedRespTree unrelatedTree,UnrelatedRespTree commonTree,boolean AndForkFlag )
 {
-	boolean stubEntryflag=false;
+	//boolean stubEntryflag=false;
 	Stack<Stub> currentStubStack=new Stack<Stub>();
 	ArrayList<String> criterionVariables=new ArrayList<String>();
 	for(String var:criVar)
 		criterionVariables.add(var);
 	ForDataControlDep depAlg=new ForDataControlDep(criterionVariables);
-	String expression,condition;
+	String expression;
 	ArrayList<EObject> currentVisitedJoins=new ArrayList<EObject>();
 	NodeConnection currentNodeConnection=startNC;
 	PathNode CurrentNode=(PathNode)currentNodeConnection.getTarget();
@@ -831,7 +733,7 @@ public  ArrayList<String> executeAlg(ArrayList<String> criVar,NodeConnection sta
  */
 public void  executeAlg(NodeConnection startNC,Stack<Stub> stubStack, ArrayList<EObject> pathVisitedJoins )
 {
-	boolean stubEntryflag=false;
+	//boolean stubEntryflag=false;
 	Stack<Stub> currentStubStack=new Stack<Stub>();
 	ArrayList<EObject> currentVisitedJoins=new ArrayList<EObject>();
 	NodeConnection currentNodeConnection=startNC;
@@ -1258,7 +1160,7 @@ public void coloring()
 			visitedNodes.remove(0);
 	}
 
-	EditPart modelEditPart=null;
+	//EditPart modelEditPart=null;
 	
 	
 	for(EObject element:visitedNodes)

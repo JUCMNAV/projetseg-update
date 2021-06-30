@@ -1,6 +1,5 @@
 package seg.jUCMNav.metrics;
 
-import java.io.FileInputStream;
 import java.util.List;
 import java.util.Vector;
 
@@ -40,7 +39,7 @@ public class MetricsCalculator {
 
     public void calculate(URNspec urn, Vector result) {
         int nTotal = 0;
-        FileInputStream in = null;
+        //FileInputStream in = null;
         try {
             OCL ocl = OCL.newInstance(EcoreEnvironmentFactory.INSTANCE);
             OCLInput lib = new OCLInput(RuleManagementDefinitionManager.class.getResourceAsStream("library.ocl")); //$NON-NLS-1$

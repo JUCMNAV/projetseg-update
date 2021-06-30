@@ -5,9 +5,11 @@ package seg.jUCMNav.model.commands.create;
 
 import java.util.Iterator;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.commands.Command;
 
+import fm.Feature;
+import fm.FeatureDiagram;
+import grl.IntentionalElement;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.IGlobalStackCommand;
@@ -16,10 +18,6 @@ import seg.jUCMNav.model.util.MetadataHelper;
 import urn.URNspec;
 import urncore.Concern;
 import urncore.IURNDiagram;
-import fm.Feature;
-import fm.FeatureDiagram;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
 
 /**
  * This command add a new FeatureModel graph to the model

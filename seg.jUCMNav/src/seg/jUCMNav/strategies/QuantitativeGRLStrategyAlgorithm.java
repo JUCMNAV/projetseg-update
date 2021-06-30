@@ -1,5 +1,10 @@
 package seg.jUCMNav.strategies;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
+import fm.MandatoryFMLink;
+import fm.OptionalFMLink;
 import grl.Actor;
 import grl.Contribution;
 import grl.Decomposition;
@@ -13,13 +18,6 @@ import grl.QualitativeLabel;
 import grl.kpimodel.KPIEvalValueSet;
 import grl.kpimodel.QualitativeMapping;
 import grl.kpimodel.QualitativeMappings;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Vector;
-
-import fm.MandatoryFMLink;
-import fm.OptionalFMLink;
 import seg.jUCMNav.extensionpoints.IGRLStrategyAlgorithm;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.model.util.StrategyEvaluationRangeHelper;

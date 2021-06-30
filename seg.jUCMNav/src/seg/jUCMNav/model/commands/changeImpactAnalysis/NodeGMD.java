@@ -1,36 +1,17 @@
 package seg.jUCMNav.model.commands.changeImpactAnalysis;
 
-import grl.Contribution;
-import grl.Decomposition;
-import grl.Dependency;
-import grl.GRLGraph;
-import grl.GRLLinkableElement;
-import grl.GRLNode;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-import grl.Actor;
-import grl.ActorRef;
-import grl.ElementLink;
-
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 //import jdk.nashorn.internal.runtime.arrays.IntElements;
 
 import org.eclipse.emf.ecore.EObject;
 
-import seg.jUCMNav.actions.URNSelectionAction;
-import seg.jUCMNav.actions.hyperlinks.HyperlinkUtils;
-import seg.jUCMNav.editparts.LinkRefEditPart;
-import seg.jUCMNav.importexport.z151.generated.GRLmodelElement;
-import urn.URNspec;
+import grl.Contribution;
+import grl.Decomposition;
+import grl.Dependency;
+import grl.IntentionalElementRef;
+import grl.LinkRef;
 import urncore.IURNConnection;
-import urncore.IURNNode;
-import urncore.URNmodelElement;
 
 public class NodeGMD{
 	    

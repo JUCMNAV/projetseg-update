@@ -1,200 +1,47 @@
 package seg.jUCMNav.model.commands.Slicing;
 
-import org.eclipse.emf.ecore.EObject;
-
-import seg.jUCMNav.actions.StaticSlicingAction;
-
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
-
-import seg.jUCMNav.Messages;
-import seg.jUCMNav.model.ModelCreationFactory;
-import seg.jUCMNav.model.commands.JUCMNavCommand;
-import seg.jUCMNav.model.commands.delete.internal.RemovePathNodeCommand;
-import seg.jUCMNav.model.util.URNElementFinder;
-import seg.jUCMNav.views.preferences.GeneralPreferencePage;
-import seg.jUCMNav.views.wizards.NewUcmFileWizard;
-import seg.jUCMNav.views.wizards.importexport.jUCMNavLoader;
-import grl.Actor;
-import grl.ActorRef;
-import grl.Belief;
-import grl.Contribution;
-import grl.ContributionChange;
-import grl.ContributionContext;
-import grl.ContributionContextGroup;
-import grl.Decomposition;
-import grl.Dependency;
-import grl.ElementLink;
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.GRLNode;
-import grl.GRLspec;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-import grl.StrategiesGroup;
-import grl.kpimodel.IndicatorGroup;
-import grl.kpimodel.KPIConversion;
-import grl.kpimodel.KPIInformationElement;
-import grl.kpimodel.KPIInformationElementRef;
-import grl.kpimodel.KPIModelLink;
-import grl.kpimodel.KPIModelLinkRef;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Stack;
-import java.util.Vector;
 
-import javax.print.DocFlavor.URL;
-import javax.swing.JOptionPane;
-
-import org.eclipse.core.internal.utils.FileUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.EditPart;
-
-import seg.jUCMNav.editors.UCMNavMultiPageEditor;
-import seg.jUCMNav.editors.UrnEditor;
-import seg.jUCMNav.editparts.NodeConnectionEditPart;
-import seg.jUCMNav.editparts.treeEditparts.LabelTreeEditPart;
-import ucm.UCMspec;
-import ucm.map.AndFork;
-import ucm.map.AndJoin;
-import ucm.map.Anything;
-import ucm.map.ComponentRef;
-import ucm.map.Connect;
-import ucm.map.DirectionArrow;
-import ucm.map.EmptyPoint;
-import ucm.map.EndPoint;
-import ucm.map.FailurePoint;
-import ucm.map.NodeConnection;
-import ucm.map.OrFork;
-import ucm.map.OrJoin;
-import ucm.map.PathNode;
-import ucm.map.RespRef;
-import ucm.map.StartPoint;
-import ucm.map.Stub;
-import ucm.map.Timer;
-import ucm.map.UCMmap;
-import ucm.map.WaitingPlace;
-import ucm.scenario.EnumerationType;
-import ucm.scenario.Initialization;
-import ucm.scenario.ScenarioDef;
-import ucm.scenario.ScenarioGroup;
-import urn.URNspec;
-import urncore.Comment;
-import urncore.Component;
-import urncore.ComponentLabel;
-import urncore.Concern;
-import urncore.Condition;
-import urncore.GRLmodelElement;
-import urncore.IURNConnection;
-import urncore.IURNContainerRef;
-import urncore.IURNDiagram;
-import urncore.IURNNode;
-import urncore.NodeLabel;
-import urncore.Responsibility;
-import urncore.UCMmodelElement;
-import urncore.URNmodelElement;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// color packages
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.draw2d.Shape;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.GraphicalViewer;
-import org.eclipse.jface.wizard.WizardDialog;
-
-
-import org.eclipse.ocl.utilities.CallingASTNode;
-/*import org.eclipse.gmf.runtime.diagram.ui.figures.BorderedNodeFigure;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.RoundedRectangleBorder;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;*/
-import org.eclipse.swt.graphics.Color;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.part.Page;
 
+import seg.jUCMNav.editors.UCMNavMultiPageEditor;
+import seg.jUCMNav.editors.UrnEditor;
+import seg.jUCMNav.model.ModelCreationFactory;
+import seg.jUCMNav.model.commands.JUCMNavCommand;
+import seg.jUCMNav.model.util.URNElementFinder;
+import seg.jUCMNav.views.wizards.importexport.jUCMNavLoader;
+import ucm.map.EndPoint;
+import ucm.map.NodeConnection;
+import ucm.map.PathNode;
+import ucm.map.RespRef;
+import ucm.map.Stub;
+import ucm.map.UCMmap;
+import urn.URNspec;
 import urncore.IURNDiagram;
 
 /**

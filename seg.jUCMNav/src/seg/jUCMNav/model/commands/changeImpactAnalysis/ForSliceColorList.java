@@ -2,12 +2,9 @@ package seg.jUCMNav.model.commands.changeImpactAnalysis;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.graphics.Color;
-
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import ucm.map.NodeConnection;
 import ucm.map.PathNode;
-import ucm.map.RespRef;
 
 public class ForSliceColorList {
 

@@ -1,5 +1,22 @@
 package seg.jUCMNav.tests.commands;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
+
 import grl.Actor;
 import grl.ActorRef;
 import grl.Belief;
@@ -19,26 +36,7 @@ import grl.IntentionalElementType;
 import grl.LinkRef;
 import grl.LinkRefBendpoint;
 import grl.StrategiesGroup;
-
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import junit.framework.TestCase;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.FileEditorInput;
-
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.change.ModifyUrnLinkCommand;
@@ -50,7 +48,6 @@ import seg.jUCMNav.model.commands.changeConstraints.MoveLinkRefBendpointCommand;
 import seg.jUCMNav.model.commands.changeConstraints.MoveNodeCommand;
 import seg.jUCMNav.model.commands.changeConstraints.SetConstraintBoundContainerRefCompoundCommand;
 import seg.jUCMNav.model.commands.changeConstraints.SetConstraintCommand;
-import seg.jUCMNav.model.commands.changeConstraints.SetConstraintContainerRefCommand;
 import seg.jUCMNav.model.commands.changeConstraints.SetConstraintGrlNodeCommand;
 import seg.jUCMNav.model.commands.create.AddBeliefCommand;
 import seg.jUCMNav.model.commands.create.AddBeliefLinkCommand;
@@ -96,9 +93,6 @@ import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.model.util.ParentFinder;
 import seg.jUCMNav.views.preferences.DeletePreferences;
 import ucm.map.ComponentRef;
-import ucm.map.PathNode;
-import ucm.map.RespRef;
-import ucm.map.StartPoint;
 import ucm.map.UCMmap;
 import urn.URNlink;
 import urn.URNspec;

@@ -1,14 +1,5 @@
 package seg.jUCMNav.views.elements;
 
-import fm.Feature;
-import grl.GRLGraph;
-import grl.GrlPackage;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.IntentionalElementType;
-import grl.kpimodel.KPIInformationElement;
-import grl.kpimodel.KPIInformationElementRef;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +20,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 
-import seg.jUCMNav.JUCMNavPlugin;
+import fm.Feature;
+import grl.GRLGraph;
+import grl.GrlPackage;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.IntentionalElementType;
+import grl.kpimodel.KPIInformationElement;
+import grl.kpimodel.KPIInformationElementRef;
 import seg.jUCMNav.views.compositeList.CompositeListControl;
 import seg.jUCMNav.views.compositeList.CompositeListItem;
 import ucm.UcmPackage;

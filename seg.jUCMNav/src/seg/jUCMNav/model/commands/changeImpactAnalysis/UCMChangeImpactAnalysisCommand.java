@@ -1,13 +1,9 @@
 package seg.jUCMNav.model.commands.changeImpactAnalysis;
 
-import grl.IntentionalElementRef;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Stack;
-
-import javax.swing.JOptionPane;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
@@ -18,13 +14,8 @@ import org.eclipse.ui.PlatformUI;
 
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
-import seg.jUCMNav.model.commands.Slicing.ConcurrencyHandler;
 import seg.jUCMNav.model.commands.create.AddCommentCommand;
-import ucm.map.AndFork;
-import ucm.map.AndJoin;
 import ucm.map.NodeConnection;
-import ucm.map.OrFork;
-import ucm.map.OrJoin;
 import ucm.map.PathNode;
 import ucm.map.RespRef;
 import ucm.map.StartPoint;
@@ -33,7 +24,6 @@ import ucm.map.UCMmap;
 import urn.URNspec;
 import urncore.Comment;
 import urncore.IURNDiagram;
-import urncore.Responsibility;
 import urncore.URNdefinition;
 import urncore.UrncoreFactory;
 

@@ -42,7 +42,7 @@ public class ImportWizardSecondPage extends WizardNewFileCreationPage {
 
     public void createControl(Composite parent) {
         super.createControl(parent);
-        setFileName(DEFAULT_FILE_NAME.format(new Object[] {new Integer(exampleCount)}));
+        setFileName(DEFAULT_FILE_NAME.format(new Object[] {Integer.valueOf(exampleCount)}));
         setPageComplete(validatePage());
     }
     

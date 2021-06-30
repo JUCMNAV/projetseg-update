@@ -1,5 +1,12 @@
 package seg.jUCMNav.model;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.jface.resource.StringConverter;
+
 import fm.FeatureDiagram;
 import fm.FeatureModel;
 import fm.FmFactory;
@@ -43,16 +50,7 @@ import grl.kpimodel.KPINewEvalValue;
 import grl.kpimodel.KpimodelFactory;
 import grl.kpimodel.QualitativeMapping;
 import grl.kpimodel.QualitativeMappings;
-
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import org.eclipse.gef.requests.CreationFactory;
-import org.eclipse.jface.resource.StringConverter;
-
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.figures.ColorManager;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.model.util.StrategyEvaluationRangeHelper;

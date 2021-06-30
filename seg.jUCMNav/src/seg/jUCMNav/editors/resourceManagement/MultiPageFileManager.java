@@ -151,7 +151,7 @@ public class MultiPageFileManager {
 	 * 
 	 * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	public void doSave(IProgressMonitor monitor) {
 		try {
 			IFile file = ((IFileEditorInput) getEditor().getEditorInput()).getFile();

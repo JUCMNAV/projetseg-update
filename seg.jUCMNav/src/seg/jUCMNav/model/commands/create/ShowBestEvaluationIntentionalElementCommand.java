@@ -1,20 +1,18 @@
 package seg.jUCMNav.model.commands.create;
 
-import grl.ElementLink;
-import grl.Evaluation;
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.GRLLinkableElement;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.StrategiesGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
+import grl.ElementLink;
+import grl.EvaluationStrategy;
+import grl.GRLGraph;
+import grl.GRLLinkableElement;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.StrategiesGroup;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
@@ -113,11 +111,11 @@ public class ShowBestEvaluationIntentionalElementCommand extends Command impleme
     */
     public void execute() 
     {
-        boolean found = false;
-        ArrayList <IntentionalElementRef> tempIEList;
-        IntentionalElement tempIE;
-        GRLLinkableElement tempGRLElement;
-        List <Evaluation> esList;
+        //boolean found = false;
+       // ArrayList <IntentionalElementRef> tempIEList;
+        //IntentionalElement tempIE;
+        //GRLLinkableElement tempGRLElement;
+        //List <Evaluation> esList;
         
         srcGRLLinkableElementList = new ArrayList<GRLLinkableElement>();
         destGRLLinkableElementList = new ArrayList<GRLLinkableElement>();

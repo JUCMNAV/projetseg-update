@@ -48,7 +48,7 @@ public class QuickFixer implements IMarkerResolutionGenerator {
                             if (mk.getAttribute("ConditionIndex") != null && mk.getAttribute("ConditionIndex") instanceof Integer) { //$NON-NLS-1$ //$NON-NLS-2$
                                 i = (Integer) mk.getAttribute("ConditionIndex"); //$NON-NLS-1$
                             } else
-                                i = new Integer(0);
+                                i = Integer.valueOf(0);
 
                             cond = ((NodeConnection) ((PathNode) element).getSucc().get(i.intValue())).getCondition();
 

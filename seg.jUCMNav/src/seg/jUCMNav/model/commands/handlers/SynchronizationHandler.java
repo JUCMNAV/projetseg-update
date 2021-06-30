@@ -105,7 +105,7 @@ public class SynchronizationHandler extends AbstractHandler implements IHandler{
 	public void  intializeSynchronize(IWorkbenchWindow workbench, MultiPageFileManager fileManager){
 		if(workbench!=null){
 
-			URNspec urn = null;
+			//URNspec urn = null;
 
 			ISelectionService selectionService = workbench.getSelectionService(); 
 			ISelection selection = selectionService.getSelection(); 

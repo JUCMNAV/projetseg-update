@@ -56,7 +56,7 @@ public class ScenarioGroup extends AbstractModelElement {
 		if (children != null && children.size() > scenarioNumber &&
 				this.selectedScenario != scenarioNumber) {
 			this.selectedScenario = scenarioNumber;
-			firePropertyChange(Properties.ID_SWITCH_SCENARIO, null, new Integer(scenarioNumber));
+			firePropertyChange(Properties.ID_SWITCH_SCENARIO, null, Integer.valueOf(scenarioNumber));
 		}
 	}
 	

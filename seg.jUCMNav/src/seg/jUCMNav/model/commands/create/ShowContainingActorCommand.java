@@ -88,7 +88,7 @@ public class ShowContainingActorCommand extends Command implements JUCMNavComman
      */
     public void execute() 
     {   
-        IntentionalElementRef ieRef;
+        //IntentionalElementRef ieRef;
         // creating list of all the other refs in GrlSpec of the selected element
         chosenIntentionalElementAllRefs = new ArrayList<IntentionalElementRef>(); 
         for (int i = 0; i < chosenIntentionalElement.getRefs().size(); i++) {

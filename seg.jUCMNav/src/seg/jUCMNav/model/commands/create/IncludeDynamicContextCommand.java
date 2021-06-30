@@ -5,8 +5,6 @@ import org.eclipse.gef.commands.Command;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextsUtils;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
-import seg.jUCMNav.scenarios.ScenarioUtils;
-import ucm.scenario.ScenarioDef;
 import urn.dyncontext.DynamicContext;
 
 /**
