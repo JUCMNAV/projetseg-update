@@ -79,8 +79,6 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
-import seg.jUCMNav.Messages;
-
 import seg.UCMScenarioViewer.actions.SetFontAction;
 import seg.UCMScenarioViewer.actions.UCMScenarioViewerContextMenuProvider;
 import seg.UCMScenarioViewer.dnd.MSCTransferDropTargetListener;

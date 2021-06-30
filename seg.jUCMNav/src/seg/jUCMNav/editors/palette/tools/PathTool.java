@@ -56,7 +56,7 @@ public class PathTool extends BaseCreationTool implements ISelectionChangedListe
     /**
      * <code>EMPTYPOINT</code>: State value when an empty point is selected.
      */
-    private static final int EMPTYPOINT = 3;
+    //private static final int EMPTYPOINT = 3;
     /**
      * <code>CONNECTION</code>: State value when the cursor is over a connection.
      */

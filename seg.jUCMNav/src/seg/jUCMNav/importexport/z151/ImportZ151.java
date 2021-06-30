@@ -17,7 +17,7 @@ import seg.jUCMNav.importexport.z151.unmarshal.URNspecUMHandler;
 
 public class ImportZ151 implements IURNImport {
 
-    private Vector autolayoutDiagrams;
+    //private Vector autolayoutDiagrams;
 
     public urn.URNspec importURN(FileInputStream fis, Vector autolayoutDiagrams) throws InvocationTargetException {
         urn.URNspec urn = null;

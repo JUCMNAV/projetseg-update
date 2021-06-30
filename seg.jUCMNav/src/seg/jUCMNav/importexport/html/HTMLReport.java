@@ -1,21 +1,5 @@
 package seg.jUCMNav.importexport.html;
 
-import fm.FeatureDiagram;
-import grl.Actor;
-import grl.ActorRef;
-import grl.Belief;
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.GRLLinkableElement;
-import grl.GRLspec;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.StrategiesGroup;
-import grl.kpimodel.Indicator;
-import grl.kpimodel.KPIEvalValueSet;
-import grl.kpimodel.impl.QualitativeMappingImpl;
-import grl.kpimodel.impl.QualitativeMappingsImpl;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,6 +24,21 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.widgets.Display;
 
+import fm.FeatureDiagram;
+import grl.Actor;
+import grl.ActorRef;
+import grl.Belief;
+import grl.EvaluationStrategy;
+import grl.GRLGraph;
+import grl.GRLLinkableElement;
+import grl.GRLspec;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.StrategiesGroup;
+import grl.kpimodel.Indicator;
+import grl.kpimodel.KPIEvalValueSet;
+import grl.kpimodel.impl.QualitativeMappingImpl;
+import grl.kpimodel.impl.QualitativeMappingsImpl;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.importexport.ExportImageGIF;
 import seg.jUCMNav.importexport.reports.URNReport;
@@ -85,7 +84,6 @@ import urncore.IURNNode;
 import urncore.Metadata;
 import urncore.Responsibility;
 import urncore.URNmodelElement;
-import javax.swing.JOptionPane;
 /**
  * Export an HTML suite from a URNspec.
  * 

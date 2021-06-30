@@ -1,23 +1,21 @@
 package seg.jUCMNav.importexport.reports;
 
-import grl.EvaluationStrategy;
-import grl.GRLspec;
-
-import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.Rectangle;
+
+import grl.EvaluationStrategy;
+import grl.GRLspec;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.importexport.reports.utils.jUCMNavErrorDialog;
 import seg.jUCMNav.views.preferences.ReportGeneratorPreferences;
 import ucm.UCMspec;
 import urn.URNspec;
 import urncore.URNdefinition;
-
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.Font;
-import com.lowagie.text.Rectangle;
 
 /**
  * generic Report class creating report elements common to all report types (RTF, HTML, PDF)
@@ -31,7 +29,7 @@ public class Report extends URNReport {
     public float fWidth = 0;
     public Rectangle pagesize;
 
-    private FileOutputStream fos = null;
+    //private FileOutputStream fos = null;
     protected Font reportTitleFont = new Font(Font.HELVETICA, 24, Font.UNDERLINE);
     protected Font header1Font = new Font(Font.HELVETICA, 12, Font.BOLD);
     protected Font header2Font = new Font(Font.HELVETICA, 11, Font.BOLD);
@@ -67,7 +65,7 @@ public class Report extends URNReport {
     protected float reportWidth = Float.parseFloat(ReportGeneratorPreferences.getWidth());
 	protected float reportHeight = Float.parseFloat(ReportGeneratorPreferences.getHeight());
     
-    private String filename;
+    //private String filename;
 
     public Report() {
 

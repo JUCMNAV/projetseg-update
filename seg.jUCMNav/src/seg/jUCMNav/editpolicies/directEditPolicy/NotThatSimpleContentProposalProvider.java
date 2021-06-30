@@ -13,7 +13,7 @@ public class NotThatSimpleContentProposalProvider extends SimpleContentProposalP
         super(proposals);
         this.proposals = proposals; 
     }
-    public void setProposals(String[] items) {
+    public void setProposalsArray(String[] items) {
         this.proposals = items;
         super.setProposals(items);
     }

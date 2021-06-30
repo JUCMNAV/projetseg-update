@@ -116,26 +116,26 @@ public class UCMDiagramSection extends PDFReportDiagram {
                 PathNode currentNode = (PathNode) iter.next();
 
                 if (showRespRefNode && currentNode instanceof RespRef) {
-                    Integer hashKey = new Integer(respRefNo);
+                    Integer hashKey = Integer.valueOf(respRefNo);
                     respRefSection.put(hashKey, currentNode);
                     respRefNo++;
                 } else if (showStubNode && currentNode instanceof Stub) {
-                    Integer hashKey = new Integer(stubNo);
+                    Integer hashKey = Integer.valueOf(stubNo);
                     stubSection.put(hashKey, currentNode);
                     stubNo++;
                 } else if (showOrForkNode && currentNode instanceof OrFork) {
-                    Integer hashKey = new Integer(orForkImplNo);
+                    Integer hashKey = Integer.valueOf(orForkImplNo);
                     orForkSection.put(hashKey, currentNode);
                     orForkImplNo++;
                 } else if (showStartPointNode && currentNode instanceof StartPoint) {
                     if (hasStartPointData((StartPoint) currentNode)) {
-                        Integer hashKey = new Integer(startPointNo);
+                        Integer hashKey = Integer.valueOf(startPointNo);
                         startPointSection.put(hashKey, currentNode);
                         startPointNo++;
                     }
                 } else if (showEndPointNode && currentNode instanceof EndPoint) {
                     if (hasEndPointData((EndPoint) currentNode)) {
-                        Integer hashKey = new Integer(endPointNo);
+                        Integer hashKey = Integer.valueOf(endPointNo);
                         endPointSection.put(hashKey, currentNode);
                         endPointNo++;
                     }
@@ -151,7 +151,7 @@ public class UCMDiagramSection extends PDFReportDiagram {
                         firstResp = false;
                     }
 
-                    Integer hashKey = new Integer(i4);
+                    Integer hashKey = Integer.valueOf(i4);
                     RespRef resp = (RespRef) respRefSection.get(hashKey);
                     insertResponsibility(document, resp);
                     document.add(Chunk.NEWLINE);
@@ -166,7 +166,7 @@ public class UCMDiagramSection extends PDFReportDiagram {
                         firstStub = false;
                     }
 
-                    Integer hashKey = new Integer(i4);
+                    Integer hashKey = Integer.valueOf(i4);
                     Stub stub = (Stub) stubSection.get(hashKey);
                     insertStub(document, stub);
                     document.add(Chunk.NEWLINE);
@@ -180,7 +180,7 @@ public class UCMDiagramSection extends PDFReportDiagram {
                         firstOrFork = false;
                     }
 
-                    Integer hashKey = new Integer(i4);
+                    Integer hashKey = Integer.valueOf(i4);
                     OrFork orFork = (OrFork) orForkSection.get(hashKey);
                     insertOrForkProbability(document, orFork);
                     document.add(Chunk.NEWLINE);
@@ -194,7 +194,7 @@ public class UCMDiagramSection extends PDFReportDiagram {
                         firstStartPoint = false;
                     }
 
-                    Integer hashKey = new Integer(i4);
+                    Integer hashKey = Integer.valueOf(i4);
                     StartPoint startPoint = (StartPoint) startPointSection.get(hashKey);
                     insertStartPoint(document, startPoint);
                     document.add(Chunk.NEWLINE);
@@ -208,7 +208,7 @@ public class UCMDiagramSection extends PDFReportDiagram {
                         firstEndPoint = false;
                     }
 
-                    Integer hashKey = new Integer(i4);
+                    Integer hashKey = Integer.valueOf(i4);
                     EndPoint endPoint = (EndPoint) endPointSection.get(hashKey);
                     insertEndPoint(document, endPoint);
                     document.add(Chunk.NEWLINE);

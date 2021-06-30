@@ -6,11 +6,9 @@ import java.util.Iterator;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
+import org.etsi.mts.tdl.Package;
 
 import ucmscenarios.impl.UcmscenariosPackageImpl;
-import org.etsi.mts.tdl.*;
-import org.etsi.mts.tdl.impl.*;
-import org.etsi.mts.tdl.Package;
 
 /**
  * This class is used to load and save the tdl model from the file system.

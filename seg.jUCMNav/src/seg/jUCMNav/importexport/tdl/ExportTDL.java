@@ -118,7 +118,8 @@ public class ExportTDL extends ExportScenarios implements IURNExport{
             return;
 
         if (!scenarioDefExists(urn)) { // No scenario definition. Avoid Invalid thread access exception.
-            jUCMNavErrorDialog warningMessage = new jUCMNavErrorDialog(Messages.getString("ExportTDL.NoScenarioDefined")); //$NON-NLS-1$
+            @SuppressWarnings("unused")
+			jUCMNavErrorDialog warningMessage = new jUCMNavErrorDialog(Messages.getString("ExportTDL.NoScenarioDefined")); //$NON-NLS-1$
             return;
         }
         

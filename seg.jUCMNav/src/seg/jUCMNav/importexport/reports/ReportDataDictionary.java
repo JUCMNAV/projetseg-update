@@ -100,7 +100,8 @@ public class ReportDataDictionary extends Report {
             }
 
         } catch (Exception e) {
-            jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
+            @SuppressWarnings("unused")
+			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
         }
@@ -148,6 +149,7 @@ public class ReportDataDictionary extends Report {
             // TODO get scenarios diagrams
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -173,9 +175,9 @@ public class ReportDataDictionary extends Report {
                 // generate report documentation for variables
                 Variable var = (Variable) iter.next();
                 if (var != null) {
-                    String varName = var.getName();
+                    //String varName = var.getName();
                     String varType = var.getType();
-                    String varDescription = var.getDescription();
+                    //String varDescription = var.getDescription();
                     list1.setIndentationLeft(10);
 
                     if (var.getEnumerationType() != null) {
@@ -191,6 +193,7 @@ public class ReportDataDictionary extends Report {
             document.add(list1);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -246,6 +249,7 @@ public class ReportDataDictionary extends Report {
             document.add(list1);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -276,6 +280,7 @@ public class ReportDataDictionary extends Report {
             }
             document.add(list1);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -306,6 +311,7 @@ public class ReportDataDictionary extends Report {
             }
             document.add(list1);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -335,6 +341,7 @@ public class ReportDataDictionary extends Report {
             }
             document.add(list1);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -365,6 +372,7 @@ public class ReportDataDictionary extends Report {
             }
             document.add(list1);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -386,6 +394,7 @@ public class ReportDataDictionary extends Report {
             }
             document.add(list1);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

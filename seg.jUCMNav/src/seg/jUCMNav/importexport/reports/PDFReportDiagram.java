@@ -116,6 +116,7 @@ public class PDFReportDiagram extends PDFReport {
             }
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
         }
@@ -144,7 +145,8 @@ public class PDFReportDiagram extends PDFReport {
             document.add(headerTable);
 
         } catch (Exception e) {
-            jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
+            @SuppressWarnings("unused")
+			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
         }
@@ -215,7 +217,8 @@ public class PDFReportDiagram extends PDFReport {
             boolean isLast = i == mapDiagrams.size() - 1;
 
         } catch (Exception e) {
-            jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
+            @SuppressWarnings("unused")
+			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
         }
@@ -245,6 +248,7 @@ public class PDFReportDiagram extends PDFReport {
             document.add(headerTable);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -277,6 +281,7 @@ public class PDFReportDiagram extends PDFReport {
             document.add(descText);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -313,6 +318,7 @@ public class PDFReportDiagram extends PDFReport {
 
             document.add(table);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

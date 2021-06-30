@@ -1,6 +1,5 @@
 package seg.jUCMNav.importexport.msc;
 
-import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Vector;

@@ -105,7 +105,7 @@ public class ResourceTracker implements IResourceChangeListener, IResourceDeltaV
 					IEditorReference[] edref = page.getEditorReferences();
 					String filename = delta.getResource().getName();
 
-					boolean useranswer = true;
+					//boolean useranswer = true;
 					int numbereditor = 0;
 					int i = 0;
 					// Verify if there are more than 1 editor who edit the same
@@ -141,7 +141,7 @@ public class ResourceTracker implements IResourceChangeListener, IResourceDeltaV
 						i++;
 					}
 
-					res.setSessionProperty(timestamp, new Long(res.getModificationStamp()));
+					res.setSessionProperty(timestamp, Long.valueOf(res.getModificationStamp()));
 				}
 			} catch (CoreException e) {
 				JUCMNavPlugin.getDefault().getLog().log(e.getStatus());

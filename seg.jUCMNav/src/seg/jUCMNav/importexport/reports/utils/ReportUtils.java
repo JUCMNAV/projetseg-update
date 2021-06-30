@@ -102,6 +102,7 @@ public class ReportUtils {
             document.add(img);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
         }
@@ -151,6 +152,7 @@ public class ReportUtils {
             document.add(rtfImage);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
         }
@@ -226,7 +228,7 @@ public class ReportUtils {
      */
     public static ImageData cropImage(ImageData image) {
 
-        PaletteData palette = image.palette;
+        //PaletteData palette = image.palette;
         int imageHeight = image.height;
         int imageWidth = image.width;
 
@@ -340,7 +342,8 @@ public class ReportUtils {
             return table;
 
         } catch (Exception e) {
-            jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
+            @SuppressWarnings("unused")
+			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
             return null;
@@ -392,6 +395,7 @@ public class ReportUtils {
             }
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -428,6 +432,7 @@ public class ReportUtils {
             }
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

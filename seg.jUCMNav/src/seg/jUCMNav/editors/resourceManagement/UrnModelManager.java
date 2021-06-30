@@ -142,7 +142,7 @@ public class UrnModelManager extends EmfModelManager {
             EObject o = it.next();
             if (o instanceof URNmodelElement)
             {
-                Integer key = new Integer(((URNmodelElement) o).getId());
+                Integer key = Integer.valueOf(((URNmodelElement) o).getId());
                 if (!hm.containsKey(key))
                     hm.put(key, o);
                 else

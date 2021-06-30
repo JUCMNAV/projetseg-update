@@ -1,10 +1,5 @@
 package seg.jUCMNav.importexport.scenariosTools;
 
-import grl.EvaluationStrategy;
-import grl.StrategiesGroup;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,10 +9,10 @@ import java.util.Vector;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.gef.commands.CompoundCommand;
 
+import grl.EvaluationStrategy;
+import grl.StrategiesGroup;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editors.resourceManagement.UrnModelManager;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.create.AddContainerRefCommand;
 import seg.jUCMNav.model.commands.create.CreateMapCommand;
@@ -28,7 +23,6 @@ import seg.jUCMNav.model.commands.delete.DeleteStrategiesGroupCommand;
 import seg.jUCMNav.model.commands.delete.DeleteStrategyCommand;
 import seg.jUCMNav.model.commands.transformations.AttachBranchCommand;
 import seg.jUCMNav.model.commands.transformations.ExtendPathCommand;
-import seg.jUCMNav.model.commands.transformations.MakeWellFormedCommand;
 import seg.jUCMNav.model.commands.transformations.MergeStartEndCommand;
 import seg.jUCMNav.model.commands.transformations.ReplaceEmptyPointCommand;
 import seg.jUCMNav.model.commands.transformations.TrimEmptyNodeCommand;
@@ -36,7 +30,6 @@ import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.model.util.URNNamingHelper;
 import seg.jUCMNav.model.util.URNmodelElementIDComparator;
 import seg.jUCMNav.scenarios.ScenarioUtils;
-import seg.jUCMNav.scenarios.algorithmInterfaces.ITraversalListener;
 import seg.jUCMNav.scenarios.model.TraversalVisit;
 import seg.jUCMNav.scenarios.model.UcmEnvironment;
 import ucm.map.AndFork;
@@ -83,12 +76,12 @@ public class ExportScenariosTraversalListener {
 	protected ScenarioDef currentDestScenario;
 	protected UCMmap currentMap;
 	protected ScenarioDef currentSrcScenario;
-	protected HashMap htComponentRefs;
-	protected HashMap htComponents;
-	protected HashMap htResponsibilities;
-	protected HashMap htScenarioToMap;
-	protected HashMap htThreadEnd;
-	protected HashMap htThreadStart;
+	protected HashMap<IURNContainer, IURNContainerRef> htComponentRefs;
+	protected HashMap<Component, Component> htComponents;
+	protected HashMap<Object, Responsibility> htResponsibilities;
+	protected HashMap<ScenarioDef, UCMmap> htScenarioToMap;
+	protected HashMap<Integer, PathNode> htThreadEnd;
+	protected HashMap<Integer, PathNode> htThreadStart;
 	protected TraversalVisit lastUnblocked;
 	protected URNspec urnspec;
 	protected String filename;
@@ -112,7 +105,7 @@ public class ExportScenariosTraversalListener {
 		this.filename = newFilename;
         this.whenToSave = whenToSave;
 
-        htScenarioToMap = new HashMap();
+        htScenarioToMap = new HashMap<ScenarioDef, UCMmap>();
         urnspec = ModelCreationFactory.getNewURNspec(true, false, false);
 
         // TODO: find a better way to store this information, e.g., use URNspec metadata.
@@ -132,7 +125,7 @@ public class ExportScenariosTraversalListener {
 	}
 
 	private IURNContainerRef addCompRefIfAbsent(IURNContainer def) {
-	    IURNContainerRef comp = (IURNContainerRef) htComponentRefs.get(def);
+	    IURNContainerRef comp = htComponentRefs.get(def);
 	    if (comp == null && def != null) {
 	        // create a new reference
 	        comp = (IURNContainerRef) ModelCreationFactory.getNewObject(urnspec, ComponentRef.class, ((Component) def).getKind().getValue(), htComponents
@@ -151,7 +144,7 @@ public class ExportScenariosTraversalListener {
 	protected void cleanupComponentRefs() {
 	    cs.execute(new TrimEmptyNodeCommand(currentMap));
 	
-	    for (Iterator iter = currentMap.getNodes().iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = currentMap.getNodes().iterator(); iter.hasNext();) {
 	        PathNode pn = (PathNode) iter.next();
 	        if (pn instanceof AndFork) {
 	            pn.setContRef(((NodeConnection) pn.getPred().get(0)).getSource().getContRef());
@@ -160,23 +153,23 @@ public class ExportScenariosTraversalListener {
 	        }
 	    }
 	
-	    Vector toDelete = new Vector();
-	    for (Iterator iter = currentMap.getContRefs().iterator(); iter.hasNext();) {
+	    Vector<ComponentRef> toDelete = new Vector<ComponentRef>();
+	    for (Iterator<?> iter = currentMap.getContRefs().iterator(); iter.hasNext();) {
 	        ComponentRef container = (ComponentRef) iter.next();
 	        if (container.getChildren().size() == 0 && container.getNodes().size() == 0) {
 	            toDelete.add(container);
 	        }
 	    }
-	    for (Iterator iter = toDelete.iterator(); iter.hasNext();) {
-	        ComponentRef container = (ComponentRef) iter.next();
+	    for (Iterator<ComponentRef> iter = toDelete.iterator(); iter.hasNext();) {
+	        ComponentRef container = iter.next();
 	        cs.execute(new DeleteComponentRefCommand(container));
 	    }
 	}
 
 
 	private void cleanupScenarios() {
-	    Vector startPoints = new Vector();
-	    for (Iterator iter = currentMap.getNodes().iterator(); iter.hasNext();) {
+	    Vector<PathNode> startPoints = new Vector<PathNode>();
+	    for (Iterator<?> iter = currentMap.getNodes().iterator(); iter.hasNext();) {
 	        PathNode pn = (PathNode) iter.next();
 	        if (pn instanceof StartPoint) {
 	            startPoints.add(pn);
@@ -190,7 +183,7 @@ public class ExportScenariosTraversalListener {
 	    }
 	    Collections.sort(startPoints, new URNmodelElementIDComparator());
 	
-	    for (Iterator iter = startPoints.iterator(); iter.hasNext();) {
+	    for (Iterator<PathNode> iter = startPoints.iterator(); iter.hasNext();) {
 	        StartPoint pn = (StartPoint) iter.next();
 	        ScenarioStartPoint ssp = (ScenarioStartPoint) ModelCreationFactory.getNewObject(urnspec, ScenarioStartPoint.class);
 	        ssp.setStartPoint(pn);
@@ -201,11 +194,11 @@ public class ExportScenariosTraversalListener {
 	}
 
 	protected void cloneComponents(ScenarioDef scenario) {
-	    htComponents = new HashMap();
+	    htComponents = new HashMap<Component, Component>();
 	
-	    for (Iterator iter = scenario.getGroup().getUcmspec().getUrnspec().getUrndef().getComponents().iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = scenario.getGroup().getUcmspec().getUrnspec().getUrndef().getComponents().iterator(); iter.hasNext();) {
 	        Component c = (Component) iter.next();
-	        Component clone = (Component) EcoreUtil.copy(c);
+	        Component clone = EcoreUtil.copy(c);
 	        clone.setUrndefinition(urnspec.getUrndef());
 	        resetCloneId(clone);
 	
@@ -214,11 +207,11 @@ public class ExportScenariosTraversalListener {
 	}
 
 	protected void cloneResponsibilities(ScenarioDef scenario) {
-	    htResponsibilities = new HashMap();
+	    htResponsibilities = new HashMap<Object, Responsibility>();
 	
-	    for (Iterator iter = scenario.getGroup().getUcmspec().getUrnspec().getUrndef().getResponsibilities().iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = scenario.getGroup().getUcmspec().getUrnspec().getUrndef().getResponsibilities().iterator(); iter.hasNext();) {
 	        Responsibility r = (Responsibility) iter.next();
-	        Responsibility clone = (Responsibility) EcoreUtil.copy(r);
+	        Responsibility clone = EcoreUtil.copy(r);
 	        clone.setUrndefinition(urnspec.getUrndef());
 	
 	        resetCloneId(clone);
@@ -235,7 +228,7 @@ public class ExportScenariosTraversalListener {
 	protected void cloneScenario(ScenarioDef src) {
 	    int index = src.getGroup().getUcmspec().getScenarioGroups().indexOf(src.getGroup());
 	
-	    ScenarioDef dest = (ScenarioDef) EcoreUtil.copy(src);
+	    ScenarioDef dest = EcoreUtil.copy(src);
 	    resetCloneId(dest);
 	    dest.setGroup((ScenarioGroup) urnspec.getUcmspec().getScenarioGroups().get(index));
 	
@@ -246,9 +239,9 @@ public class ExportScenariosTraversalListener {
 	    dest.getPreconditions().clear();
 	    dest.getPostconditions().clear();
 	
-	    for (Iterator iter = ScenarioUtils.getDefinedInitializations(src).iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = ScenarioUtils.getDefinedInitializations(src).iterator(); iter.hasNext();) {
 	        Initialization srcinit = (Initialization) iter.next();
-	        Initialization destinit = (Initialization) EcoreUtil.copy(srcinit);
+	        Initialization destinit = EcoreUtil.copy(srcinit);
 	        index = srcinit.getVariable().getUcmspec().getVariables().indexOf(srcinit.getVariable());
 	        destinit.setVariable((Variable) urnspec.getUcmspec().getVariables().get(index));
 	        destinit.setScenarioDef(dest);
@@ -259,23 +252,23 @@ public class ExportScenariosTraversalListener {
 
 	protected void cloneScenarioDataModel(ScenarioDef scenario) {
 	
-	    for (Iterator iter = scenario.getGroup().getUcmspec().getScenarioGroups().iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = scenario.getGroup().getUcmspec().getScenarioGroups().iterator(); iter.hasNext();) {
 	        ScenarioGroup c = (ScenarioGroup) iter.next();
-	        ScenarioGroup clone = (ScenarioGroup) EcoreUtil.copy(c);
+	        ScenarioGroup clone = EcoreUtil.copy(c);
 	        clone.setUcmspec(urnspec.getUcmspec());
 	        clone.getScenarios().clear();
 	        resetCloneId(clone);
 	    }
 	
-	    for (Iterator iter = scenario.getGroup().getUcmspec().getEnumerationTypes().iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = scenario.getGroup().getUcmspec().getEnumerationTypes().iterator(); iter.hasNext();) {
 	        EnumerationType c = (EnumerationType) iter.next();
-	        EnumerationType clone = (EnumerationType) EcoreUtil.copy(c);
+	        EnumerationType clone = EcoreUtil.copy(c);
 	        clone.setUcmspec(urnspec.getUcmspec());
 	        resetCloneId(clone);
 	    }
-	    for (Iterator iter = scenario.getGroup().getUcmspec().getVariables().iterator(); iter.hasNext();) {
+	    for (Iterator<?> iter = scenario.getGroup().getUcmspec().getVariables().iterator(); iter.hasNext();) {
 	        Variable c = (Variable) iter.next();
-	        Variable clone = (Variable) EcoreUtil.copy(c);
+	        Variable clone = EcoreUtil.copy(c);
 	        clone.setUcmspec(urnspec.getUcmspec());
 	        resetCloneId(clone);
 	    }
@@ -328,7 +321,7 @@ public class ExportScenariosTraversalListener {
 			                wait.setName(original_condition.getLabel());
 			            else if (visit.getVisitedElement() instanceof Stub) {
 			                wait.setName((visit.getVisitedElement()).getName()); // just in case we can't find the plugin name
-			                for (Iterator iter = ((Stub) visit.getVisitedElement()).getBindings().iterator(); iter.hasNext();) {
+			                for (Iterator<?> iter = ((Stub) visit.getVisitedElement()).getBindings().iterator(); iter.hasNext();) {
 			                    PluginBinding binding = (PluginBinding) iter.next();
 			                    if (binding.getPrecondition() == original_condition && binding.getPlugin() != null) {
 			                        wait.setName(binding.getPlugin().getName());
@@ -365,9 +358,9 @@ public class ExportScenariosTraversalListener {
 	private RespRef createRespRef(TraversalVisit visit) {
 	    Responsibility def = null;
 	    if (visit.getVisitedElement() instanceof RespRef)
-	        def = (Responsibility) htResponsibilities.get(((RespRef) visit.getVisitedElement()).getRespDef());
+	        def = htResponsibilities.get(((RespRef) visit.getVisitedElement()).getRespDef());
 	    else {
-	        def = (Responsibility) htResponsibilities.get(visit.getVisitedElement().getClass());
+	        def = htResponsibilities.get(visit.getVisitedElement().getClass());
 	
 	        // we haven't seen an element of this type before. create a responsibility for it!
 	        if (def == null) {
@@ -423,15 +416,14 @@ public class ExportScenariosTraversalListener {
 	}
 
 	protected PathNode extendPath(int threadID, boolean fromEnd) {
-	    PathNode pn;
 	
 	    if (fromEnd) {
-	        EndPoint end = (EndPoint) htThreadEnd.get(new Integer(threadID));
+	        EndPoint end = (EndPoint) htThreadEnd.get(Integer.valueOf(threadID));
 	        ExtendPathCommand cmd = new ExtendPathCommand(currentMap, end, end.getX() + 100, end.getY());
 	        cs.execute(cmd);
 	        return end;
 	    } else {
-	        StartPoint start = (StartPoint) htThreadStart.get(new Integer(threadID));
+	        StartPoint start = (StartPoint) htThreadStart.get(Integer.valueOf(threadID));
 	        ExtendPathCommand cmd = new ExtendPathCommand(currentMap, start, start.getX() - 100, start.getY());
 	        cs.execute(cmd);
 	        return start;
@@ -473,8 +465,8 @@ public class ExportScenariosTraversalListener {
 	    cmd.getStart().setName((visit.getVisitedElement()).getName());
 	    setComponentRef(cmd.getStart(), visit);
 	
-	    htThreadStart.put(new Integer(visit.getThreadID()), cmd.getStart());
-	    htThreadEnd.put(new Integer(visit.getThreadID()), cmd.getEnd());
+	    htThreadStart.put(Integer.valueOf(visit.getThreadID()), cmd.getStart());
+	    htThreadEnd.put(Integer.valueOf(visit.getThreadID()), cmd.getEnd());
 	}
 
 	public void pathNodeAborted(TraversalVisit visit) {
@@ -486,7 +478,7 @@ public class ExportScenariosTraversalListener {
 	    // System.out.println("Node is being attempted in thread " + visit.getThreadID() + ": " + visit.getVisitedElement());
 	
 	    if (visit.getVisitedElement() instanceof WaitingPlace) {
-	        EndPoint end = (EndPoint) htThreadEnd.get(new Integer(visit.getThreadID()));
+	        EndPoint end = (EndPoint) htThreadEnd.get(Integer.valueOf(visit.getThreadID()));
 	        PathNode pn = (PathNode) ((NodeConnection) end.getPred().get(0)).getSource();
 	        String data = MetadataHelper.getMetaData(pn, "type"); //$NON-NLS-1$
 	
@@ -540,7 +532,7 @@ public class ExportScenariosTraversalListener {
 	    }
 	
 	    if (n instanceof WaitingPlace) {
-	        EndPoint end = (EndPoint) htThreadEnd.get(new Integer(visit.getThreadID()));
+	        EndPoint end = (EndPoint) htThreadEnd.get(Integer.valueOf(visit.getThreadID()));
 	        PathNode pn = (PathNode) ((NodeConnection) end.getPred().get(0)).getSource();
 	
 	        // avoid duplicates when re-queued.
@@ -554,7 +546,7 @@ public class ExportScenariosTraversalListener {
 	    }
 	
 	    if (n instanceof EndPoint) {
-	        PathNode pn = (PathNode) htThreadEnd.get(new Integer(visit.getThreadID()));
+	        PathNode pn = htThreadEnd.get(Integer.valueOf(visit.getThreadID()));
 	        pn.setName(n.getName());
 	
 	        setComponentRef(pn, visit);
@@ -627,7 +619,7 @@ public class ExportScenariosTraversalListener {
 	        cs.execute(cmd);
 	    }
 	
-	    htThreadStart.put(new Integer(newThreadID), andjoin);
+	    htThreadStart.put(Integer.valueOf(newThreadID), andjoin);
 	
 	}
 
@@ -651,7 +643,7 @@ public class ExportScenariosTraversalListener {
 	        cs.execute(cmd);
 	    }
 	
-	    htThreadEnd.put(new Integer(oldThreadID), andfork);
+	    htThreadEnd.put(Integer.valueOf(oldThreadID), andfork);
 	
 	}
 
@@ -697,9 +689,9 @@ public class ExportScenariosTraversalListener {
 	    // System.out.println("Traversal started: " + scenario.toString());
 	    URNspec old = scenario.getGroup().getUcmspec().getUrnspec();
 	
-	    htThreadEnd = new HashMap();
-	    htThreadStart = new HashMap();
-	    htComponentRefs = new HashMap();
+	    htThreadEnd = new HashMap<Integer, PathNode>();
+	    htThreadStart = new HashMap<Integer, PathNode>();
+	    htComponentRefs = new HashMap<IURNContainer, IURNContainerRef>();
 	
 	    if (htResponsibilities == null) {
 	        cloneResponsibilities(scenario);
@@ -736,7 +728,7 @@ public class ExportScenariosTraversalListener {
 	
 	    cloneScenario(scenario);
 	
-	    currentMap = (UCMmap) htScenarioToMap.get(scenario);
+	    currentMap = htScenarioToMap.get(scenario);
 	}
 
 }

@@ -110,7 +110,8 @@ public class ListDefinitionReferencesAction extends URNSelectionAction {
                             MenuItem item = new MenuItem(menu, SWT.NONE);
 
                             // memorize the index
-                            item.setData(new Integer(i));
+                            //item.setData(new Integer.valueOf(i));
+                            item.setData(Integer.valueOf(i));
 
                             // identify it
                          // Set the text depending on the outline preferences

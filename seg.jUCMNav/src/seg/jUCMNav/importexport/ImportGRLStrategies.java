@@ -136,7 +136,7 @@ public class ImportGRLStrategies implements IURNImport  {
 					IntentionalElement element = (IntentionalElement) iter.next();
 					name = unquote(columns[i]);
 					if( name.contentEquals( element.getName() )) {
-						elementIndexes.put( new Integer(i), element);
+						elementIndexes.put(Integer.valueOf(i), element);
 						elementFound = true;
 //						System.out.println ( "element: \"" + element.getName() + "\" found at column " + i );
 						break;

@@ -142,7 +142,7 @@ public class DynamicContextsUtils {
         {
             // add the index of the context in this list. 
             // given how we merge included contexts (to avoid duplication), this list is non-obvious  
-            indexes.add(new Integer(all.indexOf(dyn.getIncludedContexts().get(i))));
+            indexes.add(Integer.valueOf(all.indexOf(dyn.getIncludedContexts().get(i))));
         }
         return indexes;
     }

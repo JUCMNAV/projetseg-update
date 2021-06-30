@@ -1,13 +1,11 @@
 package seg.jUCMNav.importexport;
 
-import grl.Actor;
-import grl.BeliefLink;
-import grl.LinkRef;
-
 import java.io.FileOutputStream;
 
 import org.eclipse.draw2d.IFigure;
 
+import grl.BeliefLink;
+import grl.LinkRef;
 import seg.jUCMNav.extensionpoints.IUseCaseMapExport;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.views.preferences.AutoLayoutPreferences;

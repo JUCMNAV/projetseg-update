@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -50,7 +49,7 @@ public class HTMLMenuParser {
 	private ArrayList selectedMaps = new ArrayList();
 
 	private final static String xmlFileName = "tree.xml"; //$NON-NLS-1$
-	private final static String TREE = "tree"; //$NON-NLS-1$
+	//private final static String TREE = "tree"; //$NON-NLS-1$
 	private final static String BRANCH = "branch"; //$NON-NLS-1$
 	private final static String BRANCH_ID = "id"; //$NON-NLS-1$
 	private final static String BRANCH_LINK = "branchLink"; //$NON-NLS-1$
@@ -270,8 +269,8 @@ public class HTMLMenuParser {
 						if (!bindings.isEmpty()) {
 							bindIter = bindings.iterator();
 
-							int j = 0;
-							int shift = 18;
+							//int j = 0;
+							//int shift = 18;
 							while (bindIter.hasNext()) {
 								obj = bindIter.next();
 								if (obj instanceof PluginBindingImpl) {

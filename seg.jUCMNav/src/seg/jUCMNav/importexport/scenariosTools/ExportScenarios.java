@@ -18,8 +18,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
-import seg.jUCMNav.extensionpoints.IURNExport;
-import seg.jUCMNav.extensionpoints.IURNExportPrePostHooks;
 import ucm.scenario.ScenarioGroup;
 import urn.URNspec;
 

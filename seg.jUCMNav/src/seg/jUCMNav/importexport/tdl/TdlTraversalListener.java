@@ -1,28 +1,14 @@
 package seg.jUCMNav.importexport.tdl;
 
-import grl.EvaluationStrategy;
-import grl.StrategiesGroup;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
 
-import seg.jUCMNav.model.ModelCreationFactory;
-import seg.jUCMNav.model.commands.delete.DeleteScenarioCommand;
-import seg.jUCMNav.model.commands.delete.DeleteStrategiesGroupCommand;
-import seg.jUCMNav.model.commands.delete.DeleteStrategyCommand;
-import seg.jUCMNav.model.commands.transformations.MakeWellFormedCommand;
-import seg.jUCMNav.scenarios.algorithmInterfaces.ITraversalListener;
-import ucm.scenario.ScenarioDef;
-import ucm.scenario.ScenarioGroup;
-import seg.jUCMNav.editors.resourceManagement.UrnModelManager;
-import seg.jUCMNav.importexport.msc.*;
+import seg.jUCMNav.importexport.msc.ScenarioGenerator;
 import seg.jUCMNav.importexport.scenariosTools.ExportScenariosTraversalListener;
+import seg.jUCMNav.model.commands.delete.DeleteStrategiesGroupCommand;
+import seg.jUCMNav.scenarios.algorithmInterfaces.ITraversalListener;
+import ucm.scenario.ScenarioGroup;
 
 /**
  * A traversal listener that will generate MSCs.

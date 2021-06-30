@@ -1,23 +1,21 @@
 package seg.jUCMNav.importexport.reports;
 
+import java.util.Iterator;
+
+import com.lowagie.text.Document;
+
 import grl.Actor;
 import grl.ActorRef;
 import grl.Belief;
 import grl.IntentionalElement;
 import grl.IntentionalElementRef;
-import grl.IntentionalElementType;
 import grl.kpimodel.Indicator;
-
-import java.util.Iterator;
-
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.importexport.reports.utils.ReportUtils;
 import seg.jUCMNav.views.preferences.ReportGeneratorPreferences;
 import urn.URNlink;
 import urncore.IURNDiagram;
 import urncore.URNmodelElement;
-
-import com.lowagie.text.Document;
 
 /**
  * 

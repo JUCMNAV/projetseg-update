@@ -312,7 +312,7 @@ public class StubFigure extends PathNodeFigure implements IRotateable {
                 xPanel.setVisible(true);
             } else if (synch && dynamic) {
                 stubTypeText.setText("S"); //$NON-NLS-1$
-                Integer repCount = new Integer(repetitionCount);
+                Integer repCount =  Integer.valueOf(repetitionCount);
 
                 if (blocking || repCount.intValue() > 1) {
                     stubTypeText.setFont(new Font(null, "Verdana", 14, 0)); //$NON-NLS-1$

@@ -16,7 +16,7 @@ public class ComponentProposalProvider extends NotThatSimpleContentProposalProvi
         String[] proposals = new String[v.size()];
         for (int i = 0; i < v.size(); i++)
             proposals[i] = v.get(i).toString();
-        setProposals(proposals);
+        setProposalsArray(proposals);
 
     }
 

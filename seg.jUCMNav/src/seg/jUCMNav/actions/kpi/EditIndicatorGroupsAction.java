@@ -67,7 +67,8 @@ public class EditIndicatorGroupsAction extends URNSelectionAction {
         } else if (obj instanceof IntentionalElementRef && ((IntentionalElementRef) obj).getDef() instanceof Indicator) {
             ind = (Indicator) ((IntentionalElementRef) obj).getDef();
         }
-        IndicatorGroupDialog indDialog = new IndicatorGroupDialog(((UCMNavMultiPageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+        @SuppressWarnings("unused")
+		IndicatorGroupDialog indDialog = new IndicatorGroupDialog(((UCMNavMultiPageEditor) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
                 .getActiveEditor()).getDelegatingCommandStack(), ind);
 
     }
