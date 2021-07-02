@@ -11,8 +11,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 
-import grl.Actor;
-import grl.ActorRef;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.scenarios.algorithmInterfaces.IScenarioTraversalAlgorithm;
@@ -50,9 +48,7 @@ import urn.dyncontext.PropertyChange;
 import urn.dyncontext.Timepoint;
 import urncore.Component;
 import urncore.Condition;
-import urncore.Metadata;
 import urncore.Responsibility;
-import urncore.URNmodelElement;
 
 /**
  * Utility class for UCM Scenarios.
@@ -364,7 +360,7 @@ public class ScenarioUtils {
         {
             // add the index of the scenario in this list. 
             // given how we merge included scenarios (to avoid duplication), this list is non-obvious  
-            indexes.add(new Integer(all.indexOf(def.getIncludedScenarios().get(i))));
+            indexes.add(Integer.valueOf(all.indexOf(def.getIncludedScenarios().get(i))));
         }
         return indexes;
     }

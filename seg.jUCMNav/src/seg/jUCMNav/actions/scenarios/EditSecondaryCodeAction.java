@@ -21,7 +21,7 @@ public class EditSecondaryCodeAction extends EditCodeAction {
     }
 
     public boolean calculateEnabled() {
-        boolean b = super.calculateEnabled();
+        //boolean b = super.calculateEnabled();
 
         if (obj instanceof FailurePoint) {
 

@@ -31,7 +31,7 @@ import seg.jUCMNav.model.ModelCreationFactory;
 public class ScenarioDefUMHandler extends UCMmodelElementUMHandler {
     public Object handle(Object o, Object target, boolean isFullConstruction) {
         ScenarioDef elemZ = (ScenarioDef) o;
-        String objId = elemZ.getId();
+        //String objId = elemZ.getId();
         ucm.scenario.ScenarioDef elem = (ucm.scenario.ScenarioDef) getObject(elemZ.getId(), target, ucm.scenario.ScenarioDef.class);
         if (isFullConstruction) {
             elem = (ucm.scenario.ScenarioDef) super.handle(elemZ, elem, true);

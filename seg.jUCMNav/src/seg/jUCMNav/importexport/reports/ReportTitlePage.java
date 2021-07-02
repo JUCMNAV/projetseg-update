@@ -256,6 +256,7 @@ public class ReportTitlePage extends Report {
             document.newPage();
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
         } finally {

@@ -25,7 +25,7 @@ import seg.jUCMNav.importexport.z151.generated.UCMmap;
 public class PluginBindingUMHandler extends EObjectImplUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		PluginBinding elemZ = (PluginBinding) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.PluginBinding elem = (ucm.map.PluginBinding) getObject(elemZ.getId(), target, ucm.map.PluginBinding.class);
 		if (isFullConstruction) {
 			elem.setId(elemZ.getId());

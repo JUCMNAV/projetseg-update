@@ -90,7 +90,7 @@ public class SubmenuAction extends Action implements SelectionListener {
                     MenuItem item = new MenuItem(menu, SWT.NONE);
 
                     // memorize the index
-                    item.setData(new Integer(i));
+                    item.setData(Integer.valueOf(i));
 
                     // identify it
                     item.setText(actions[i].getText());

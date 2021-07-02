@@ -20,7 +20,7 @@ import seg.jUCMNav.importexport.z151.generated.Variable;
 public class VariableUMHandler extends UCMmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		Variable elemZ = (Variable) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.scenario.Variable elem = (ucm.scenario.Variable) getObject(elemZ.getId(), target, ucm.scenario.Variable.class);
 		if (isFullConstruction) {
 			elem = (ucm.scenario.Variable) super.handle(elemZ, elem, true);

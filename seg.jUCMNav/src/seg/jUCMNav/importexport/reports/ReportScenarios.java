@@ -45,7 +45,7 @@ public class ReportScenarios extends Report {
 	private final int var_init_width = 6;
 	
 	//vector which contains warnings for current scenario
-	private Vector warnings; 
+	//private Vector warnings; 
 	
 	private final int scenario_width = 8;
 	private final int result_width = 6;
@@ -81,6 +81,7 @@ public class ReportScenarios extends Report {
 				}
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -112,6 +113,7 @@ public class ReportScenarios extends Report {
 				}
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -163,6 +165,7 @@ public class ReportScenarios extends Report {
 			
 			
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -199,6 +202,7 @@ public class ReportScenarios extends Report {
 				document.add(Chunk.NEWLINE);
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -292,6 +296,7 @@ public class ReportScenarios extends Report {
 				document.add(Chunk.NEWLINE);
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -332,6 +337,7 @@ public class ReportScenarios extends Report {
 				document.add(Chunk.NEWLINE);
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -368,6 +374,7 @@ public class ReportScenarios extends Report {
 				document.add(Chunk.NEWLINE);
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -408,6 +415,7 @@ public class ReportScenarios extends Report {
 				document.add(Chunk.NEWLINE);
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -439,6 +447,7 @@ public class ReportScenarios extends Report {
 			
 			document.add(table);
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
 			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 		}
@@ -585,6 +594,7 @@ public class ReportScenarios extends Report {
             document.add(Chunk.NEXTPAGE);
             
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
         }

@@ -63,6 +63,7 @@ public class ReportExtensionPointHelper extends ExportExtensionPointHelper {
         try {
             exporter = (IURNReport) elem.createExecutableExtension("class"); //$NON-NLS-1$
         } catch (CoreException e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

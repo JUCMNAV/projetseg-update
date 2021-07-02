@@ -21,7 +21,7 @@ import seg.jUCMNav.importexport.z151.generated.URNmodelElement;
 public class URNlinkUMHandler extends EObjectImplUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		URNlink elemZ = (URNlink) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		urn.URNlink elem = (urn.URNlink) getObject(elemZ.getId(), target, urn.URNlink.class);
 		if (isFullConstruction) {
 			elem.setUrnspec(urn);

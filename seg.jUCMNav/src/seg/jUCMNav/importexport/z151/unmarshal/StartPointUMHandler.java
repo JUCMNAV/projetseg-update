@@ -24,7 +24,7 @@ import seg.jUCMNav.importexport.z151.generated.StartPoint;
 public class StartPointUMHandler extends PathNodeUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		StartPoint elemZ = (StartPoint) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.StartPoint elem = (ucm.map.StartPoint) getObject(elemZ.getId(), target, ucm.map.StartPoint.class);
 		if (isFullConstruction) {
 

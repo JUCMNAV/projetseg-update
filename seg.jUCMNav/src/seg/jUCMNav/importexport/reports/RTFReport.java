@@ -69,6 +69,7 @@ public class RTFReport extends Report {
             document.close();
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

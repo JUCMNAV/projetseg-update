@@ -226,7 +226,7 @@ public class QuantitativeGRLStrategyAlgorithm extends PropagationGRLStrategyAlgo
         double resultContrib = computeContributionResult(link, contrib);
 
         if (resultContrib != 0) {
-            contributionValues[contribArrayIt] = (new Double(Math.round(resultContrib))).intValue();
+            contributionValues[contribArrayIt] = (Double.valueOf(Math.round(resultContrib))).intValue();
             contribArrayIt++;
         }
         return contribArrayIt;

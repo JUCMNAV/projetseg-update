@@ -57,7 +57,7 @@ import urncore.URNmodelElement;
  */
 public class ScenarioGenerator {
 
-    private static int msgId = 0;
+    //private static int msgId = 0;
     private ucmscenarios.Component _environmentComponent;
     private Instance _lastEnvironmentInstance;
 
@@ -399,7 +399,7 @@ public class ScenarioGenerator {
         Vector vReachable = rReachableNodes.getNodes();
         ComponentRef initialCompRef = (ComponentRef) start.getContRef();
         ComponentRef compRef = null;
-        int index = -1;
+        //int index = -1;
         for (int i = 0; i < vReachable.size(); i++) {
             PathNode pn = (PathNode) vReachable.get(i);
 
@@ -449,7 +449,7 @@ public class ScenarioGenerator {
             } else if (pn instanceof AndJoin) {
                 compRef = (ComponentRef) pn.getContRef();
 
-                processedPathNodes.put(pn, new Object[] { seq, new Integer(seq.getChildren().size()) });
+                processedPathNodes.put(pn, new Object[] { seq, Integer.valueOf(seq.getChildren().size()) });
             } else {
                 //System.out.println("unexpected pathnode"); //$NON-NLS-1$
                 continue;
@@ -611,7 +611,7 @@ public class ScenarioGenerator {
 
                         if (where == -1) {
                             if (location_pos.intValue() >= location_seq.getChildren().size())
-                                location_pos = new Integer(location_seq.getChildren().size()); // last
+                                location_pos = Integer.valueOf(location_seq.getChildren().size()); // last
                             location_seq.getChildren().add(location_pos.intValue(), seq2);
                             where = location_pos.intValue();
                         }
@@ -623,7 +623,7 @@ public class ScenarioGenerator {
                             if (o instanceof Object[]) {
                                 Integer location_pos2 = (Integer) ((Object[]) o)[1];
                                 if (location_pos2.intValue() >= where) {
-                                    ((Object[]) o)[1] = new Integer(location_pos2.intValue() + 1);
+                                    ((Object[]) o)[1] = Integer.valueOf(location_pos2.intValue() + 1);
                                 }
 
                             }
@@ -694,7 +694,7 @@ public class ScenarioGenerator {
             ucmscenarios.ScenarioDef scenario = f.createScenarioDef();
             setIdNameDesc(element, scenario);
 
-            boolean b = addScenario(element, scenario);
+            //boolean b = addScenario(element, scenario);
 
             for (Iterator iterator = processedPathNodes.values().iterator(); iterator.hasNext();) {
                 Object model = (Object) iterator.next();

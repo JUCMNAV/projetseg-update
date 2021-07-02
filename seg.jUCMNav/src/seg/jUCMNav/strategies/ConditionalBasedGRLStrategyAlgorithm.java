@@ -172,7 +172,7 @@ public class ConditionalBasedGRLStrategyAlgorithm extends FormulaBasedGRLStrateg
                     double resultContrib = super.computeContributionResult(link, contrib);
 
                     if (resultContrib != 0) {
-                        contributionValues[contribArrayIt] = (new Double(Math.round(resultContrib))).intValue();
+                        contributionValues[contribArrayIt] = (Double.valueOf(Math.round(resultContrib))).intValue();
                         contribArrayIt++;
                     }
                 }
@@ -210,7 +210,7 @@ public class ConditionalBasedGRLStrategyAlgorithm extends FormulaBasedGRLStrateg
 
                 if (resultContrib != 0) {
 
-                    contributionValues[contribArrayIt] = (new Double(Math.round(resultContrib))).intValue();
+                    contributionValues[contribArrayIt] = (Double.valueOf(Math.round(resultContrib))).intValue();
 
                     contribArrayIt++;
                 }

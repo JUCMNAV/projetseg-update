@@ -369,9 +369,9 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
                     int  i = ((UcmExpressionValue) env.getValue(URNNamingHelper.getGrlVariableName(element), true)).intValue();
 
                     if (i < -100)
-                        i = new Integer(-100);
+                        i = Integer.valueOf(-100);
                     else if (i > 100)
-                        i = new Integer(100);
+                        i = Integer.valueOf(100);
 
                     // changes source model on existing variables only.
                     // Evaluation ev = EvaluationStrategyManager.getInstance().getEvaluationObject(element);

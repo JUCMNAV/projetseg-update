@@ -36,12 +36,12 @@ public class UcmExpressionValue {
     }
 
     public UcmExpressionValue(boolean b) {
-        this.baseValue = new Boolean(b);
+        this.baseValue = Boolean.valueOf(b);
         this.secondaryEnumerationValue = null;
     }
 
     public UcmExpressionValue(int i) {
-        this.baseValue = new Integer(i);
+        this.baseValue = Integer.valueOf(i);
         this.secondaryEnumerationValue = null;
     }
 

@@ -140,6 +140,7 @@ public class ReportStrategies extends ReportDataDictionary {
 
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
 			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
 			e.printStackTrace();
 
@@ -186,7 +187,7 @@ public class ReportStrategies extends ReportDataDictionary {
 
 			for (int i = 1; i <= strategies.size(); i++) {
 				// name and description
-				Integer i2 = new Integer(i);
+				Integer i2 = Integer.valueOf(i);
 				EvaluationStrategy strategy = (EvaluationStrategy) strategies.get(i2);
 
 				String strategyName = strategy.getName();
@@ -207,6 +208,7 @@ public class ReportStrategies extends ReportDataDictionary {
 			ReportUtils.writeLineWithSeparator(document, Messages.getString("ReportStrategies.TrendNote"), ":", Messages.getString("ReportStrategies.TrendNote1") + prefTrend + Messages.getString("ReportStrategies.TrendNote2") + "\n\n", descriptionFont, true );   //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
 			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
 			e.printStackTrace();
 
@@ -249,7 +251,7 @@ public class ReportStrategies extends ReportDataDictionary {
 						int columnNo = 1;
 						for (Iterator iter2 = evalGroup.getStrategies().iterator(); iter2.hasNext();) {
 							EvaluationStrategy strategy = (EvaluationStrategy) iter2.next();
-							Integer hashKey = new Integer(columnNo);
+							Integer hashKey = Integer.valueOf(columnNo);
 							strategies.put(hashKey, strategy);
 							columnNo++;
 						}
@@ -395,6 +397,7 @@ public class ReportStrategies extends ReportDataDictionary {
 				document.add(Chunk.NEXTPAGE);
 			}
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
 			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
 			e.printStackTrace();
 
@@ -692,6 +695,7 @@ public class ReportStrategies extends ReportDataDictionary {
 			table.addCell(trendCell);
 		}
 		catch(Exception e){
+			@SuppressWarnings("unused")
 			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
 			e.printStackTrace();
 		}
@@ -723,7 +727,7 @@ public class ReportStrategies extends ReportDataDictionary {
 							int columnNo = 1;
 							for (Iterator iter2 = evalGroup.getStrategies().iterator(); iter2.hasNext();) {
 								EvaluationStrategy strategy = (EvaluationStrategy) iter2.next();
-								Integer hashKey = new Integer(columnNo);
+								Integer hashKey = Integer.valueOf(columnNo);
 								strategies.put(hashKey, strategy);
 								columnNo++;
 							}
@@ -922,6 +926,7 @@ public class ReportStrategies extends ReportDataDictionary {
 
 				}
 			} catch (Exception e) {
+				@SuppressWarnings("unused")
 				jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
 				e.printStackTrace();
 
@@ -996,6 +1001,7 @@ public class ReportStrategies extends ReportDataDictionary {
 			}
 
 		} catch (Exception e) {
+			@SuppressWarnings("unused")
 			jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
 			e.printStackTrace();
 		}

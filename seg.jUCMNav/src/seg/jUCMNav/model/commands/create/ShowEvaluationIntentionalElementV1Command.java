@@ -13,12 +13,9 @@ import grl.ElementLink;
 import grl.Evaluation;
 import grl.EvaluationStrategy;
 import grl.GRLGraph;
-import grl.GRLLinkableElement;
 import grl.IntentionalElement;
 import grl.IntentionalElementRef;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.importexport.ExportGRLCatalog;
-import seg.jUCMNav.importexport.ImportGRLCatalog;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import seg.jUCMNav.model.commands.delete.DeleteGRLGraphCommand;
@@ -35,29 +32,29 @@ public class ShowEvaluationIntentionalElementV1Command extends Command implement
     private GRLGraph grlGraph;
     private EvaluationStrategy strategy;
     private int value;
-    private ImportGRLCatalog IGC;
-    private ExportGRLCatalog EGC;
-    private URNspec newUrn;
+    //private ImportGRLCatalog IGC;
+    //private ExportGRLCatalog EGC;
+    //private URNspec newUrn;
     private GRLGraph newGraph;
     
     private List<Evaluation> evals; // list of the evaluations of the strategy
     private List<IntentionalElement> nodesInStrategy; // nodes that are considered in the strategy
-    private List<IntentionalElement> contributorsNodesToSelectedNodes; // list of the contributors of the selected node
+    //private List<IntentionalElement> contributorsNodesToSelectedNodes; // list of the contributors of the selected node
     private ArrayList<EvaluationStrategy> urnspecEvaluationStrategyList; // list of all the existing strategies in the graph
-    private ArrayList<IntentionalElement> desiredIntentionalElementList;
+    //private ArrayList<IntentionalElement> desiredIntentionalElementList;
     private ArrayList<IntentionalElementRef> existingIntentionalElementRefsList;
     private ArrayList<IntentionalElement> existingIntentionalElementList;
     private ArrayList<IntentionalElementRef> addedIntentionlElementRefinNewGraph;
     
-    private List<GRLLinkableElement> srcGRLLinkableElementList; // List of the GRLLinkable(IntentionalElement) Elements that the selected element is the source for it
-    private List<GRLLinkableElement> destGRLLinkableElementList; // List of the GRLLinkable(IntentionalElement) Elements that the selected element is the destination for it
+    //private List<GRLLinkableElement> srcGRLLinkableElementList; // List of the GRLLinkable(IntentionalElement) Elements that the selected element is the source for it
+    //private List<GRLLinkableElement> destGRLLinkableElementList; // List of the GRLLinkable(IntentionalElement) Elements that the selected element is the destination for it
     private List<IntentionalElement> leafNodes;
     private List<IntentionalElementRef> leafNodesRefs;
     private List<IntentionalElementRef> startingNodes;
     private List<IntentionalElementRef> consideringNodes;
-    private ArrayList<IntentionalElement> LogicallyConnectedElementList;
+    //private ArrayList<IntentionalElement> LogicallyConnectedElementList;
     private List<ElementLink> linksSourceList;
-    private List<ElementLink> linksDestinationList;
+    //private List<ElementLink> linksDestinationList;
     
   
     public ShowEvaluationIntentionalElementV1Command(URNspec spec, EObject obj, EvaluationStrategy es, String v, GRLGraph g) 
@@ -162,7 +159,7 @@ public class ShowEvaluationIntentionalElementV1Command extends Command implement
           //public void run() {
         
         Command cmd;        
-        IntentionalElementRef ieRef, new_ieRef;
+        IntentionalElementRef ieRef;
         IntentionalElement intentionalElement;
         
         // creating a new graph

@@ -21,7 +21,7 @@ import seg.jUCMNav.importexport.z151.generated.Responsibility;
 public class RespRefUMHandler extends PathNodeUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		RespRef elemZ = (RespRef) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.RespRef elem = (ucm.map.RespRef) getObject(elemZ.getId(), target, ucm.map.RespRef.class);
 		if (isFullConstruction) {
 			elem = (ucm.map.RespRef) super.handle(elemZ, elem, true);

@@ -19,7 +19,7 @@ import seg.jUCMNav.importexport.z151.generated.ProcessingResource;
 public class ProcessingResourceUMHandler extends ActiveResourceUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		ProcessingResource elemZ = (ProcessingResource) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.performance.ProcessingResource elem = (ucm.performance.ProcessingResource) getObject(elemZ.getId(), target, ucm.performance.ProcessingResource.class);
 		if (isFullConstruction) {
 			elem = (ucm.performance.ProcessingResource) super.handle(elemZ, elem, true);

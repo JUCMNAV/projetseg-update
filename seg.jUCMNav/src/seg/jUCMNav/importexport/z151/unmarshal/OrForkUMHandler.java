@@ -14,7 +14,7 @@ import seg.jUCMNav.importexport.z151.generated.OrFork;
 public class OrForkUMHandler extends PathNodeUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		OrFork elemZ = (OrFork) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.OrFork elem = (ucm.map.OrFork) getObject(elemZ.getId(), target, ucm.map.OrFork.class);
 		if (isFullConstruction) {			
 			elem = (ucm.map.OrFork) super.handle(elemZ, elem, true);

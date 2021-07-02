@@ -3,18 +3,16 @@ package seg.jUCMNav.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import grl.Evaluation;
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import grl.Evaluation;
+import grl.EvaluationStrategy;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.actions.hyperlinks.HyperlinkUtils;
@@ -33,7 +31,7 @@ public class ShowEvaluationIntentionalElementAction extends URNSelectionAction
     private IntentionalElementRef elementRef;
     private URNspec urnspec;
     private EvaluationStrategy strategy;
-    private GRLGraph newGraph;
+    //private GRLGraph newGraph;
     
     public ShowEvaluationIntentionalElementAction(IWorkbenchPart part)
     {

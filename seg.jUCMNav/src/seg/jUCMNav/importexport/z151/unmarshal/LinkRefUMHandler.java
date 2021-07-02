@@ -29,7 +29,7 @@ import seg.jUCMNav.model.ModelCreationFactory;
 public class LinkRefUMHandler extends EObjectImplUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		LinkRef elemZ = (LinkRef) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		IntentionalElementType type = ((IntentionalElement) ((IntentionalElementRef) elemZ.getSource()).getDef()).getType();
 		if (type.equals(IntentionalElementType.BELIEF)) {
 			grl.BeliefLink elem = (grl.BeliefLink) getObject(elemZ.getId(), target, grl.BeliefLink.class);

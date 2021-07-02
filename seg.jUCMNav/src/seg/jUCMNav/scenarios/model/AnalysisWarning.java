@@ -3,9 +3,6 @@ package seg.jUCMNav.scenarios.model;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.emf.ecore.EObject;
 
-import ucm.map.NodeConnection;
-import urncore.Condition;
-
 
 
 /**

@@ -23,7 +23,7 @@ import seg.jUCMNav.importexport.z151.generated.Workload;
 public class WorkloadUMHandler extends UCMmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		Workload elemZ = (Workload) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.performance.Workload elem = (ucm.performance.Workload) getObject(elemZ.getId(), target, ucm.performance.Workload.class);
 		if (isFullConstruction) {
 			elem = (ucm.performance.Workload) super.handle(elemZ, elem, true);

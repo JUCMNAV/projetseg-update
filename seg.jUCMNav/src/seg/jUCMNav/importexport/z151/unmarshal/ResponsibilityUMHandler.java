@@ -24,7 +24,7 @@ import seg.jUCMNav.importexport.z151.generated.Responsibility;
 public class ResponsibilityUMHandler extends UCMmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		Responsibility elemZ = (Responsibility) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		urncore.Responsibility elem = (urncore.Responsibility) getObject(elemZ.getId(), target, urncore.Responsibility.class);
 		if (isFullConstruction) {
 			

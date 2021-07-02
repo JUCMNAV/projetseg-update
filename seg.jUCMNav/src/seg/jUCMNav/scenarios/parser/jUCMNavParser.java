@@ -18,7 +18,8 @@ public class jUCMNavParser/* @bgen(jjtree) */implements jUCMNavParserTreeConstan
         }
     }
 
-    static final public SimpleNode Start() throws ParseException {
+    
+	static final public SimpleNode Start() throws ParseException {
         /* @bgen(jjtree) Start */
         SimpleNode jjtn000 = new SimpleNode(JJTSTART);
         boolean jjtc000 = true;
@@ -60,6 +61,7 @@ public class jUCMNavParser/* @bgen(jjtree) */implements jUCMNavParserTreeConstan
                 jjtree.closeNodeScope(jjtn000, true);
             }
         }
+        
         throw new Error("Missing return statement in function"); //$NON-NLS-1$
     }
 

@@ -37,6 +37,7 @@ public class ReportHeader extends Report {
             document.setHeader(header);
             document.setFooter(footer);
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

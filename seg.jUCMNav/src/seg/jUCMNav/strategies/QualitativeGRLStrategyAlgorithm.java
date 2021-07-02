@@ -236,7 +236,7 @@ public class QualitativeGRLStrategyAlgorithm extends PropagationGRLStrategyAlgor
         if (numRead > 1) {
             int ns = sums[S];
             int nws = sums[WS];
-            int nn = sums[N];
+            //int nn = sums[N];
             int nwd = sums[WD];
             int nd = sums[D];
             int nc = sums[C];
@@ -308,8 +308,8 @@ public class QualitativeGRLStrategyAlgorithm extends PropagationGRLStrategyAlgor
      * @see seg.jUCMNav.extensionpoints.IGRLStrategyAlgorithm#getActorEvaluation(grl.Actor)
      */
     public int getActorEvaluation(Actor actor) {
-        double satisficed = 0;
-        double denied = 0;
+        //double satisficed = 0;
+        //double denied = 0;
 
         int total = 0;
 
@@ -565,7 +565,7 @@ public class QualitativeGRLStrategyAlgorithm extends PropagationGRLStrategyAlgor
      * Calculate Aggregate Contribution for decomposition type "And"
      */
     protected String getAndAggregate(int[] count){
-    	String contriValue = un;
+    	//String contriValue = un;
     	
     	//Get dominant in each type and initialize the weaker one to 0
     	for (int i = 0; i <= 4; i = i + 2){

@@ -44,6 +44,7 @@ public class PDFReport extends Report {
 			fHeight = Float.parseFloat(sReportHeight) * 72;
 			fWidth = Float.parseFloat(sReportWidth) * 72;
 		} catch (NumberFormatException e1) {
+			@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e1.getMessage());
 			e1.printStackTrace();
 		}
@@ -77,7 +78,7 @@ public class PDFReport extends Report {
             document.close();
 
         } catch (Exception e) {
-
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

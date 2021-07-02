@@ -3,15 +3,6 @@
  */
 package seg.jUCMNav.editpolicies.layout;
 
-import grl.ActorRef;
-import grl.Belief;
-import grl.GRLGraph;
-import grl.GRLNode;
-import grl.IntentionalElementRef;
-import grl.kpimodel.Indicator;
-import grl.kpimodel.KPIInformationElementRef;
-
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -22,6 +13,13 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
 
+import grl.ActorRef;
+import grl.Belief;
+import grl.GRLGraph;
+import grl.GRLNode;
+import grl.IntentionalElementRef;
+import grl.kpimodel.Indicator;
+import grl.kpimodel.KPIInformationElementRef;
 import seg.jUCMNav.editparts.GrlNodeEditPart;
 import seg.jUCMNav.model.commands.changeConstraints.SetConstraintBoundContainerRefCompoundCommand;
 import seg.jUCMNav.model.commands.changeConstraints.SetConstraintGrlNodeCommand;
@@ -261,7 +259,7 @@ public class GrlGraphXYLayoutEditPolicy extends AbstractDiagramXYLayoutEditPolic
      * @return true if 
      */
     protected boolean isMultipleSelected(GRLNode node, List selectedNodes) {
-        HashSet ncs = new HashSet();
+        //HashSet ncs = new HashSet();
         
         QFindReachableNodes qReachableNodes = new ReachableGRLNodeFinder.QFindReachableNodes(node);
         RReachableNodes rReachableNodes = (RReachableNodes) GraphExplorer.run(qReachableNodes);

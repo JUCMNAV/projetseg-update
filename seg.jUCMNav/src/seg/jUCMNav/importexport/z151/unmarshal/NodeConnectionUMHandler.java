@@ -24,7 +24,7 @@ import seg.jUCMNav.model.ModelCreationFactory;
 public class NodeConnectionUMHandler extends EObjectImplUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		NodeConnection elemZ = (NodeConnection) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.NodeConnection elem = (ucm.map.NodeConnection) getObject(elemZ.getId(), target, ucm.map.NodeConnection.class);
 		if (isFullConstruction) {
 			// TODO elemZ.getId()

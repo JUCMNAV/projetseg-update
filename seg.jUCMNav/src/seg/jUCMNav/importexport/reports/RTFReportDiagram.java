@@ -110,6 +110,7 @@ public class RTFReportDiagram extends PDFReport {
             }
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
         }
@@ -138,6 +139,7 @@ public class RTFReportDiagram extends PDFReport {
             document.add(headerTable);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -198,9 +200,10 @@ public class RTFReportDiagram extends PDFReport {
             image.dispose();
             awtImage.flush();
 
-            boolean isLast = i == mapDiagrams.size() - 1;
+            //boolean isLast = i == mapDiagrams.size() - 1;
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -232,6 +235,7 @@ public class RTFReportDiagram extends PDFReport {
             document.add(headerTable);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 
@@ -264,6 +268,7 @@ public class RTFReportDiagram extends PDFReport {
             document.add(descText);
 
         } catch (Exception e) {
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(e.getMessage());
             e.printStackTrace();
 

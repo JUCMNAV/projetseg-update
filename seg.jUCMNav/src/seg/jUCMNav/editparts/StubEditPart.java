@@ -53,7 +53,7 @@ public class StubEditPart extends PathNodeEditPart {
      * Creates a StubFigure and sets its dynamic property.
      */
     protected IFigure createFigure() {
-        Stub stub = (Stub) getModel();
+        //Stub stub = (Stub) getModel();
         figure = new StubFigure();
         return figure;
     }

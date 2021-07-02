@@ -24,7 +24,7 @@ import seg.jUCMNav.model.ModelCreationFactory;
 public class PathNodeUMHandler extends UCMmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		PathNode elemZ = (PathNode) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.PathNode elem = (ucm.map.PathNode) getObject(elemZ.getId(), target, ucm.map.PathNode.class);
 		if (isFullConstruction) {
 			elem = (ucm.map.PathNode) super.handle(elemZ, elem, true);

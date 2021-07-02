@@ -41,7 +41,7 @@ public class IntentionalElementUMHandler extends GRLLinkableElementUMHandler {
                     }
                 }               
             }
-            String objId = elemZ.getId();
+            //String objId = elemZ.getId();
             if (elem == null) {
                 elem = (grl.IntentionalElement) getObject(elemZ.getId(), target, grl.IntentionalElement.class);
             }

@@ -20,7 +20,7 @@ import seg.jUCMNav.importexport.z151.generated.URNmodelElement;
 public class URNmodelElementUMHandler extends EObjectImplUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		URNmodelElement elemZ = (URNmodelElement) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		urncore.URNmodelElement elem = (urncore.URNmodelElement) getObject(elemZ.getId(), target, urncore.URNmodelElement.class);
 		if (isFullConstruction) {
 			elem.setId(elemZ.getId());

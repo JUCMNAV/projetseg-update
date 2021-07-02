@@ -18,7 +18,7 @@ import seg.jUCMNav.importexport.z151.generated.WaitingPlace;
 public class WaitingPlaceUMHandler extends PathNodeUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		WaitingPlace elemZ = (WaitingPlace) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.WaitingPlace elem = (ucm.map.WaitingPlace) getObject(elemZ.getId(), target, ucm.map.WaitingPlace.class);
 		if (isFullConstruction) {
 			elem = (ucm.map.WaitingPlace) super.handle(elemZ, elem, true);

@@ -18,7 +18,7 @@ import seg.jUCMNav.importexport.z151.generated.StrategiesGroup;
 public class StrategiesGroupUMHandler extends GRLmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		StrategiesGroup elemZ = (StrategiesGroup) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		grl.StrategiesGroup elem = (grl.StrategiesGroup) getObject(elemZ.getId(), target, grl.StrategiesGroup.class);
 		if (isFullConstruction) {
 			elem = (grl.StrategiesGroup) super.handle(elemZ, elem, true);

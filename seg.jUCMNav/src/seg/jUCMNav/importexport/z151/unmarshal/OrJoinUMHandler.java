@@ -13,7 +13,7 @@ import seg.jUCMNav.importexport.z151.generated.OrJoin;
 public class OrJoinUMHandler extends PathNodeUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		OrJoin elemZ = (OrJoin) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.OrJoin elem = (ucm.map.OrJoin) getObject(elemZ.getId(), target, ucm.map.OrJoin.class);
 		if (isFullConstruction) {
 			elem = (ucm.map.OrJoin) super.handle(elemZ, elem, true);

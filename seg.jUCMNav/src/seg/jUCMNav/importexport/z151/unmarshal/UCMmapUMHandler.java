@@ -26,7 +26,7 @@ import seg.jUCMNav.model.util.MetadataHelper;
 public class UCMmapUMHandler extends UCMmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		UCMmap elemZ = (UCMmap) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.map.UCMmap elem = (ucm.map.UCMmap) getObject(elemZ.getId(), target, ucm.map.UCMmap.class);
 		if (isFullConstruction) {
 			elem = (ucm.map.UCMmap) super.handle(elemZ, elem, true);

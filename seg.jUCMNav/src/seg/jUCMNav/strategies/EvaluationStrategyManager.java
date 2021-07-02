@@ -30,7 +30,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -394,7 +393,7 @@ public class EvaluationStrategyManager {
     // before it starts to execute applying the runtime metadata reexpose to IntentionalElement
     public static void clearAllRuntimeReexposeMetadata(URNspec urn) {
 		// TODO Auto-generated method stub
-		LinkedList<Feature> list = new LinkedList<Feature>();
+		//LinkedList<Feature> list = new LinkedList<Feature>();
 		for(Iterator itr = urn.getGrlspec().getIntElements().iterator(); itr.hasNext();){
 			 IntentionalElement intElem = (IntentionalElement)itr.next();
 			 if( intElem instanceof Feature && FeatureUtil.isReexposed(intElem)){
@@ -524,7 +523,7 @@ public class EvaluationStrategyManager {
 		else
 			actorEval = algo.getActorEvaluation(actor);
         setEvaluationMetadata(actor, actorEval);
-        currentActorEvaluations.put(actor, new Integer(actorEval));
+        currentActorEvaluations.put(actor, Integer.valueOf(actorEval));
         return actorEval;
     }
 
@@ -1727,7 +1726,7 @@ public class EvaluationStrategyManager {
         for (int i = 0; i < def.getIncludedContexts().size(); i++) {
             // add the index of the contribution context in this list.
             // given how we merge included contribution context (to avoid duplication), this list is non-obvious
-            indexes.add(new Integer(all.indexOf(def.getIncludedContexts().get(i))));
+            indexes.add(Integer.valueOf(all.indexOf(def.getIncludedContexts().get(i))));
         }
         return indexes;
     }
@@ -1857,7 +1856,7 @@ public class EvaluationStrategyManager {
         for (int i = 0; i < def.getIncludedStrategies().size(); i++) {
             // add the index of the strategy in this list.
             // given how we merge included strategy (to avoid duplication), this list is non-obvious
-            indexes.add(new Integer(all.indexOf(def.getIncludedStrategies().get(i))));
+            indexes.add(Integer.valueOf(all.indexOf(def.getIncludedStrategies().get(i))));
         }
         return indexes;
     }
@@ -2411,7 +2410,7 @@ public class EvaluationStrategyManager {
     private float calculateInitialValue(LinearChange change) {
     	float startValue = 0;
     	boolean foundStartValue = false;
-    	Change previousChange = null;
+    	//Change previousChange = null;
     	List availChanges = DynamicContextsUtils.getAllAvailableChanges(change.getElement(), change.getContext(), change.getContext().getUrnspec());
     	for (Iterator iter = availChanges.iterator(); iter.hasNext();) {
     		Change nextChange = (Change) iter.next();

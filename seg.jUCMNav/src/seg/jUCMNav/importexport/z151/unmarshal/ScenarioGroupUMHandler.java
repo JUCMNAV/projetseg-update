@@ -18,7 +18,7 @@ import seg.jUCMNav.importexport.z151.generated.ScenarioGroup;
 public class ScenarioGroupUMHandler extends UCMmodelElementUMHandler {
 	public Object handle(Object o, Object target, boolean isFullConstruction) {
 		ScenarioGroup elemZ = (ScenarioGroup) o;
-		String objId = elemZ.getId();
+		//String objId = elemZ.getId();
 		ucm.scenario.ScenarioGroup elem = (ucm.scenario.ScenarioGroup) getObject(elemZ.getId(), target, ucm.scenario.ScenarioGroup.class);
 		if (isFullConstruction) {
 		elem = (ucm.scenario.ScenarioGroup) super.handle(elemZ, elem, true);

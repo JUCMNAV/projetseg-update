@@ -60,17 +60,17 @@ public class KPIValueWebServiceBeanPortBindingStub extends org.apache.axis.clien
         ((org.apache.axis.client.Service) super.service).setTypeMappingVersion("1.2"); //$NON-NLS-1$
         java.lang.Class cls;
         javax.xml.namespace.QName qName;
-        javax.xml.namespace.QName qName2;
+        //javax.xml.namespace.QName qName2;
         java.lang.Class beansf = org.apache.axis.encoding.ser.BeanSerializerFactory.class;
         java.lang.Class beandf = org.apache.axis.encoding.ser.BeanDeserializerFactory.class;
-        java.lang.Class enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
-        java.lang.Class enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
-        java.lang.Class arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
-        java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
-        java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
-        java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
-        java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
-        java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
+        //java.lang.Class enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
+        //java.lang.Class enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
+        //java.lang.Class arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
+        //java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
+        //java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
+        //java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
+        //java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
+        //java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
         qName = new javax.xml.namespace.QName("http://service.bpm.com/", "kpiEntity"); //$NON-NLS-1$ //$NON-NLS-2$
         cachedSerQNames.add(qName);
         cls = seg.jUCMNav.kpi.ws.KpiEntity.class;

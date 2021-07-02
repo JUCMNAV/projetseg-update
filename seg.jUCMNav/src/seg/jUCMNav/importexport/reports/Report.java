@@ -136,6 +136,7 @@ public class Report extends URNReport {
         } catch (Exception e) {
 //        	System.out.println( "In Report.export: " + e.getMessage());
         	final String errorString = e.getMessage();
+        	@SuppressWarnings("unused")
             jUCMNavErrorDialog error = new jUCMNavErrorDialog(errorString);
             e.printStackTrace();
 
