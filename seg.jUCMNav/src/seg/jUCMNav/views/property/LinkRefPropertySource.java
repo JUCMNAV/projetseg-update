@@ -116,7 +116,7 @@ public class LinkRefPropertySource extends URNElementPropertySource {
         if (result instanceof Integer && propertyid.getFeature().getName() == "quantitativeContribution") { //$NON-NLS-1$
             int val = ((Integer) result).intValue();
             // val = StrategyEvaluationPreferences.getValueToVisualize(val);
-            result = new Integer(val);
+            result = Integer.valueOf(val);
         }
         return result;
     }
@@ -154,7 +154,7 @@ public class LinkRefPropertySource extends URNElementPropertySource {
         } else if (feature.getContainerClass() == Contribution.class) {
             // The feature should be a int
             if (feature.getEType().getInstanceClass() == int.class) {
-                Integer temp = new Integer(Integer.parseInt((String) value));
+                Integer temp = Integer.valueOf(Integer.parseInt((String) value));
                 setElementLinkQuantitativeContribution(element, temp.intValue());
             } else if (feature.getEType().getInstanceClass() == ContributionType.class) {
                 ContributionType label = ContributionType.get(((Integer) value).intValue());

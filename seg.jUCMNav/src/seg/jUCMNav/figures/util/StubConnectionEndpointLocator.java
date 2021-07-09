@@ -62,33 +62,20 @@ public class StubConnectionEndpointLocator implements Locator {
      * 
      * @param loc The point that is to be located
      */
-    private int calculateConnectionLocation(Point loc, Point topLeft, Point center) {
-        double m1, m2 = 0;
-        m1 = (double) (topLeft.y - center.y) / (double) (topLeft.x - center.x);
-
-        if (loc.x - center.x != 0)
-            m2 = (double) (loc.y - center.y) / (double) (loc.x - center.x);
-
-        if (loc.x == center.x) {
-            // Case where m2 is vertical
-            if (loc.y < center.y)
-                return 3;
-            else
-                return 1;
-        } else if (Math.abs(m2) <= Math.abs(m1)) {
-            // Connection start point along left or right side
-            if (loc.x < center.x)
-                return 4;
-            else
-                return 2;
-        } else {
-            // Connection start point along top or bottom
-            if (loc.y < center.y)
-                return 3;
-            else
-                return 1;
-        }
-    }
+	/*
+	 * private int calculateConnectionLocation(Point loc, Point topLeft, Point
+	 * center) { double m1, m2 = 0; m1 = (double) (topLeft.y - center.y) / (double)
+	 * (topLeft.x - center.x);
+	 * 
+	 * if (loc.x - center.x != 0) m2 = (double) (loc.y - center.y) / (double) (loc.x
+	 * - center.x);
+	 * 
+	 * if (loc.x == center.x) { // Case where m2 is vertical if (loc.y < center.y)
+	 * return 3; else return 1; } else if (Math.abs(m2) <= Math.abs(m1)) { //
+	 * Connection start point along left or right side if (loc.x < center.x) return
+	 * 4; else return 2; } else { // Connection start point along top or bottom if
+	 * (loc.y < center.y) return 3; else return 1; } }
+	 */
 
     /*
      * This method is used to calculate the "quadrant" value of a connection that does not have an owner on its starting point.
@@ -146,15 +133,13 @@ public class StubConnectionEndpointLocator implements Locator {
         return conn;
     }
 
-    private IFigure getConnectionOwner() {
-        IFigure connOwner;
-        if (isEnd())
-            connOwner = conn.getTargetAnchor().getOwner();
-        else
-            connOwner = conn.getSourceAnchor().getOwner();
-
-        return connOwner;
-    }
+	/*
+	 * private IFigure getConnectionOwner() { IFigure connOwner; if (isEnd())
+	 * connOwner = conn.getTargetAnchor().getOwner(); else connOwner =
+	 * conn.getSourceAnchor().getOwner();
+	 * 
+	 * return connOwner; }
+	 */
 
     /**
      * Returns the distance in pixels from the anchor's owner.

@@ -192,19 +192,20 @@ public class jUCMNavParserTokenManager implements jUCMNavParserConstants {
         } while (start++ != end);
     }
 
-    static private final void jjCheckNAddStates(int start) {
-        jjCheckNAdd(jjnextStates[start]);
-        jjCheckNAdd(jjnextStates[start + 1]);
-    }
+	/*
+	 * static private final void jjCheckNAddStates(int start) {
+	 * jjCheckNAdd(jjnextStates[start]); jjCheckNAdd(jjnextStates[start + 1]); }
+	 */
     static final long[] jjbitVec0 = { 0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
     static private final int jjMoveNfa_0(int startState, int curPos) {
-        int[] nextStates;
+        //int[] nextStates;
         int startsAt = 0;
         jjnewStateCnt = 42;
         int i = 1;
         jjstateSet[0] = startState;
-        int j, kind = 0x7fffffff;
+        //int j;
+        int kind = 0x7fffffff;
         for (;;) {
             if (++jjround == 0x7fffffff)
                 ReInitRounds();
@@ -556,8 +557,8 @@ public class jUCMNavParserTokenManager implements jUCMNavParserConstants {
     static int jjmatchedKind;
 
     public static Token getNextToken() {
-        int kind;
-        Token specialToken = null;
+        //int kind;
+        //Token specialToken = null;
         Token matchedToken;
         int curPos = 0;
 

@@ -56,12 +56,12 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
      *            the topmost thread id
      * @param toThread
      */
-    protected void notifyListeners(Vector threadList, TraversalVisit nextNode, int fromThread, int toThread) {
+    protected void notifyListeners(Vector<Integer> threadList, TraversalVisit nextNode, int fromThread, int toThread) {
         // was not blocked.
         if (_traversalData.getConsecutiveReblocks() == 0) {
             _listeners.pathNodeVisited(nextNode);
-            Vector newlyAdded = new Vector();
-            Vector newlyDied = new Vector();
+            Vector<Integer> newlyAdded = new Vector<Integer>();
+            Vector<Integer> newlyDied = new Vector<Integer>();
 
             if (!nextNode.isValidParentComponent())
                 _warnings.add(new TraversalWarning(
@@ -77,13 +77,13 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
                 // now in data structure so that we can send a traversalvisit
                 // _listeners.newThreadStarted(visit) - nextNode here is not the new thread.
                 // System.out.println("New thread started: " + i);
-                newlyAdded.add(new Integer(i));
-                threadList.add(new Integer(i));
+                newlyAdded.add(Integer.valueOf(i));
+                threadList.add(Integer.valueOf(i));
             }
 
             // cannot be found inside the data structure as a "dead" node could be pushed back onto the list
-            for (Iterator iter = threadList.iterator(); iter.hasNext();) {
-                Integer i = (Integer) iter.next();
+            for (Iterator<Integer> iter = threadList.iterator(); iter.hasNext();) {
+                Integer i = iter.next();
                 int status = _traversalData.getThreadState(i.intValue());
                 if (status < 0)
                     _warnings.add(new TraversalWarning("ThreadID sanity check error (" + status + ") for ThreadID " + i.intValue(), IMarker.SEVERITY_ERROR)); //$NON-NLS-1$ //$NON-NLS-2$
@@ -103,11 +103,11 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
                     if (newlyDied.size() > newlyAdded.size()) {
                         // System.out.println("And-Join from threads " + ArrayAndListUtils.listToString(newlyDied, ",") + " to thread " +
                         // newlyAdded.get(0).toString() );
-                        _listeners.threadsMerged(newlyDied, ((Integer) newlyAdded.get(0)).intValue());
+                        _listeners.threadsMerged(newlyDied, newlyAdded.get(0).intValue());
                     } else { // implicit because of xor in previous if : if (newlyDied.size()>newlyAdded.size())
                         // System.out.println("And-Fork from thread " + newlyDied.get(0).toString() + " to threads " +
                         // ArrayAndListUtils.listToString(newlyAdded, ","));
-                        _listeners.threadSplit(((Integer) newlyDied.get(0)).intValue(), newlyAdded);
+                        _listeners.threadSplit(newlyDied.get(0).intValue(), newlyAdded);
                     }
 
                 } else
@@ -128,11 +128,11 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
      */
     protected void processAllNodes(UcmEnvironment env) throws TraversalException {
 
-        Vector threadList = new Vector();
+        Vector<Integer> threadList = new Vector<Integer>();
         TraversalVisit nextNode = null;
         for (int i = 1; i < _traversalData.getNextThreadID(); i++) {
             // System.out.println("New thread started: " + i);
-            threadList.add(new Integer(i));
+            threadList.add(Integer.valueOf(i));
         }
 
         // while no errors and while we have something to do
@@ -303,10 +303,10 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
                         + Messages.getString("DefaultScenarioTraversal.DidNotEvaluateToTrue"))) { //$NON-NLS-1$
 
             // filter by "instance" that launched the start.
-            Vector outbindings = new Vector();
+            Vector<OutBinding> outbindings = new Vector<OutBinding>();
             // first find outbindings we need to fire
-            for (Iterator iter = _traversalData.getCurrentContext().iterator(); iter.hasNext();) {
-                PluginBinding binding = (PluginBinding) iter.next();
+            for (Iterator<PluginBinding> iter = _traversalData.getCurrentContext().iterator(); iter.hasNext();) {
+                PluginBinding binding = iter.next();
                 for (Iterator iterator = binding.getOut().iterator(); iterator.hasNext();) {
                     OutBinding outbinding = (OutBinding) iterator.next();
                     if (outbinding.getEndPoint().equals(end)) {
@@ -318,16 +318,16 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
             }
 
             // remove them from the context
-            for (Iterator iter = outbindings.iterator(); iter.hasNext();) {
-                OutBinding outbinding = (OutBinding) iter.next();
+            for (Iterator<OutBinding> iter = outbindings.iterator(); iter.hasNext();) {
+                OutBinding outbinding = iter.next();
                 while (_traversalData.getCurrentContext().contains(outbinding.getBinding()))
                     // can be in there multiple times.
                     _traversalData.getCurrentContext().remove(outbinding.getBinding());
             }
 
             // fire the bindings with the new context
-            for (Iterator iter = outbindings.iterator(); iter.hasNext();) {
-                OutBinding binding = (OutBinding) iter.next();
+            for (Iterator<OutBinding> iter = outbindings.iterator(); iter.hasNext();) {
+                OutBinding binding = iter.next();
                 if (binding.getStubExit() != null) {
                     _traversalData.incrementHitCount(binding.getStubExit());
                     _traversalData.incrementHitCount(binding);
@@ -438,7 +438,7 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
     protected void processOrFork(UcmEnvironment env, OrFork orfork) throws TraversalException {
         // TODO: Semantic variation: All true branches? First only? Error if multiple true? If multiple, in sequence or parallel?
 
-        Vector toVisit = new Vector();
+        Vector<NodeConnection> toVisit = new Vector<NodeConnection>();
         for (Iterator iter = orfork.getSucc().iterator(); iter.hasNext();) {
             NodeConnection nc = (NodeConnection) iter.next();
             try {
@@ -468,10 +468,10 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
 
         if (toVisit.size() > 0) {
             if (ScenarioTraversalPreferences.getIsDeterministic())
-                _traversalData.visitNodeConnection((NodeConnection) toVisit.get(0));
+                _traversalData.visitNodeConnection(toVisit.get(0));
             else {
                 int i = (int) Math.round(Math.random() * (toVisit.size() - 1));
-                _traversalData.visitNodeConnection((NodeConnection) toVisit.get(i));
+                _traversalData.visitNodeConnection(toVisit.get(i));
             }
         } else if (ScenarioTraversalPreferences.getIsPatientOnPreconditions()) {
             _traversalData.addToWaitingList(orfork);
@@ -570,12 +570,12 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
      * @throws TraversalException
      */
     protected void processStub(UcmEnvironment env, NodeConnection source, Stub stub) throws TraversalException {
-        boolean b = false;
+       // boolean b = false;
         // TODO: Semantic variation: All true branches? First only? Error if multiple true? If multiple, in sequence or parallel?
 
         if (source != null) {
 
-            Vector toVisit = new Vector();
+            Vector<InBinding> toVisit = new Vector<InBinding>();
             for (Iterator iter = stub.getBindings().iterator(); iter.hasNext();) {
                 PluginBinding binding = (PluginBinding) iter.next();
 
@@ -632,10 +632,10 @@ public class DefaultScenarioTraversal extends AbstractScenarioTraversal implemen
                 InBinding inb = null;
 
                 if (ScenarioTraversalPreferences.getIsDeterministic())
-                    inb = (InBinding) toVisit.get(0);
+                    inb = toVisit.get(0);
                 else {
                     int i = (int) Math.round(Math.random() * (toVisit.size() - 1));
-                    inb = (InBinding) toVisit.get(i);
+                    inb = toVisit.get(i);
 
                 }
                 PluginBinding binding = inb.getBinding();

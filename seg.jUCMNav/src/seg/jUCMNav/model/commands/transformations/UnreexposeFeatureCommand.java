@@ -6,7 +6,6 @@ import grl.Evaluation;
 import grl.EvaluationStrategy;
 import grl.IntentionalElementRef;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editparts.IntentionalElementEditPart;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.strategies.EvaluationStrategyManager;

@@ -6,7 +6,7 @@ public class jUCMNavParser/* @bgen(jjtree) */implements jUCMNavParserTreeConstan
 
     public static void main(String args[]) {
         System.out.println("Reading from standard input..."); //$NON-NLS-1$
-        jUCMNavParser t = new jUCMNavParser(System.in);
+        //jUCMNavParser t = new jUCMNavParser(System.in);
         try {
             SimpleNode n = jUCMNavParser.Start();
             n.dump(""); //$NON-NLS-1$
@@ -19,6 +19,7 @@ public class jUCMNavParser/* @bgen(jjtree) */implements jUCMNavParserTreeConstan
     }
 
     
+	@SuppressWarnings("unused")
 	static final public SimpleNode Start() throws ParseException {
         /* @bgen(jjtree) Start */
         SimpleNode jjtn000 = new SimpleNode(JJTSTART);
@@ -65,7 +66,8 @@ public class jUCMNavParser/* @bgen(jjtree) */implements jUCMNavParserTreeConstan
         throw new Error("Missing return statement in function"); //$NON-NLS-1$
     }
 
-    static final public SimpleNode StartResponsibility() throws ParseException {
+    @SuppressWarnings("unused")
+	static final public SimpleNode StartResponsibility() throws ParseException {
         /* @bgen(jjtree) StartResponsibility */
         SimpleNode jjtn000 = new SimpleNode(JJTSTARTRESPONSIBILITY);
         boolean jjtc000 = true;
@@ -1186,7 +1188,7 @@ public class jUCMNavParser/* @bgen(jjtree) */implements jUCMNavParserTreeConstan
             return (jj_ntk = jj_nt.kind);
     }
 
-    static private java.util.Vector jj_expentries = new java.util.Vector();
+    static private java.util.Vector<int[]> jj_expentries = new java.util.Vector<int[]>();
     static private int[] jj_expentry;
     static private int jj_kind = -1;
 

@@ -8,7 +8,6 @@ import org.eclipse.swt.graphics.Image;
 
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextUrnModelElementTreeEditPart;
 import seg.jUCMNav.model.util.DelegatingElementComparator;
 import urn.URNspec;
 

@@ -53,7 +53,7 @@ public class StubFigure extends PathNodeFigure implements IRotateable {
 
     // Related to the type of the stub
     private int aspect = 0;
-    private int pointcutKind;
+    //private int pointcutKind;
     
     private FreeformLayer exitPanel; // Contains the figures for an Exit Aspect Marker exept the lozange
     private FreeformLayer entrancePanel;  // Contains the figures for an Entrance Aspect Marker exept the lozange
@@ -72,7 +72,7 @@ public class StubFigure extends PathNodeFigure implements IRotateable {
     private PointList lineExitPoints;
     private PointList rectCondPoints;
     
-    private double angle; // Current rotated angle
+    //private double angle; // Current rotated angle
 
     /**
      * Creates the stub's figure.
@@ -291,7 +291,7 @@ public class StubFigure extends PathNodeFigure implements IRotateable {
         exitPanel.setVisible(false);
         condPanel.setVisible(false);
 
-        this.pointcutKind = pointcutKind;
+        //this.pointcutKind = pointcutKind;
         this.aspect = aspect;
 
         if (aspect == 0) {
@@ -398,7 +398,7 @@ public class StubFigure extends PathNodeFigure implements IRotateable {
             angle -= Math.PI;
         
         if (aspect != 0) {
-            this.angle = angle;
+            //this.angle = angle;
             Point center = new Point(getPreferredSize().width / 2, getPreferredSize().height / 2);
             
             PointList newPoints = TransformationHelper.rotatePoints(angle, aspectEdges, center);

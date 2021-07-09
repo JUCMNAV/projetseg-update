@@ -20,11 +20,11 @@ import seg.jUCMNav.figures.ColorManager;
  */
 public abstract class AbstractDynamicContextEvaluationViewEditPart extends AbstractGraphicalEditPart {
 	
-	protected List dynViewObjects;
+	protected List<DynamicContextEvaluationViewObject> dynViewObjects;
 
     public AbstractDynamicContextEvaluationViewEditPart(Object model) {
         setModel(model);
-        dynViewObjects = new ArrayList();
+        dynViewObjects = new ArrayList<DynamicContextEvaluationViewObject>();
         dynViewObjects.add(createDynamicContextEvaluationViewObject());
     }
 

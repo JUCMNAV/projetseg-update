@@ -38,7 +38,7 @@ public class ConcernsMapTreeEditPart extends MapTreeEditPart {
      * @see seg.jUCMNav.editparts.treeEditparts.MapTreeEditPart#getModelChildren()
      */
     public List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<PathNode> list = new ArrayList<PathNode>();
         // check if the map has already appeared in the branch of the tree above the location of
         // this TreeEditPart, only add the stubs if it hasn't to avoid an infinite loop
         if (!isAncestorOfItself) {

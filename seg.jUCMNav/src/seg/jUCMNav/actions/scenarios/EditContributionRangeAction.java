@@ -1,14 +1,12 @@
 package seg.jUCMNav.actions.scenarios;
 
-import grl.Contribution;
-import grl.ContributionChange;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import grl.Contribution;
+import grl.ContributionChange;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.actions.URNSelectionAction;
@@ -25,7 +23,7 @@ public class EditContributionRangeAction extends URNSelectionAction {
 
     public static final String EDITCONTRIBUTIONRANGEACTION = "seg.jUCMNav.EditContributionRangeAction"; //$NON-NLS-1$
 
-    private EObject obj;
+    //private EObject obj;
     private URNspec urn;
 
     /**
@@ -50,12 +48,12 @@ public class EditContributionRangeAction extends URNSelectionAction {
     private ContributionChange getSelectedContributionChange() {
         SelectionHelper sel = new SelectionHelper(getSelectedObjects());
         Contribution contrib = sel.getContribution();
-        obj = null;
+        //obj = null;
         urn = sel.getUrnspec();
         if (urn!=null && contrib!=null) {
             ContributionChange c  = EvaluationStrategyManager.getInstance().findApplicableContributionChange(contrib, true);
             if (c!=null) {
-                obj = c;
+                //obj = c;
                 return c;
             }
 

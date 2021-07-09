@@ -45,7 +45,7 @@ public class UrnTextSearchViewPage extends AbstractTextSearchViewPage {
 
     public UrnTextSearchViewPage() {
         super(AbstractTextSearchViewPage.FLAG_LAYOUT_TREE);
-        setElementLimit(new Integer(DEFAULT_ELEMENT_LIMIT));
+        setElementLimit(Integer.valueOf(DEFAULT_ELEMENT_LIMIT));
     }
 
     private IFileSearchContentProvider fContentProvider;
@@ -216,14 +216,14 @@ public class UrnTextSearchViewPage extends AbstractTextSearchViewPage {
                 if (showLineMatches()) {
                     int matchCount = getInput().getMatchCount();
                     if (itemCount < matchCount) {
-                        return Messages.format(SearchMessages.FileSearchPage_limited_format_matches, new Object[] { label, new Integer(itemCount),
-                                new Integer(matchCount) });
+                        return Messages.format(SearchMessages.FileSearchPage_limited_format_matches, new Object[] { label, Integer.valueOf(itemCount),
+                                Integer.valueOf(matchCount) });
                     }
                 } else {
                     int fileCount = getInput().getElements().length;
                     if (itemCount < fileCount) {
-                        return Messages.format(SearchMessages.FileSearchPage_limited_format_files, new Object[] { label, new Integer(itemCount),
-                                new Integer(fileCount) });
+                        return Messages.format(SearchMessages.FileSearchPage_limited_format_files, new Object[] { label, Integer.valueOf(itemCount),
+                                Integer.valueOf(fileCount) });
                     }
                 }
             }

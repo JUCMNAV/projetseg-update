@@ -22,7 +22,6 @@ import seg.jUCMNav.editparts.StubEditPart;
 import seg.jUCMNav.model.util.MetadataHelper;
 import ucm.map.ComponentRef;
 import ucm.map.PathNode;
-import urn.URNspec;
 import urncore.IURNNode;
 import urncore.URNmodelElement;
 
@@ -49,11 +48,11 @@ public class AlignStateSourceProvider extends AbstractSourceProvider {
 		private static final String SELTYPE_COMPONENT = "3";
 		private static final String SELTYPE_PATHNODE = "4";
 		    
-		private URNmodelElement element;
-	    private IntentionalElementRef elementRef;
-	    private URNspec urnspec;
+		//private URNmodelElement element;
+	    //private IntentionalElementRef elementRef;
+	    //private URNspec urnspec;
 	    private String selType;
-	    private String alignType;
+	    //private String alignType;
 	    private List wholeSelection;
 	    
 	    private List<IntentionalElementRef> intElemList;

@@ -1,10 +1,5 @@
 package seg.jUCMNav.editparts;
 
-import grl.kpimodel.KPIInformationConfig;
-import grl.kpimodel.KPIInformationElement;
-import grl.kpimodel.KPIInformationElementRef;
-import grl.kpimodel.KpimodelPackage;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,12 +18,13 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import grl.kpimodel.KPIInformationElement;
+import grl.kpimodel.KPIInformationElementRef;
 import seg.jUCMNav.editpolicies.directEditPolicy.GrlNodeDirectEditPolicy;
 import seg.jUCMNav.editpolicies.directEditPolicy.KPIInformationElementNodeEditPolicy;
 import seg.jUCMNav.editpolicies.element.GRLNodeComponentEditPolicy;
 import seg.jUCMNav.editpolicies.feedback.GrlNodeFeedbackEditPolicy;
 import seg.jUCMNav.figures.KPIInformationElementFigure;
-import seg.jUCMNav.strategies.EvaluationStrategyManager;
 import seg.jUCMNav.views.property.KPIInformationElementPropertySource;
 import urncore.IURNConnection;
 import urncore.IURNNode;
@@ -182,7 +178,7 @@ public class KPIInformationElementEditPart extends GrlNodeEditPart implements No
         refreshSourceConnections();
         refreshVisuals();
 
-        int featureId = notification.getFeatureID(KpimodelPackage.class);
+        //int featureId = notification.getFeatureID(KpimodelPackage.class);
 
         // we want the top level editpart to refresh its children so that the largest components are always in the back.
         if (notification.getEventType() == Notification.SET && getParent() != null)
@@ -207,7 +203,7 @@ public class KPIInformationElementEditPart extends GrlNodeEditPart implements No
 
         // set information for specific drawing
         if ((getNode()).getDef() != null && ((getNode()).getDef() instanceof KPIInformationElement)) {
-            KPIInformationElement elem = (getNode()).getDef();
+            //KPIInformationElement elem = (getNode()).getDef();
 
             // Set the line color and fill color. Option only available in design view
             if (getParent() == null || !((GrlConnectionOnBottomRootEditPart) getRoot()).isStrategyView()) {
@@ -216,7 +212,7 @@ public class KPIInformationElementEditPart extends GrlNodeEditPart implements No
                 // Set strategy view to true
                 ((KPIInformationElementPropertySource) getPropertySource()).setEvaluationStrategyView(true);
                 // Get the kpi information configuration
-                KPIInformationConfig kpiInformationConfig = EvaluationStrategyManager.getInstance().getKPIInformationConfigObject(getNode().getDef());
+                //KPIInformationConfig kpiInformationConfig = EvaluationStrategyManager.getInstance().getKPIInformationConfigObject(getNode().getDef());
 
                 refreshConnections();
             }

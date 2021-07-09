@@ -1,7 +1,5 @@
 package seg.jUCMNav.model.commands.transformations;
 
-import java.util.Vector;
-
 import org.eclipse.gef.commands.Command;
 
 import grl.EvaluationStrategy;
@@ -10,7 +8,6 @@ import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import seg.jUCMNav.model.util.MetadataHelper;
 import seg.jUCMNav.strategies.EvaluationStrategyManager;
-import seg.jUCMNav.strategies.QuantitativeGRLStrategyAlgorithm;
 import urn.URNspec;
 import urncore.Metadata;
 

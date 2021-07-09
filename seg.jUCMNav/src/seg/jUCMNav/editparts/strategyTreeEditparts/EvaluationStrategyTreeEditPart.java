@@ -59,7 +59,7 @@ public class EvaluationStrategyTreeEditPart extends StrategyUrnModelElementTreeE
     
   
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
         list.add(Messages.getString("EvaluationStrategyTreeEditPart.IncludedStrategies")); //$NON-NLS-1$
         return list;
     }

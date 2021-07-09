@@ -1,21 +1,17 @@
 package seg.jUCMNav.editparts.treeEditparts;
 
 import java.util.ArrayList;
-
-import org.eclipse.emf.common.util.EList;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.swt.graphics.Image;
 
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.model.util.DelegatingElementComparator;
 import seg.jUCMNav.model.util.MetadataHelper;
-import seg.jUCMNav.model.util.URNNamingHelper;
 import seg.jUCMNav.views.preferences.DisplayPreferences;
 import urn.URNspec;
 import urncore.Concern;
@@ -92,7 +88,7 @@ public class URNspecTreeEditPart extends UrnModelElementTreeEditPart {
      */
     protected List getModelChildren() {
         boolean globalFilter = DisplayPreferences.getInstance().isGlobalFilterEnabled();
-        ArrayList list = new ArrayList();
+        ArrayList<Object> list = new ArrayList<Object>();
         if (!onlyDefinitions) {
             for (Iterator iterator = getURNspec().getUrndef().getSpecDiagrams().iterator(); iterator.hasNext();) {
                 URNmodelElement object = (URNmodelElement) iterator.next();

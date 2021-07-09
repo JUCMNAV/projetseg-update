@@ -111,7 +111,7 @@ public class QualitativeGRLStrategyAlgorithm extends PropagationGRLStrategyAlgor
         }
 
         QualitativeLabel depMinLabel = null;
-        boolean foundSmallerDependency = false;
+        //boolean foundSmallerDependency = false;
         DependencyQualitativeLabelComparitor labelComp = new DependencyQualitativeLabelComparitor();
         int numContributions = 0;
         int sums[] = new int[7];
@@ -141,7 +141,7 @@ public class QualitativeGRLStrategyAlgorithm extends PropagationGRLStrategyAlgor
 
                 if (labelComp.compare(depValue, depMinLabel) > 0) {
                     depMinLabel = depValue;
-                    foundSmallerDependency = true;
+                    //foundSmallerDependency = true;
                 }
             } else if (link instanceof Contribution) {
                 Contribution contrib = (Contribution) link;

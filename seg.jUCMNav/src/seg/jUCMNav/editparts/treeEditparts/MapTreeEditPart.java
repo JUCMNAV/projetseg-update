@@ -47,10 +47,10 @@ public class MapTreeEditPart extends UrnModelElementTreeEditPart {
      * @see org.eclipse.gef.EditPart#getChildren()
      */
     public List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<PathNode> list = new ArrayList<PathNode>();
         UCMmap map = getMap();
         list.addAll(map.getContRefs());
-        Vector v = new Vector();
+        Vector<PathNode> v = new Vector<PathNode>();
         for (Iterator iter = map.getNodes().iterator(); iter.hasNext();) {
             PathNode element = (PathNode) iter.next();
             // Do not add the Empty point if the preference is not selected.

@@ -53,7 +53,7 @@ public class DynamicContextEvaluationViewObject {
     private DynamicContext dyn;
     
     //TimepointGroup selected
-    private TimepointGroup group;
+    //private TimepointGroup group;
 
     // Timepoints
     private String[] timepointNames = new String[0];
@@ -62,13 +62,13 @@ public class DynamicContextEvaluationViewObject {
     private int granularity = 1;
 
     // Intentional elements and their links
-    private ArrayList<IntentionalElement> intElts = new ArrayList<IntentionalElement>();
+    //private ArrayList<IntentionalElement> intElts = new ArrayList<IntentionalElement>();
     private ArrayList<ArrayList<Contribution>> contriLinks = new ArrayList<ArrayList<Contribution>>();
     private ArrayList<ArrayList<Dependency>> depLinks = new ArrayList<ArrayList<Dependency>>();
     private ArrayList<ArrayList<Decomposition>> decompLinks = new ArrayList<ArrayList<Decomposition>>();
     
     //Actors
-    private ArrayList<Actor> actors = new ArrayList<Actor>();
+    //private ArrayList<Actor> actors = new ArrayList<Actor>();
     
     //ArrayList that will contain all the elements in proper hierarchy
     private ArrayList<URNmodelElement> allElts = new ArrayList<URNmodelElement>();
@@ -126,7 +126,7 @@ public class DynamicContextEvaluationViewObject {
 
     public DynamicContextEvaluationViewObject(DynamicContext dyn, TimepointGroup group) {
         this.dyn = dyn;
-        this.group = group;
+        //this.group = group;
         
         //Get the granularity for heatmap and charts from preferences
         this.granularity = StrategyEvaluationPreferences.getGranularity();
@@ -175,7 +175,7 @@ public class DynamicContextEvaluationViewObject {
         		countRef += 1;
         		
         		//Add the element to the list if not included before
-        		IntentionalElement elmToIncl = ((IntentionalElementRef) elementRefs.get(i)).getDef();
+        		IntentionalElement elmToIncl = elementRefs.get(i).getDef();
         		if (!elementsIncl[elements.indexOf(elmToIncl)]) {
         			allElts.add(elmToIncl);
         			hierarchyInfo.add(null);
@@ -214,7 +214,7 @@ public class DynamicContextEvaluationViewObject {
         DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         
         //Collect all the timepoints in the group
-        ArrayList timepoints = new ArrayList();
+        ArrayList<Timepoint> timepoints = new ArrayList<Timepoint>();
         timepoints.addAll(group.getTimepoints());
         
         //Sort the timepoints
@@ -224,9 +224,9 @@ public class DynamicContextEvaluationViewObject {
                 return t1.getTimepoint().compareTo(t2.getTimepoint());
             }
 		});
-        Timepoint first = (Timepoint) timepoints.get(0);
+        Timepoint first = timepoints.get(0);
         firstTimepoint = first.getTimepoint();
-        Timepoint last = (Timepoint) timepoints.get(timepoints.size()-1);
+        Timepoint last = timepoints.get(timepoints.size()-1);
         lastTimepoint = last.getTimepoint();
         long diff = last.getTimepoint().getTime() - first.getTimepoint().getTime();
 	    int days = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
@@ -256,7 +256,7 @@ public class DynamicContextEvaluationViewObject {
         	int j = 0;
         	for (int i = 0; i < length; i++) {
         		Calendar c2 = Calendar.getInstance();
-        		c2.setTime(((Timepoint) timepoints.get(j)).getTimepoint());
+        		c2.setTime(timepoints.get(j).getTimepoint());
         		c2.set(Calendar.MILLISECOND, 0);
         		
         		//Check if the date is available in the timepoints of that group 
@@ -268,13 +268,13 @@ public class DynamicContextEvaluationViewObject {
 	        		} else {
 	        			j += 1;
 	        			if (j < timepoints.size()) {
-		        			c2.setTime(((Timepoint) timepoints.get(j)).getTimepoint());
+		        			c2.setTime(timepoints.get(j).getTimepoint());
 		            		c2.set(Calendar.MILLISECOND, 0);
 	        			}
 	        		}
         		}
         		if (available) {
-        			Timepoint tp = (Timepoint) timepoints.get(j);
+        			Timepoint tp = timepoints.get(j);
             		timepointNames[i] = df.format(tp.getTimepoint());
             		if (j < timepoints.size()-1)
             			j += 1;
@@ -388,8 +388,8 @@ public class DynamicContextEvaluationViewObject {
 				            	}
 			            	}
 			            	
-			            	for (Iterator iter = eltContriLinks.iterator(); iter.hasNext();) {
-			            		Contribution link = (Contribution) iter.next();
+			            	for (Iterator<Contribution> iter = eltContriLinks.iterator(); iter.hasNext();) {
+			            		Contribution link = iter.next();
 			            		
 			            		//If the link is deactivated, ignore it
 			            		boolean linkIgnored = false;
@@ -419,8 +419,8 @@ public class DynamicContextEvaluationViewObject {
 			            		}
 			            	}
 			            	
-			            	for (Iterator iter = eltDepLinks.iterator(); iter.hasNext();) {
-			            		Dependency link = (Dependency) iter.next();
+			            	for (Iterator<Dependency> iter = eltDepLinks.iterator(); iter.hasNext();) {
+			            		Dependency link = iter.next();
 			            		
 			            		//If the link is deactivated, ignore it
 			            		boolean linkIgnored = false;
@@ -447,8 +447,8 @@ public class DynamicContextEvaluationViewObject {
 			            		}
 			            	}
 			            	
-			            	for (Iterator iter = eltDecompLinks.iterator(); iter.hasNext();) {
-			            		Decomposition link = (Decomposition) iter.next();
+			            	for (Iterator<Decomposition> iter = eltDecompLinks.iterator(); iter.hasNext();) {
+			            		Decomposition link = iter.next();
 			            		
 			            		//If the link is deactivated, ignore it
 			            		boolean linkIgnored = false;

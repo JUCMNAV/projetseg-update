@@ -27,7 +27,6 @@ import org.etsi.mts.tdl.Interaction;
 import org.etsi.mts.tdl.Package;
 import org.etsi.mts.tdl.ParallelBehaviour;
 import org.etsi.mts.tdl.TdlFactory;
-import org.etsi.mts.tdl.TdlPackage;
 import org.etsi.mts.tdl.TestConfiguration;
 import org.etsi.mts.tdl.TestDescription;
 import org.etsi.mts.tdl.Time;
@@ -81,7 +80,7 @@ public class ExportTDL extends ExportScenarios implements IURNExport{
 	/* 
 	 * A reference to a TdlPackage
 	 */
-	private TdlPackage tdlPackageRef = f.getTdlPackage();
+	//private TdlPackage tdlPackageRef = f.getTdlPackage();
 	
 	/* 
 	 * A List that contains all the ComponentType 

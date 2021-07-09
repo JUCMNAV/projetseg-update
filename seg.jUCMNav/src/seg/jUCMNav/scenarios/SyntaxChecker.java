@@ -56,7 +56,7 @@ public class SyntaxChecker {
      *            the condition's expression.
      * 
      */
-    private static void verifyCondition(URNspec urn, Vector errors, EObject location, String expr) {
+    private static void verifyCondition(URNspec urn, Vector<TraversalWarning> errors, EObject location, String expr) {
         Object o = ScenarioUtils.parse(expr, ScenarioUtils.getEnvironment(urn), false);
         if (!(o instanceof SimpleNode)) {
             TraversalWarning warning = new TraversalWarning((String) o, location, IMarker.SEVERITY_ERROR);
@@ -73,7 +73,7 @@ public class SyntaxChecker {
      * @param errors
      *            where should errors be appended.
      */
-    private static void verifyMapConditions(URNspec urn, Vector errors) {
+    private static void verifyMapConditions(URNspec urn, Vector<TraversalWarning> errors) {
         for (Iterator iter = urn.getUrndef().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram diag = (IURNDiagram) iter.next();
             if (diag instanceof UCMmap) {
@@ -108,7 +108,7 @@ public class SyntaxChecker {
      * @param errors
      *            where should errors be appended.
      */
-    private static void verifyPluginBindingSyntax(URNspec urn, Vector errors) {
+    private static void verifyPluginBindingSyntax(URNspec urn, Vector<TraversalWarning> errors) {
         for (Iterator iter = urn.getUrndef().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram diag = (IURNDiagram) iter.next();
             if (diag instanceof UCMmap) {
@@ -131,7 +131,7 @@ public class SyntaxChecker {
      * @param errors
      *            where should errors be appended.
      */
-    private static void verifyResponsibilitySyntax(URNspec urn, Vector errors) {
+    private static void verifyResponsibilitySyntax(URNspec urn, Vector<TraversalWarning> errors) {
         for (Iterator iter = urn.getUrndef().getResponsibilities().iterator(); iter.hasNext();) {
             Responsibility resp = (Responsibility) iter.next();
             if (!ScenarioUtils.isEmptyResponsibility(resp)) {
@@ -142,7 +142,7 @@ public class SyntaxChecker {
                     else
                         errors.add(new TraversalWarning((String) o, resp, IMarker.SEVERITY_ERROR));
 
-                    ((TraversalWarning) errors.get(errors.size() - 1)).setExpression(resp.getExpression());
+                    errors.get(errors.size() - 1).setExpression(resp.getExpression());
                 }
             }
         }
@@ -156,7 +156,7 @@ public class SyntaxChecker {
      * @param errors
      *            where should errors be appended.
      */
-    private static void verifyFailurePointSyntax(URNspec urn, Vector errors) {
+    private static void verifyFailurePointSyntax(URNspec urn, Vector<TraversalWarning> errors) {
         for (Iterator iter = urn.getUrndef().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram diag = (IURNDiagram) iter.next();
             if (diag instanceof UCMmap) {
@@ -167,7 +167,7 @@ public class SyntaxChecker {
                         Object o = ScenarioUtils.parse(fail.getExpression(), ScenarioUtils.getEnvironment(fail), true);
                         if (!(o instanceof SimpleNode)) {
                             errors.add(new TraversalWarning((String) o, fail, IMarker.SEVERITY_ERROR));
-                            ((TraversalWarning) errors.get(errors.size() - 1)).setExpression(fail.getExpression());
+                            errors.get(errors.size() - 1).setExpression(fail.getExpression());
                         }
                     }
                 }
@@ -183,7 +183,7 @@ public class SyntaxChecker {
      * @param errors
      *            where should errors be appended.
      */
-    private static void verifyScenarioPrePostConditions(URNspec urn, Vector errors) {
+    private static void verifyScenarioPrePostConditions(URNspec urn, Vector<TraversalWarning> errors) {
         for (Iterator iter = urn.getUcmspec().getScenarioGroups().iterator(); iter.hasNext();) {
             ScenarioGroup group = (ScenarioGroup) iter.next();
             for (Iterator iterator = group.getScenarios().iterator(); iterator.hasNext();) {
@@ -207,8 +207,8 @@ public class SyntaxChecker {
      *            the urnspec to be analyzed
      * @return vector of TraversalWarnings for all the elements that do not have a valid syntax.
      */
-    public static Vector verifySyntax(URNspec urn) {
-        Vector errors = new Vector();
+    public static Vector<TraversalWarning> verifySyntax(URNspec urn) {
+        Vector<TraversalWarning> errors = new Vector<TraversalWarning>();
         verifyResponsibilitySyntax(urn, errors);
         verifyFailurePointSyntax(urn, errors);
         verifyPluginBindingSyntax(urn, errors);
@@ -220,7 +220,7 @@ public class SyntaxChecker {
 
     }
 
-    public static void verifyUniqueIDs(URNspec urn, Vector errors) {
+    public static void verifyUniqueIDs(URNspec urn, Vector<TraversalWarning> errors) {
         UrnModelManager manager = new UrnModelManager();
         try {
             Vector duplicates = manager.getDuplicateIDs(urn);

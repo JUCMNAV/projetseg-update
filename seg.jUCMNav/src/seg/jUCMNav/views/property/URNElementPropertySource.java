@@ -1,13 +1,5 @@
 package seg.jUCMNav.views.property;
 
-import grl.ContributionContext;
-import grl.ContributionContextGroup;
-import grl.EvaluationStrategy;
-import grl.QualitativeLabel;
-import grl.StrategiesGroup;
-import grl.kpimodel.QualitativeMapping;
-import grl.kpimodel.QualitativeMappings;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -20,12 +12,18 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.jface.text.templates.GlobalTemplateVariables.Time;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.ui.views.properties.ComboBoxPropertyDescriptor;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
+import grl.ContributionContext;
+import grl.ContributionContextGroup;
+import grl.EvaluationStrategy;
+import grl.QualitativeLabel;
+import grl.StrategiesGroup;
+import grl.kpimodel.QualitativeMapping;
+import grl.kpimodel.QualitativeMappings;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.util.EObjectClassNameComparator;
@@ -54,8 +52,6 @@ import ucm.scenario.ScenarioStartPoint;
 import urn.URNspec;
 import urn.dyncontext.DynamicContext;
 import urn.dyncontext.DynamicContextGroup;
-import urn.dyncontext.Timepoint;
-import urn.dyncontext.TimepointGroup;
 import urncore.Component;
 import urncore.Condition;
 import urncore.IURNContainerRef;
@@ -215,7 +211,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void enumerationDescriptor(Collection descriptors, PropertyID propertyid, String[] values) {
+    private void enumerationDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid, String[] values) {
         // EClassifier type = getFeatureType(propertyid.getFeature());
         // Class enumer = type.getInstanceClass();
         String name = propertyid.getFeature().getName();
@@ -269,7 +265,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void conditionDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void conditionDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         PropertyDescriptor pd;
 
         pd = new PropertyDescriptor(propertyid, propertyid.getFeature().getName());
@@ -290,7 +286,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void scenarioGroupDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void scenarioGroupDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         if (((ScenarioDef) getEditableValue()).getGroup() == null || ((ScenarioDef) getEditableValue()).getGroup().getUcmspec() == null)
             return;
         URNspec urn = ((ScenarioDef) getEditableValue()).getGroup().getUcmspec().getUrnspec();
@@ -318,7 +314,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void strategyGroupDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void strategyGroupDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         if (((EvaluationStrategy) getEditableValue()).getGroup() == null || ((EvaluationStrategy) getEditableValue()).getGroup().getGrlspec() == null)
             return;
         URNspec urn = ((EvaluationStrategy) getEditableValue()).getGroup().getGrlspec().getUrnspec();
@@ -345,7 +341,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void contributionContextGroupDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void contributionContextGroupDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         if (((ContributionContext) getEditableValue()).getGroups().size() == 0
                 || ((ContributionContextGroup) ((ContributionContext) getEditableValue()).getGroups().get(0)).getGrlspec() == null)
             return;
@@ -374,7 +370,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void dynamicContextGroupDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void dynamicContextGroupDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         if (((DynamicContext) getEditableValue()).getGroups().get(0) == null || ((DynamicContext) getEditableValue()).getUrnspec() == null)
             return;
         URNspec urn = ((DynamicContext) getEditableValue()).getUrnspec();
@@ -419,7 +415,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void dynamicContextStrategyDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void dynamicContextStrategyDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         if (((DynamicContext) getEditableValue()).getGroups().get(0) == null || ((DynamicContext) getEditableValue()).getUrnspec() == null)
             return;
         URNspec urn = ((DynamicContext) getEditableValue()).getUrnspec();
@@ -447,7 +443,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
      * @param descriptors
      * @param propertyid
      */
-    private void dynamicContextContributionContextDescriptor(Collection descriptors, PropertyID propertyid) {
+    private void dynamicContextContributionContextDescriptor(Collection<PropertyDescriptor> descriptors, PropertyID propertyid) {
         if (((DynamicContext) getEditableValue()).getGroups().get(0) == null || ((DynamicContext) getEditableValue()).getUrnspec() == null)
             return;
         URNspec urn = ((DynamicContext) getEditableValue()).getUrnspec();
@@ -483,10 +479,10 @@ public class URNElementPropertySource extends EObjectPropertySource {
                 else
                     parent = ((IURNNode) getEditableValue()).getContRef();
                 if (list.get(i).equals(parent))
-                    result = new Integer(i + 1);
+                    result = Integer.valueOf(i + 1);
             }
             if (result == null)
-                result = new Integer(0);
+                result = Integer.valueOf(0);
 
         } else if (getFeatureType(feature).getInstanceClass() == Workload.class) {
             StartPoint pt = null;
@@ -537,7 +533,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((ScenarioDef) getEditableValue()).getGroup()))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if (getFeatureType(feature).getInstanceClass() == StrategiesGroup.class && getEditableValue() instanceof EvaluationStrategy) {
             URNspec urn = ((EvaluationStrategy) getEditableValue()).getGroup().getGrlspec().getUrnspec();
@@ -546,7 +542,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((EvaluationStrategy) getEditableValue()).getGroup()))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if (getFeatureType(feature).getInstanceClass() == ContributionContextGroup.class && getEditableValue() instanceof ContributionContext
                 && ((ContributionContext) getEditableValue()).getGroups().size() > 0) {
@@ -557,7 +553,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
             for (int i = 0; i < list.size(); i++) {
                 if (((ContributionContext) getEditableValue()).getGroups().size() > 0
                         && list.get(i).equals(((ContributionContext) getEditableValue()).getGroups().get(0)))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if (getFeatureType(feature).getInstanceClass() == DynamicContextGroup.class && getEditableValue() instanceof DynamicContext) {
             URNspec urn = ((DynamicContext) getEditableValue()).getUrnspec();
@@ -566,7 +562,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals((DynamicContextGroup) ((DynamicContext) getEditableValue()).getGroups().get(0)))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if (getFeatureType(feature).getInstanceClass() == EvaluationStrategy.class && getEditableValue() instanceof DynamicContext) {
             URNspec urn = ((DynamicContext) getEditableValue()).getUrnspec();
@@ -575,7 +571,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((DynamicContext) getEditableValue()).getStrategy()))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if (getFeatureType(feature).getInstanceClass() == ContributionContext.class && getEditableValue() instanceof DynamicContext) {
             URNspec urn = ((DynamicContext) getEditableValue()).getUrnspec();
@@ -584,21 +580,21 @@ public class URNElementPropertySource extends EObjectPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((DynamicContext) getEditableValue()).getContributionContext()))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if ((getEditableValue() instanceof Initialization && feature.getName().equals("value")) && ((Initialization) getEditableValue()).getVariable().getEnumerationType() != null && ((Initialization) getEditableValue()).getVariable().getEnumerationType().getValues() != null) { //$NON-NLS-1$)
             String[] values = ((Initialization) getEditableValue()).getVariable().getEnumerationType().getValues().split(","); //$NON-NLS-1$
             String value = super.returnPropertyValue(feature, result) != null ? super.returnPropertyValue(feature, result).toString() : ""; //$NON-NLS-1$
             for (int i = 0; i < values.length; i++) {
                 if (values[i].equalsIgnoreCase(value))
-                    return new Integer(i);
+                    return Integer.valueOf(i);
             }
 
-            return new Integer(0);
+            return Integer.valueOf(0);
         } else if (result instanceof AbstractEnumerator) {
             // if this is an EMF enumeration
             int i = getEnumerationIndex((AbstractEnumerator) result);
-            result = new Integer(i);
+            result = Integer.valueOf(i);
         } else {
             result = super.returnPropertyValue(feature, result);
         }
@@ -629,7 +625,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
                 && (getEditableValue() instanceof IURNNode || getEditableValue() instanceof IURNContainerRef)) {
             Vector list = ParentFinder.getPossibleParents((URNmodelElement) getEditableValue());
             Collections.sort(list, new EObjectClassNameComparator());
-            if (((Integer) value).equals(new Integer(0)))
+            if (((Integer) value).equals(Integer.valueOf(0)))
                 result = null;
             else
                 result = list.get(((Integer) value).intValue() - 1);
@@ -762,7 +758,7 @@ public class URNElementPropertySource extends EObjectPropertySource {
             super.setPropertyValue(id, value);
     }
 
-    private void componentRefDescriptor(Collection descriptors, EStructuralFeature attr, PropertyID propertyid) {
+    private void componentRefDescriptor(Collection<PropertyDescriptor> descriptors, EStructuralFeature attr, PropertyID propertyid) {
         Vector list = ParentFinder.getPossibleParents((URNmodelElement) getEditableValue());
         Collections.sort(list, new EObjectClassNameComparator());
         String[] values = new String[list.size() + 1];

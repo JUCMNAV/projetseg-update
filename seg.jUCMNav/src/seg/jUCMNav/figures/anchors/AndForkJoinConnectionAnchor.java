@@ -16,6 +16,7 @@ import ucm.map.AndFork;
 import ucm.map.AndJoin;
 import ucm.map.NodeConnection;
 import ucm.map.PathNode;
+import urncore.IURNNode;
 
 /**
  * Connection anchor for AndForks and AndJoins. Positions themselves on the rotated line.
@@ -74,7 +75,7 @@ public class AndForkJoinConnectionAnchor extends AbstractConnectionAnchor {
         Polygon subfig = ((Polygon) figure.getChildren().get(0));
         int minPoint = -1;
         PointList list = subfig.getPoints().getCopy();
-        Vector v = new Vector();
+        Vector<IURNNode> v = new Vector<IURNNode>();
 
         if (pn instanceof AndFork) {
             if (subfig.getPoints().size() - 2 >= pn.getSucc().size()) {

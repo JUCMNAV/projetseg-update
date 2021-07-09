@@ -1,24 +1,25 @@
 package seg.jUCMNav.model.commands.create;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
+import grl.ElementLink;
+import grl.GRLGraph;
+import grl.GRLLinkableElement;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
-import seg.jUCMNav.model.commands.create.CreateAllLinkRefCommand;
 import seg.jUCMNav.model.commands.delete.DeleteAllLinkRefCommand;
 import seg.jUCMNav.model.commands.delete.internal.DisconnectGRLNodeCommand;
 import seg.jUCMNav.model.commands.delete.internal.RemoveURNmodelElementCommand;
 import urn.URNspec;
 import urncore.GRLmodelElement;
 import urncore.IURNDiagram;
-import grl.ElementLink;
-import grl.GRLGraph;
-import grl.GRLLinkableElement;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import java.util.*;
 
 /**
  * 

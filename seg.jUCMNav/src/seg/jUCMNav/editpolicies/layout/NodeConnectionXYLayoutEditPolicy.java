@@ -59,7 +59,7 @@ public class NodeConnectionXYLayoutEditPolicy extends XYLayoutEditPolicy {
      * @see org.eclipse.gef.editpolicies.ConstrainedLayoutEditPolicy#createAddCommand(org.eclipse.gef.EditPart, java.lang.Object)
      */
     protected Command createAddCommand(EditPart child, Object constraint) {
-        Vector selection = new Vector();
+        Vector<EditPart> selection = new Vector<EditPart>();
         selection.add(child);
         selection.add(getHost());
 

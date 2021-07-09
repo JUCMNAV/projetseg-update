@@ -1,9 +1,5 @@
 package seg.jUCMNav.editparts.kpiTreeEditparts;
 
-import grl.Evaluation;
-import grl.kpimodel.Indicator;
-import grl.kpimodel.KPIEvalValueSet;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +9,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import grl.Evaluation;
+import grl.kpimodel.Indicator;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.editpolicies.element.IntentionalElementComponentEditPolicy;
 import seg.jUCMNav.figures.ColorManager;
@@ -56,7 +54,7 @@ public class IndicatorTreeEditPart extends KPIUrnModelElementTreeEditPart {
         if (sm.getEvaluationStrategy() != null) {
             Evaluation eval = sm.getEvaluationObject(getNode());
             int evalLevel = eval.getEvaluation();
-            KPIEvalValueSet kpiEvalValueSet = sm.getActiveKPIEvalValueSet(getNode());
+            //KPIEvalValueSet kpiEvalValueSet = sm.getActiveKPIEvalValueSet(getNode());
             if (evalLevel > 0) {
                 iconFile = "icons/indicator_up.gif"; //$NON-NLS-1$
             } else if (evalLevel < 0) {

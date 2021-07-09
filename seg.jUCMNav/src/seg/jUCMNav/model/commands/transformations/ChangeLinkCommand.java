@@ -138,7 +138,7 @@ public class ChangeLinkCommand extends Command implements JUCMNavCommand {
 			}
 			
 			ElementLink link = null;
-			int type = new Integer(0);
+			int type = Integer.valueOf(0);
 			
 			if (strRelationship == ChangeLinkCommand.FEATURE_MANDATORY_RELATIONSHIP) {
 				// add mandatory link between this feature and the new child feature
@@ -149,11 +149,11 @@ public class ChangeLinkCommand extends Command implements JUCMNavCommand {
 			} else if (strRelationship == ChangeLinkCommand.FEATURE_XOR_RELATIONSHIP) {
 				// add XOR decomposition link between this feature and the new child feature
 				link = (ElementLink) ModelCreationFactory.getNewObject(urn, Decomposition.class);
-				type = new Integer(2);
+				type = Integer.valueOf(2);
 			} else if (strRelationship == ChangeLinkCommand.FEATURE_OR_RELATIONSHIP) {
 				// add OR decomposition link between this feature and the new child feature
 				link = (ElementLink) ModelCreationFactory.getNewObject(urn, Decomposition.class);
-				type = new Integer(1);
+				type = Integer.valueOf(1);
 			}
 			
 			CreateElementLinkCommand celCmd = new CreateElementLinkCommand(urn, linkSource, link, strPosition);

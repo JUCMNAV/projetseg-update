@@ -13,7 +13,7 @@ import org.eclipse.swt.SWT;
 public class KPIInformationElementFigure extends GrlNodeFigure {
 
     // the KPIInformationElementType
-    private int type;
+    //private int type;
 
     /**
      * Default figure is a Dimension.

@@ -28,7 +28,7 @@ public class DynamicContextRootEditPart extends UrnAbstractTreeEditPart {
      * Return the root URNSpec
      */
     protected List getModelChildren() {
-        ArrayList l = new ArrayList();
+        ArrayList<Object> l = new ArrayList<Object>();
 
         l.add(((UCMNavMultiPageEditor) getModel()).getModel());
         l.add(((UCMNavMultiPageEditor) getModel()).getModel().getTimepointGroups());

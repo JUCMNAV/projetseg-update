@@ -73,7 +73,7 @@ public class IntegerInputRangeDialog extends Dialog {
             public void handleEvent(Event event) {
 
                 try {
-                    value = new Integer(text.getText().trim());
+                    value = Integer.valueOf(text.getText().trim());
 
                     if (value.intValue() >= IntegerInputRangeDialog.lowRange && value.intValue() <= IntegerInputRangeDialog.highRange) {
                         buttonOK.setEnabled(true);

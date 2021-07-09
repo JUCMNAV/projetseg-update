@@ -85,7 +85,7 @@ public class GRLspecKPITreeEditPart extends KPIUrnModelElementTreeEditPart {
      * 
      * @return the node.
      */
-    private GRLspec getNode() {
-        return (GRLspec) getModel();
-    }
+	/*
+	 * private GRLspec getNode() { return (GRLspec) getModel(); }
+	 */
 }

@@ -62,7 +62,7 @@ public class ContributionContextTreeEditPart extends StrategyUrnModelElementTree
     
   
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
         list.add(CONTRIBUTION_CHANGES);
         list.add(INCLUDED_CONTRIBUTION_CONTEXTS);
         return list;

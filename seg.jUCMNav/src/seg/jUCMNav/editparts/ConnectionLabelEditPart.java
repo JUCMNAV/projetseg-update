@@ -120,9 +120,10 @@ public class ConnectionLabelEditPart extends LabelEditPart {
         return super.calculateModelElementPosition(label, labelDimension);
     }
     
-    private double dotProduct(double p1x, double p1y, double p2x, double p2y) {
-        return p1x*p2x + p1y*p2y;
-    }
+	/*
+	 * private double dotProduct(double p1x, double p1y, double p2x, double p2y) {
+	 * return p1x*p2x + p1y*p2y; }
+	 */
     
     private double length(double px, double py) {
         return Math.sqrt(Math.pow(px,2) + Math.pow(py, 2));

@@ -113,7 +113,7 @@ public class GeneralResourceTreeEditPart extends UrnModelElementTreeEditPart {
      * Return the sorted list of component or responsibility definitions.
      */
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<ComponentTreeWrapper> list = new ArrayList<ComponentTreeWrapper>();
         GeneralResource res = getResource();
 
         if (res instanceof PassiveResource) {

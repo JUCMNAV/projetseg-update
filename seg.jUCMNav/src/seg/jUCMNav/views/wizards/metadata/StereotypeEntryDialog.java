@@ -208,7 +208,7 @@ public class StereotypeEntryDialog extends MetadataEntryDialog {
             reverse.put(name, eClassifier.getName());
 
             combo.add(name);
-            combo.setData(eClassifier.getName(), new Integer(j));
+            combo.setData(eClassifier.getName(), Integer.valueOf(j));
             j++;
         }
 

@@ -30,7 +30,7 @@ public class URNDiagramIndexDialog extends ElementListSelectionDialog {
         List<Object> result = new Vector<Object>();
         
         result.add(getSelectedElements()[0]);
-        result.add(new Boolean(mapDropdown.getSelectionIndex() != 0));
+        result.add(Boolean.valueOf(mapDropdown.getSelectionIndex() != 0));
         
         setResult(result);
     }

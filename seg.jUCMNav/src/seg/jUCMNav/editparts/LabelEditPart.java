@@ -1,11 +1,5 @@
 package seg.jUCMNav.editparts;
 
-import grl.Actor;
-import grl.ActorRef;
-import grl.GrlPackage;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -24,6 +18,10 @@ import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import grl.Actor;
+import grl.ActorRef;
+import grl.IntentionalElementRef;
+import grl.LinkRef;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextsUtils;
@@ -271,7 +269,7 @@ public class LabelEditPart extends ModelElementEditPart {
         int type = notification.getEventType();
         int featureIdUrn = notification.getFeatureID(UrncorePackage.class);
         int featureIdUcm = notification.getFeatureID(MapPackage.class);
-        int featureIdGrl = notification.getFeatureID(GrlPackage.class);
+        //int featureIdGrl = notification.getFeatureID(GrlPackage.class);
 
         // bug 523: feedback remains even when element is deleted.
         eraseTargetFeedback(new SelectionRequest());

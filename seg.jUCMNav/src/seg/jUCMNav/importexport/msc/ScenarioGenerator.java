@@ -172,24 +172,22 @@ public class ScenarioGenerator {
      * @param map
      *            the map containing the component references.
      */
-    private void addComponentReferences(ucmscenarios.ScenarioDef scenario, UCMmap map) {
-        Instance instance = f.createInstance();
-        instance.setId("I0"); //$NON-NLS-1$
-        instance.setName(Messages.getString("ScenarioGenerator.Environment")); //$NON-NLS-1$
-        instance.setDescription(Messages.getString("ScenarioGenerator.TheExternalEnvironment")); //$NON-NLS-1$
-        instance.setScenario(scenario);
-        instance.setDefinition(_environmentComponent);
-        _lastEnvironmentInstance = instance;
-        for (Iterator iter = map.getContRefs().iterator(); iter.hasNext();) {
-            ComponentRef element = (ComponentRef) iter.next();           
-            instance = f.createInstance();
-            setIdNameDesc(element, instance);
-            // refs have no useful names.
-            instance.setName(((Component) element.getContDef()).getName());
-            instance.setScenario(scenario);
-            hmCompRefToInstance.put(element, instance);
-        }
-    }
+	/*
+	 * private void addComponentReferences(ucmscenarios.ScenarioDef scenario, UCMmap
+	 * map) { Instance instance = f.createInstance(); instance.setId("I0");
+	 * //$NON-NLS-1$
+	 * instance.setName(Messages.getString("ScenarioGenerator.Environment"));
+	 * //$NON-NLS-1$ instance.setDescription(Messages.getString(
+	 * "ScenarioGenerator.TheExternalEnvironment")); //$NON-NLS-1$
+	 * instance.setScenario(scenario);
+	 * instance.setDefinition(_environmentComponent); _lastEnvironmentInstance =
+	 * instance; for (Iterator iter = map.getContRefs().iterator(); iter.hasNext();)
+	 * { ComponentRef element = (ComponentRef) iter.next(); instance =
+	 * f.createInstance(); setIdNameDesc(element, instance); // refs have no useful
+	 * names. instance.setName(((Component) element.getContDef()).getName());
+	 * instance.setScenario(scenario); hmCompRefToInstance.put(element, instance); }
+	 * }
+	 */
 
     /**
      * Creates a condition
@@ -653,30 +651,28 @@ public class ScenarioGenerator {
      *            the target scenario
      * @return false if this scenario does not have any start points, true otherwise.
      */
-    private boolean addScenario(ScenarioDef in, ucmscenarios.ScenarioDef out) {
-        processedPathNodes = new HashMap();
-        queuedMessages = new HashMap();
-
-        if (in.getStartPoints().size() > 0) {
-            // assumption: all SSP point to the same map.
-
-            ScenarioStartPoint ssp = (ScenarioStartPoint) in.getStartPoints().get(0);
-            UCMmap map = (UCMmap) ssp.getStartPoint().getDiagram();
-
-            addComponentReferences(out, map);
-
-            addPath(out, in, map);
-
-            if (_lastEnvironmentInstance.getSent().size() == 0 && _lastEnvironmentInstance.getReceived().size() == 0
-                    && _lastEnvironmentInstance.getElements().size() == 0) {
-                _lastEnvironmentInstance.setDefinition(null);
-                _lastEnvironmentInstance.setScenario(null);
-            }
-
-            return true;
-        } else
-            return false;
-    }
+	/*
+	 * private boolean addScenario(ScenarioDef in, ucmscenarios.ScenarioDef out) {
+	 * processedPathNodes = new HashMap(); queuedMessages = new HashMap();
+	 * 
+	 * if (in.getStartPoints().size() > 0) { // assumption: all SSP point to the
+	 * same map.
+	 * 
+	 * ScenarioStartPoint ssp = (ScenarioStartPoint) in.getStartPoints().get(0);
+	 * UCMmap map = (UCMmap) ssp.getStartPoint().getDiagram();
+	 * 
+	 * addComponentReferences(out, map);
+	 * 
+	 * addPath(out, in, map);
+	 * 
+	 * if (_lastEnvironmentInstance.getSent().size() == 0 &&
+	 * _lastEnvironmentInstance.getReceived().size() == 0 &&
+	 * _lastEnvironmentInstance.getElements().size() == 0) {
+	 * _lastEnvironmentInstance.setDefinition(null);
+	 * _lastEnvironmentInstance.setScenario(null); }
+	 * 
+	 * return true; } else return false; }
+	 */
 
     /**
      * Add all scenarios in the group, if they have start points.

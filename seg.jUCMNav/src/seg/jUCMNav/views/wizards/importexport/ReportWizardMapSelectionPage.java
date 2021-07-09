@@ -263,7 +263,7 @@ public class ReportWizardMapSelectionPage extends WizardPage {
 
             // peek to see if this is one of the maps that should be selected by default
             if (selected.indexOf(diagram) >= 0) {
-                vIndices.add(new Integer(i));
+                vIndices.add(Integer.valueOf(i));
             }
 
             diagramName = ReportWizard.getDiagramName(diagram);

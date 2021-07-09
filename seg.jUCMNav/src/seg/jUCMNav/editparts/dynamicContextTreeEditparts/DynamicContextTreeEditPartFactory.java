@@ -10,7 +10,6 @@ import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.editparts.strategyTreeEditparts.ContributionContextLabelTreeEditPart;
 import seg.jUCMNav.editparts.strategyTreeEditparts.ScenarioLabelTreeEditPart;
 import seg.jUCMNav.editparts.strategyTreeEditparts.StrategyLabelTreeEditPart;
-import seg.jUCMNav.editparts.dynamicContextTreeEditparts.TimepointGroupListTreeEditPart;
 import ucm.scenario.ScenarioDef;
 import urn.URNspec;
 import urn.dyncontext.Change;

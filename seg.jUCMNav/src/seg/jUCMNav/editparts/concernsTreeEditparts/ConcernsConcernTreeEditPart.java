@@ -32,9 +32,9 @@ public class ConcernsConcernTreeEditPart extends ConcernTreeEditPart {
      * @return list of diagrams to which the concern is assigned (alphabetically sorted, maps first, grl graphs second)
      * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
      */
-    public List getModelChildren() {
-        ArrayList list = new ArrayList();
-        ArrayList listGrl = new ArrayList();
+    public List<IURNDiagram> getModelChildren() {
+        ArrayList<IURNDiagram> list = new ArrayList<IURNDiagram>();
+        ArrayList<IURNDiagram> listGrl = new ArrayList<IURNDiagram>();
         for (Iterator iter = getConcern().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram element = (IURNDiagram) iter.next();
             if (element instanceof UCMmap)

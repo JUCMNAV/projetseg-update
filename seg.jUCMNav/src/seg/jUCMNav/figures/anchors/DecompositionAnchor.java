@@ -16,14 +16,14 @@ public class DecompositionAnchor extends AbstractConnectionAnchor {
     public static final int TYPE_SRC = 0;
     public static final int TYPE_TARGET = 1;
 
-    private int type;
+    //private int type;
 
     /**
      * @param owner
      */
     public DecompositionAnchor(IFigure owner, int type) {
         super(owner);
-        this.type = type;
+        //this.type = type;
     }
 
     /*

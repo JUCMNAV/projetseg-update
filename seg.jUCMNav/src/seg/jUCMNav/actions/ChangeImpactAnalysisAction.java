@@ -10,16 +10,14 @@ import org.eclipse.ui.IWorkbenchPart;
 import grl.IntentionalElementRef;
 import grl.LinkRef;
 import seg.jUCMNav.model.commands.changeImpactAnalysis.ChangeImpactAnalysisCommand;
-import urn.URNspec;
-import urncore.URNmodelElement;
 
 public class ChangeImpactAnalysisAction  extends URNSelectionAction {
 
 	public static final String ChangeImpactAnalysis = "seg.jUCMNav.ChangeImpactAnalysis";
 	public static EditPartViewer Viewr;
 	 
-	private URNmodelElement element;
-	private URNspec urnspec;
+	//private URNmodelElement element;
+	//private URNspec urnspec;
 	private EObject criterion;
 	
 	/**

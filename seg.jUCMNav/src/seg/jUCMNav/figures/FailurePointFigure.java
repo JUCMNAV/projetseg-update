@@ -23,8 +23,8 @@ public class FailurePointFigure extends PathNodeFigure implements IRotateable {
     private PointList line2;
     private PointList line3;
     
-    protected Vector lines;
-    protected Vector rects;
+    protected Vector<PointList> lines;
+    protected Vector<Polyline> rects;
     
     public FailurePointFigure() {
         super();
@@ -33,10 +33,10 @@ public class FailurePointFigure extends PathNodeFigure implements IRotateable {
     @Override
     protected void createFigure() {
         int width = getPreferredSize().width;
-        int height = getPreferredSize().height;
+        //int height = getPreferredSize().height;
         
-        lines = new Vector();
-        rects = new Vector();
+        lines = new Vector<PointList>();
+        rects = new Vector<Polyline>();
 
         rect1 = new Polyline();
         line1 = new PointList();

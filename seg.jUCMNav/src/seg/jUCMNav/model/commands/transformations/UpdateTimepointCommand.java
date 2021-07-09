@@ -5,11 +5,9 @@ import java.util.Date;
 import org.eclipse.gef.commands.Command;
 
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import urn.URNspec;
 import urn.dyncontext.Timepoint;
-import urn.dyncontext.TimepointGroup;
 
 /**
  * Command to update the selected Timepoint

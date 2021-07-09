@@ -1,6 +1,5 @@
 package seg.jUCMNav.staticSemantic;
 
-import java.io.FileInputStream;
 import java.util.List;
 import java.util.Vector;
 
@@ -58,11 +57,11 @@ public class StaticSemanticChecker {
      * @return true if no rule is violated, otherwise false
      * @see StaticSemanticDefMgr
      */
-    public boolean check(URNspec urn, Vector problems) {
+    public boolean check(URNspec urn, Vector<RuleManagementCheckingMessage> problems) {
         boolean res = true;
         int nTotal = 0;
         int nViolated = 0;
-        FileInputStream in = null;
+        //FileInputStream in = null;
         try {
             // OCL<?, EClassifier, EOperation, ?, ?, ?, ?, ?, ?, Constraint, EClass, EObject> ocl;
             OCL ocl;

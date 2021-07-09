@@ -164,7 +164,7 @@ public class jUCMNavLoader {
             for (int i = 0; i < doAutoLayoutDiagrams.size(); i++) {
                 Object foundObj = URNElementFinder.find(newurn, (String) doAutoLayoutDiagrams.get(i));
                 if (foundObj instanceof IURNDiagram) {
-                    temp.add(new Integer(newurn.getUrndef().getSpecDiagrams().indexOf(foundObj)));
+                    temp.add(Integer.valueOf(newurn.getUrndef().getSpecDiagrams().indexOf(foundObj)));
                 }
             }
         }

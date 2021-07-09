@@ -37,8 +37,8 @@ public class StartPointFigure extends PathNodeFigure {
      */
     protected void createFigure() {
 
-        int width = preferredSize.width;
-        int height = preferredSize.height;
+        //int width = preferredSize.width;
+        //int height = preferredSize.height;
 
         ellipse = new Ellipse();
         ellipse.setBounds(new Rectangle(13, 13, 16, 16));

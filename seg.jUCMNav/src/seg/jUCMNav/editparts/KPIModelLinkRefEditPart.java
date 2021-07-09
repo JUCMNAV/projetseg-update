@@ -251,7 +251,7 @@ public class KPIModelLinkRefEditPart extends AbstractConnectionEditPart {
     protected void refreshVisuals() {
         // refreshBendpoints();
         if (getKPIModelLinkRef().getLink() instanceof KPIModelLink) {
-            KPIModelLink kpiModelLink = (KPIModelLink) getKPIModelLinkRef().getLink();
+            //KPIModelLink kpiModelLink = (KPIModelLink) getKPIModelLinkRef().getLink();
             getKPIModelLinkRefFigure().setType(KPIModelLinkRefConnection.TYPE_KPIMODEL_LINK);
         }
 

@@ -64,8 +64,8 @@ public class ConcernsLabelTreeEditPart extends LabelTreeEditPart {
      * @return the sorted list of root maps and GRL graphs that do not have a concern
      */
     private List getRootMapsGrlGraphsWithoutConcerns() {
-        ArrayList list = new ArrayList();
-        ArrayList listGrl = new ArrayList();
+        ArrayList<Object> list = new ArrayList<Object>();
+        ArrayList<IURNDiagram> listGrl = new ArrayList<IURNDiagram>();
         // add all root maps and GRL graphs in separate lists if no concern is assigned to them
         for (Iterator iter = root.getUrndef().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram diagram = (IURNDiagram) iter.next();
@@ -95,7 +95,7 @@ public class ConcernsLabelTreeEditPart extends LabelTreeEditPart {
      * @return the sorted list of recursive maps
      */
     private List getRecursiveMaps() {
-        ArrayList list = new ArrayList();
+        ArrayList<Object> list = new ArrayList<Object>();
         // add all UCMs to the list
         for (Iterator iter = root.getUrndef().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram element = (IURNDiagram) iter.next();
@@ -217,7 +217,7 @@ public class ConcernsLabelTreeEditPart extends LabelTreeEditPart {
      * deleted concerns and stops listening to them
      */
     private void matchObservedToConcerns() {
-        List newObservedConcerns = new ArrayList();
+        List<EObject> newObservedConcerns = new ArrayList<EObject>();
         for (Iterator iter = root.getUrndef().getConcerns().iterator(); iter.hasNext();) {
             Concern concern = (Concern) iter.next();
             if (observedConcerns.contains(concern)) {
@@ -243,7 +243,7 @@ public class ConcernsLabelTreeEditPart extends LabelTreeEditPart {
      * and stops listening to them
      */
     private void matchObservedToMaps() {
-        List newObservedMaps = new ArrayList();
+        List<EObject> newObservedMaps = new ArrayList<EObject>();
         for (Iterator iter = root.getUrndef().getSpecDiagrams().iterator(); iter.hasNext();) {
             IURNDiagram diagram = (IURNDiagram) iter.next();
             if (diagram instanceof UCMmap) {

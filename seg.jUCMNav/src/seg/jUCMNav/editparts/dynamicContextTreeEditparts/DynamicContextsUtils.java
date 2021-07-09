@@ -59,8 +59,8 @@ public class DynamicContextsUtils {
      *            the context
      * @return the list of {@link DynamicContext}
      */
-    public static Vector getDefinedIncludedContexts(DynamicContext dyn) {
-        Vector contexts = new Vector();
+    public static Vector<DynamicContext> getDefinedIncludedContexts(DynamicContext dyn) {
+        Vector<DynamicContext> contexts = new Vector<DynamicContext>();
         getDefinedIncludedContexts(dyn, contexts);
         return contexts;
     }
@@ -73,7 +73,7 @@ public class DynamicContextsUtils {
      * @param contexts
      *            where to insert the found {@link DynamicContext}s
      */
-    private static void getDefinedIncludedContexts(DynamicContext dyn, Vector contexts) {
+    private static void getDefinedIncludedContexts(DynamicContext dyn, Vector<DynamicContext> contexts) {
         for (Iterator iter = dyn.getIncludedContexts().iterator(); iter.hasNext();) {
             DynamicContext context = (DynamicContext) iter.next();
             getDefinedIncludedContexts(context, contexts);
@@ -126,8 +126,8 @@ public class DynamicContextsUtils {
      * @param contexts
      *            where to insert the found {@link DynamicContext}s
      */
-    public static Vector getDefinedChanges(DynamicContext dyn) {
-        Vector changes = new Vector();
+    public static Vector<Change> getDefinedChanges(DynamicContext dyn) {
+        Vector<Change> changes = new Vector<Change>();
         for (Iterator iter = dyn.getChanges().iterator(); iter.hasNext();) {
             Change change = (Change) iter.next();
             changes.add(change);
@@ -135,9 +135,9 @@ public class DynamicContextsUtils {
         return changes;
     }
     
-    public static Vector getIndexesOfPrimaryDefinedIncludedContexts(DynamicContext dyn) {
-        Vector all = getDefinedIncludedContexts(dyn);
-        Vector indexes = new Vector();
+    public static Vector<Integer> getIndexesOfPrimaryDefinedIncludedContexts(DynamicContext dyn) {
+        Vector<DynamicContext> all = getDefinedIncludedContexts(dyn);
+        Vector<Integer> indexes = new Vector<Integer>();
         for (int i=0;i<dyn.getIncludedContexts().size();i++)
         {
             // add the index of the context in this list. 
@@ -154,17 +154,17 @@ public class DynamicContextsUtils {
      *            the parent dynamic context definition
      * @return the list of possible children.
      */
-    public static List getPossibleIncludedDynamicContexts(DynamicContext parent) {
-        List list = getPossibleIncludedDynamicContextsNonRecursive(parent);
+    public static List<DynamicContext> getPossibleIncludedDynamicContexts(DynamicContext parent) {
+        List<DynamicContext> list = getPossibleIncludedDynamicContextsNonRecursive(parent);
 
-        ArrayList toRemove = new ArrayList();
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            DynamicContext child = (DynamicContext) iter.next();
+        ArrayList<DynamicContext> toRemove = new ArrayList<DynamicContext>();
+        for (Iterator<DynamicContext> iter = list.iterator(); iter.hasNext();) {
+            DynamicContext child = iter.next();
             if (!getPossibleIncludedDynamicContextsNonRecursive(child).contains(parent))
                 toRemove.add(child);
         }
-        for (Iterator iter = toRemove.iterator(); iter.hasNext();) {
-            DynamicContext element = (DynamicContext) iter.next();
+        for (Iterator<DynamicContext> iter = toRemove.iterator(); iter.hasNext();) {
+            DynamicContext element = iter.next();
             if (list.contains(element))
                 list.remove(element);
         }
@@ -178,11 +178,11 @@ public class DynamicContextsUtils {
      *            the dynamic context
      * @return the list of possible {@link ScenarioDef}
      */
-    private static List getPossibleIncludedDynamicContextsNonRecursive(DynamicContext parent) {
+    private static List<DynamicContext> getPossibleIncludedDynamicContextsNonRecursive(DynamicContext parent) {
         if ((DynamicContextGroup) parent.getGroups().get(0) == null)
-            return new ArrayList();
+            return new ArrayList<DynamicContext>();
         URNspec urn = parent.getUrnspec();
-        List list = getAllDynamicContexts(urn);
+        List<DynamicContext> list = getAllDynamicContexts(urn);
 
         removeIncludedDynamicContexts(list, parent);
         return list;
@@ -196,8 +196,8 @@ public class DynamicContextsUtils {
      *            the root urnspec
      * @return the list of dynamic contexts
      */
-    public static List getAllDynamicContexts(URNspec urn) {
-        ArrayList list = new ArrayList();
+    public static List<DynamicContext> getAllDynamicContexts(URNspec urn) {
+        ArrayList<DynamicContext> list = new ArrayList<DynamicContext>();
         for (Iterator iter = urn.getDynamicContextGroups().iterator(); iter.hasNext();) {
             DynamicContextGroup group = (DynamicContextGroup) iter.next();
 
@@ -217,7 +217,7 @@ public class DynamicContextsUtils {
      * @param parent
      *            the root dynamicContext from which we remove the children. we also remove the parent from the list.
      */
-    private static void removeIncludedDynamicContexts(List list, DynamicContext parent) {
+    private static void removeIncludedDynamicContexts(List<DynamicContext> list, DynamicContext parent) {
         for (Iterator iter = parent.getIncludedContexts().iterator(); iter.hasNext();) {
             DynamicContext child = (DynamicContext) iter.next();
             removeIncludedDynamicContexts(list, child);
@@ -236,9 +236,9 @@ public class DynamicContextsUtils {
      * @param dyn
      * 			Selected dynamic context
      */
-    public static List getAllAvailableChanges(Object parent, DynamicContext dyn, URNspec urn){
+    public static List<Change> getAllAvailableChanges(Object parent, DynamicContext dyn, URNspec urn){
     	
-    	List<Change> availableChanges = new ArrayList();
+    	List<Change> availableChanges = new ArrayList<Change>();
     	if (dyn != null) {
     		List allChanges = dyn.getChanges();
 	    	URNmodelElement elt = null;

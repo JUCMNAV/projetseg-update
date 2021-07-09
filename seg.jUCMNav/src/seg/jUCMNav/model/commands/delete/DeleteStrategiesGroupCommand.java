@@ -3,13 +3,10 @@
  */
 package seg.jUCMNav.model.commands.delete;
 
-import grl.ContributionContextGroup;
-import grl.StrategiesGroup;
-
-import java.sql.Time;
-
 import org.eclipse.gef.commands.Command;
 
+import grl.ContributionContextGroup;
+import grl.StrategiesGroup;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import ucm.scenario.ScenarioGroup;

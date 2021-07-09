@@ -7,6 +7,8 @@
 
 package seg.jUCMNav.kpi.ws;
 
+import javax.xml.namespace.QName;
+
 /**
  * @author pchen
  * 
@@ -111,11 +113,11 @@ public class KPIValueWebServiceBeanServiceLocator extends org.apache.axis.client
         return new javax.xml.namespace.QName("http://service.bpm.com/", "KPIValueWebServiceBeanService"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
-    private java.util.HashSet ports = null;
+    private java.util.HashSet<QName> ports = null;
 
     public java.util.Iterator getPorts() {
         if (ports == null) {
-            ports = new java.util.HashSet();
+            ports = new java.util.HashSet<QName>();
             ports.add(new javax.xml.namespace.QName("http://service.bpm.com/", "KPIValueWebServiceBeanPort")); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return ports.iterator();

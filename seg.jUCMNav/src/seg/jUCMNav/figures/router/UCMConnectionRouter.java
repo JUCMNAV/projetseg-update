@@ -42,7 +42,7 @@ import ucm.map.UCMmap;
  * 
  */
 public class UCMConnectionRouter extends AbstractRouter implements Adapter {
-    private HashMap connections;
+    private HashMap<NodeConnection, Boolean> connections;
     private Map editpartregistry;
     private UCMmap pathgraph;
     private Notifier target;
@@ -169,7 +169,7 @@ public class UCMConnectionRouter extends AbstractRouter implements Adapter {
     /**
      * @return A hashmap with NodeConnection/Boolean couples. if the boolean is Boolean.TRUE, refresh is not needed.
      */
-    public HashMap getConnections() {
+    public HashMap<NodeConnection, Boolean> getConnections() {
         return connections;
     }
 
@@ -290,7 +290,7 @@ public class UCMConnectionRouter extends AbstractRouter implements Adapter {
      */
     public void refreshConnections() {
         if (isDuringRoute) return; // can cause infinite loops. 
-        connections = new HashMap(getPathgraph().getNodes().size());
+        connections = new HashMap<NodeConnection, Boolean>(getPathgraph().getNodes().size());
         for (Iterator iter = getPathgraph().getConnections().iterator(); iter.hasNext();) {
             NodeConnection nc = (NodeConnection) iter.next();
 
@@ -418,7 +418,7 @@ public class UCMConnectionRouter extends AbstractRouter implements Adapter {
      * @param connections
      *            the HashMap defining which connections are dirty.
      */
-    public void setConnections(HashMap connections) {
+    public void setConnections(HashMap<NodeConnection, Boolean> connections) {
         this.connections = connections;
     }
 

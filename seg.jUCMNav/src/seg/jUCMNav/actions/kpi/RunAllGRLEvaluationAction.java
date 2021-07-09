@@ -1,26 +1,23 @@
 package seg.jUCMNav.actions.kpi;
 
-import grl.Actor;
-import grl.EvaluationStrategy;
-import grl.GRLLinkableElement;
-import grl.GRLspec;
-import grl.IntentionalElement;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchPart;
 
+import grl.Actor;
+import grl.EvaluationStrategy;
+import grl.GRLLinkableElement;
+import grl.GRLspec;
+import grl.IntentionalElement;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.actions.SelectionHelper;
-import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.editparts.strategyTreeEditparts.EnumerationTypeTreeEditPart;
 import seg.jUCMNav.editparts.strategyTreeEditparts.VariableListTreeEditPart;
 import seg.jUCMNav.model.util.MetadataHelper;
@@ -72,7 +69,7 @@ public class RunAllGRLEvaluationAction extends SelectionAction {
     }
 
     public void run() {
-        UCMNavMultiPageEditor multieditor = (UCMNavMultiPageEditor) getWorkbenchPart();
+        //UCMNavMultiPageEditor multieditor = (UCMNavMultiPageEditor) getWorkbenchPart();
         int prefTrend = Integer.parseInt(ReportGeneratorPreferences.getGRLEvalStrategyTrend());
 
         SelectionHelper sel = new SelectionHelper(getSelectedObjects());
@@ -109,7 +106,7 @@ public class RunAllGRLEvaluationAction extends SelectionAction {
             }
             
             if(evalTable.size() > 0) {
-                Set<GRLLinkableElement> elements = evalTable.get(strategies.get(0)).keySet();
+                //Set<GRLLinkableElement> elements = evalTable.get(strategies.get(0)).keySet();
                 
                 for (Iterator iter = grlSpec.getActors().iterator(); iter.hasNext();) {
                     Actor actor = (Actor) iter.next();

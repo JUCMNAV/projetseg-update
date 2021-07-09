@@ -222,7 +222,7 @@ public abstract class AbstractDiagramXYLayoutEditPolicy extends XYLayoutEditPoli
     }
     
     protected List getSelectedModel(EditPartViewer viewer) {
-        List selectedNodes = new Vector();
+        List<Object> selectedNodes = new Vector<Object>();
         
         for (Iterator i = viewer.getSelectedEditParts().iterator(); i.hasNext();) {
             EditPart selectedPart = (EditPart) i.next();
@@ -233,7 +233,7 @@ public abstract class AbstractDiagramXYLayoutEditPolicy extends XYLayoutEditPoli
     
     protected List getAllComponentNodes(IURNContainerRef container)
     {
-        List result = new Vector();
+        List<?> result = new Vector();
         for (Iterator i = container.getChildren().iterator(); i.hasNext();) {
             IURNContainerRef node = (IURNContainerRef)i.next();
             result.addAll(getAllComponentNodes(node));

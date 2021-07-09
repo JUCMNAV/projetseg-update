@@ -282,7 +282,7 @@ public class LinkRefEditPart extends AbstractConnectionEditPart {
     protected void refreshBendpoints() {
         EList modelConstraint = getLinkRef().getBendpoints();
 
-        List figureConstraint = new ArrayList();
+        List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
         for (int i = 0; i < modelConstraint.size(); i++) {
             LinkRefBendpoint bendpoint = (LinkRefBendpoint) modelConstraint.get(i);
             AbsoluteBendpoint abp = new AbsoluteBendpoint(bendpoint.getX(), bendpoint.getY());
@@ -308,7 +308,7 @@ public class LinkRefEditPart extends AbstractConnectionEditPart {
         changeLabel.setForegroundColor(ColorManager.LINKREFLABEL);
         getLinkRefFigure().setForegroundColor(ColorManager.LINE);
         
-        int evalType = EvaluationStrategyManager.getInstance().getEvaluationAlgorithm().getEvaluationType();
+        //int evalType = EvaluationStrategyManager.getInstance().getEvaluationAlgorithm().getEvaluationType();
 
         if (getLinkRef().getLink() instanceof Decomposition) {
             Decomposition decomp = (Decomposition) getLinkRef().getLink();

@@ -71,7 +71,7 @@ public class InputNumberDialog extends Dialog {
         inputNumber.addListener(SWT.Modify, new Listener() {
             public void handleEvent(Event event) {
                 try {
-                    value = new Double(inputNumber.getText());
+                    value = Double.valueOf(inputNumber.getText());
                     btOK.setEnabled(true);
                 } catch (Exception e) {
                     btOK.setEnabled(false);

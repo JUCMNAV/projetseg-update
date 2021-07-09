@@ -19,8 +19,8 @@ import urncore.IURNContainerRef;
  */
 public class TraversalVisit {
 
-    private Vector context;
-    private Vector parentComponentRefs;
+    private Vector<PluginBinding> context;
+    private Vector<IURNContainerRef> parentComponentRefs;
     private NodeConnection source;
     private int threadID;
     private PathNode visitedElement;
@@ -37,7 +37,7 @@ public class TraversalVisit {
      * @param threadID
      *            the thread id.
      */
-    public TraversalVisit(NodeConnection source, PathNode obj, Vector context, int threadID) {
+    public TraversalVisit(NodeConnection source, PathNode obj, Vector<PluginBinding> context, int threadID) {
         this.source = source;
         this.visitedElement = obj;
         this.context = context;
@@ -54,7 +54,7 @@ public class TraversalVisit {
      * @param threadID
      *            the thread id.
      */
-    public TraversalVisit(PathNode obj, Vector context, int threadID) {
+    public TraversalVisit(PathNode obj, Vector<PluginBinding> context, int threadID) {
         this.visitedElement = obj;
         this.context = context;
         this.threadID = threadID;
@@ -70,35 +70,35 @@ public class TraversalVisit {
      * @param ignored
      *            the list of parent components that were in a child map but were ignored.
      */
-    protected void addComponentRefs(PathNode pn, Vector list, Vector ignored) {
+    protected void addComponentRefs(PathNode pn, Vector<IURNContainerRef> list, Vector<IURNContainer> ignored) {
         ComponentRef ref = (ComponentRef) pn.getContRef();
         // Connects aren't always connected.
         if (pn instanceof Connect)
             ref = (ComponentRef) ((NodeConnection) pn.getSucc().get(0)).getTarget().getContRef();
 
         // all : all the definitions used in this map.
-        Vector all = new Vector();
+        Vector<IURNContainer> all = new Vector<IURNContainer>();
         for (Iterator iter = pn.getDiagram().getContRefs().iterator(); iter.hasNext();) {
             IURNContainerRef c = (IURNContainerRef) iter.next();
             all.add(c.getContDef());
         }
-        Vector used = new Vector();
+        Vector<ComponentRef> used = new Vector<ComponentRef>();
         while (ref != null) {
             used.add(ref);
             ref = (ComponentRef) ref.getParent();
         }
 
         // find which component defs were ignored.
-        Vector unused = (Vector) all.clone();
-        for (Iterator iter = used.iterator(); iter.hasNext();) {
-            IURNContainerRef r = (IURNContainerRef) iter.next();
+        Vector<IURNContainer> unused = (Vector<IURNContainer>) all.clone();
+        for (Iterator<ComponentRef> iter = used.iterator(); iter.hasNext();) {
+            IURNContainerRef r = iter.next();
             if (all.contains(r.getContDef()))
                 unused.remove(r.getContDef());
         }
 
         // add the used to the parent stack.
-        for (Iterator iter = used.iterator(); iter.hasNext();) {
-            IURNContainerRef c = (IURNContainerRef) iter.next();
+        for (Iterator<ComponentRef> iter = used.iterator(); iter.hasNext();) {
+            IURNContainerRef c = iter.next();
             // if I haven't found anything yet, I must consider the ignored list
             if (list.size() == 0) {
                 // only add it if it was not previously ignored.
@@ -111,8 +111,8 @@ public class TraversalVisit {
         }
 
         // augment ignored without keeping duplicates. do this after the previous step so that multiple refs of same def doesn't make you discard it illegally
-        for (Iterator iter = unused.iterator(); iter.hasNext();) {
-            IURNContainer def = (IURNContainer) iter.next();
+        for (Iterator<IURNContainer> iter = unused.iterator(); iter.hasNext();) {
+            IURNContainer def = iter.next();
             if (!ignored.contains(def))
                 ignored.add(def);
         }
@@ -137,7 +137,7 @@ public class TraversalVisit {
      * 
      * @return the list of {@link PluginBinding}s
      */
-    public Vector getContext() {
+    public Vector<PluginBinding> getContext() {
         return context;
     }
 
@@ -158,23 +158,23 @@ public class TraversalVisit {
      * @return The closest component reference to which this element is bound
      */
     public IURNContainerRef getParentComponentRef() {
-        Vector v = getParentComponentRefs();
+        Vector<IURNContainerRef> v = getParentComponentRefs();
 
         if (v.size() == 0)
             return null;
         else
-            return (IURNContainerRef) v.get(0);
+            return v.get(0);
     }
 
     /**
      * 
      * @return the list of component references to which this element is bound
      */
-    public Vector getParentComponentRefs() {
+    public Vector<IURNContainerRef> getParentComponentRefs() {
         if (parentComponentRefs != null)
             return parentComponentRefs;
-        Vector list = new Vector();
-        Vector ignored = new Vector();
+        Vector<IURNContainerRef> list = new Vector<IURNContainerRef>();
+        Vector<IURNContainer> ignored = new Vector<IURNContainer>();
         addComponentRefs(visitedElement, list, ignored);
 
         parentComponentRefs = list;

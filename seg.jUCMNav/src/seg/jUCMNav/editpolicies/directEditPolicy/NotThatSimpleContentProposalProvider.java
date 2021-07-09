@@ -20,7 +20,7 @@ public class NotThatSimpleContentProposalProvider extends SimpleContentProposalP
 
     
     public IContentProposal[] getProposals(String contents, int position) {
-        ArrayList list = new ArrayList();
+        ArrayList<ContentProposal> list = new ArrayList<ContentProposal>();
         
         if (proposals!=null) { 
             for (int i = 0; i < proposals.length; i++) {

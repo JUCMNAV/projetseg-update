@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.eclipse.draw2d.ConnectionLayer;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.LayerConstants;
@@ -57,8 +58,8 @@ public class UCMMapEditPart extends URNDiagramEditPart {
      * 
      * @return the conditions linked to node connection, start points or end points.
      */
-    private List getConditions() {
-        List list = new ArrayList();
+    private List<EObject> getConditions() {
+        List<EObject> list = new ArrayList<EObject>();
 
         for (Iterator i = getDiagram().getConnections().iterator(); i.hasNext();) {
             NodeConnection nc = (NodeConnection) i.next();
@@ -81,8 +82,8 @@ public class UCMMapEditPart extends URNDiagramEditPart {
     /**
      * @return the labels linked to pathnodes or componentrefs.
      */
-    private List getLabels() {
-        List list = new ArrayList();
+    private List<EObject> getLabels() {
+        List<EObject> list = new ArrayList<EObject>();
 
         // put the labels on top because they are always over components.
         for (Iterator i = getDiagram().getNodes().iterator(); i.hasNext();) {
@@ -102,9 +103,9 @@ public class UCMMapEditPart extends URNDiagramEditPart {
         return list;
     }
 
-    private List getComments() {
-        List list = new ArrayList();
-        for (Iterator iterator = getDiagram().getComments().iterator(); iterator.hasNext();) {
+    private List<EObject> getComments() {
+        List<EObject> list = new ArrayList<EObject>();
+        for (Iterator<EObject> iterator = getDiagram().getComments().iterator(); iterator.hasNext();) {
             list.add(iterator.next());
         }
         return list;
@@ -115,8 +116,8 @@ public class UCMMapEditPart extends URNDiagramEditPart {
      * 
      * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
      */
-    protected List getModelChildren() {
-        List list = getComponents();
+    protected List<EObject> getModelChildren() {
+        List<EObject> list = getComponents();
         list.addAll(getNodes());
         list.addAll(getLabels());
         list.addAll(getConditions());
@@ -127,8 +128,8 @@ public class UCMMapEditPart extends URNDiagramEditPart {
     /**
      * @return the nodes in the diagram, except for Connects.
      */
-    private List getNodes() {
-        List list = new ArrayList();
+    private List<PathNode> getNodes() {
+        List<PathNode> list = new ArrayList<PathNode>();
 
         // put the nodes on top because they are always over components.
         for (Iterator i = getDiagram().getNodes().iterator(); i.hasNext();) {

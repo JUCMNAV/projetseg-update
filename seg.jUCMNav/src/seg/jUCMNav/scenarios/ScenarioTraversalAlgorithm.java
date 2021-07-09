@@ -53,7 +53,7 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
     protected Vector visited;
 
     // Vector of Strings
-    protected Vector warnings;
+    protected Vector<TraversalWarning> warnings;
 
     // list of ITraversalListeners
     protected ScenarioTraversalListenerList traversalListeners;

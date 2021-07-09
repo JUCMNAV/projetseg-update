@@ -13,11 +13,11 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
  * 
  */
 public class KPIViewRootEditPart extends AbstractGraphicalEditPart {
-    private Object model = null;
+    //private Object model = null;
 
     public KPIViewRootEditPart(Object model) {
         super();
-        this.model = model;
+        //this.model = model;
     }
 
     protected IFigure createFigure() {

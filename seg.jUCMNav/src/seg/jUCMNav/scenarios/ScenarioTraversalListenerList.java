@@ -21,7 +21,7 @@ import urncore.Condition;
 public class ScenarioTraversalListenerList implements ITraversalListener {
 
     protected Vector _listeners;
-    protected Vector _warnings;
+    protected Vector<TraversalWarning> _warnings;
 
     /**
      * Creates the listener list
@@ -31,7 +31,7 @@ public class ScenarioTraversalListenerList implements ITraversalListener {
      * @param warnings
      *            where should warnings be added?
      */
-    public ScenarioTraversalListenerList(Vector listeners, Vector warnings) {
+    public ScenarioTraversalListenerList(Vector listeners, Vector<TraversalWarning> warnings) {
         this._listeners = listeners;
         this._warnings = warnings;
     }

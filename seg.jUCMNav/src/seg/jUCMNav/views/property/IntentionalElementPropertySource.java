@@ -3,21 +3,6 @@
  */
 package seg.jUCMNav.views.property;
 
-import fm.Feature;
-import fm.FeatureDiagram;
-import fm.FeatureModel;
-import grl.Evaluation;
-import grl.EvaluationRange;
-import grl.EvaluationStrategy;
-import grl.ImportanceType;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.QualitativeLabel;
-import grl.kpimodel.Indicator;
-import grl.kpimodel.IndicatorGroup;
-import grl.kpimodel.KPIConversion;
-import grl.kpimodel.KPIEvalValueSet;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -37,6 +22,19 @@ import org.eclipse.ui.views.properties.ComboBoxPropertyDescriptor;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
+import fm.Feature;
+import fm.FeatureDiagram;
+import grl.Evaluation;
+import grl.EvaluationRange;
+import grl.EvaluationStrategy;
+import grl.ImportanceType;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.QualitativeLabel;
+import grl.kpimodel.Indicator;
+import grl.kpimodel.IndicatorGroup;
+import grl.kpimodel.KPIConversion;
+import grl.kpimodel.KPIEvalValueSet;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.model.commands.create.CreateAllKPIModelLinkRefCommand;
 import seg.jUCMNav.model.commands.create.CreateAllLinkRefCommand;
@@ -526,7 +524,7 @@ public class IntentionalElementPropertySource extends URNElementPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((IntentionalElementRef) getEditableValue()).getDef()))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
 
         } else if (feature.getName().equals("evaluationValue")) {
@@ -536,14 +534,14 @@ public class IntentionalElementPropertySource extends URNElementPropertySource {
             } else if (object instanceof IntentionalElement)
                 elem = (IntentionalElement) object;
             if (elem != null)
-                return new Double(EvaluationStrategyManager.getInstance().getActiveKPIValue(elem)).toString();
+                return Double.valueOf(EvaluationStrategyManager.getInstance().getActiveKPIValue(elem)).toString();
             else
                 return super.returnPropertyValue(feature, result);
         } else if (feature.getName() == "kpiConv") {
             if (result == null)
-                result = new Integer(0);
+                result = Integer.valueOf(0);
             else
-                result = new Integer(getKPIConversionList().indexOf(result) + 1);
+                result = Integer.valueOf(getKPIConversionList().indexOf(result) + 1);
         } else
             return super.returnPropertyValue(feature, result);
 
@@ -643,7 +641,7 @@ public class IntentionalElementPropertySource extends URNElementPropertySource {
         } else if (feature.getContainerClass() == Evaluation.class) {
             // The feature should be a int
             if (feature.getEType().getInstanceClass() == int.class) {
-                Integer temp = new Integer(Integer.parseInt((String) value));
+                Integer temp = Integer.valueOf(Integer.parseInt((String) value));
                 int val = temp.intValue();
                 // val = StrategyEvaluationPreferences.getModelValueFromVisualization(urn, val);
                 EvaluationStrategyManager.getInstance().setIntentionalElementEvaluation(def, val);
@@ -656,7 +654,7 @@ public class IntentionalElementPropertySource extends URNElementPropertySource {
         } else if (feature.getContainerClass() == KPIEvalValueSet.class) {
             // The feature should be a number, except the unit which is String
             if (feature.getEType().getInstanceClass() == double.class) {
-                Double temp = new Double(Double.parseDouble((String) value));
+                Double temp = Double.valueOf(Double.parseDouble((String) value));
                 EvaluationStrategyManager.getInstance().setKPIEvalValueSet(def, feature, temp.doubleValue());
             } else if (feature.getEType().getInstanceClass() == String.class) {
                 EvaluationStrategyManager.getInstance().setKPIEvalValueSetString(def, feature, (String) value);
@@ -674,7 +672,7 @@ public class IntentionalElementPropertySource extends URNElementPropertySource {
                 ImportanceType temp = ImportanceType.get(((Integer) value).intValue());
                 EvaluationStrategyManager.getInstance().setIntentionalElementQualitativeImportance(def, temp);
             } else if (feature.getEType().getInstanceClass() == int.class) {
-                Integer temp = new Integer(Integer.parseInt((String) value));
+                Integer temp = Integer.valueOf(Integer.parseInt((String) value));
                 EvaluationStrategyManager.getInstance().setIntentionalElementQuantitativeImportance(def, temp.intValue());
             } else {
                 super.setPropertyValue(id, value);

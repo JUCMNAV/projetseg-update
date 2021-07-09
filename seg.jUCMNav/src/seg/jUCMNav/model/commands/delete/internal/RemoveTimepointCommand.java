@@ -4,8 +4,6 @@ import org.eclipse.gef.commands.Command;
 
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import urn.URNspec;
-import urn.dyncontext.DynamicContext;
-import urn.dyncontext.DynamicContextGroup;
 import urn.dyncontext.Timepoint;
 import urn.dyncontext.TimepointGroup;
 

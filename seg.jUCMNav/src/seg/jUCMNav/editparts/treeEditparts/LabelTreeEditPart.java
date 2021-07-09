@@ -97,7 +97,7 @@ public class LabelTreeEditPart extends UrnModelElementTreeEditPart {
      * Return the sorted list of component or responsibility definitions.
      */
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<Object> list = new ArrayList<Object>();
         if (getLabel().equals(Messages.getString("LabelTreeEditPart.components"))) //$NON-NLS-1$
             addAllIfMatch(list, root.getUrndef().getComponents());
         else if (getLabel().equals(Messages.getString("LabelTreeEditPart.responsibilities"))) //$NON-NLS-1$

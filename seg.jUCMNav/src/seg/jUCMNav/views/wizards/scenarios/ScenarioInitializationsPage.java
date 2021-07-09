@@ -131,15 +131,15 @@ public class ScenarioInitializationsPage extends WizardPage {
                         if (((Variable) element).getType().equals(ScenarioUtils.sTypeInteger))
                             return getInitialization((Variable) element).getValue();
                         else if (((Variable) element).getType().equals(ScenarioUtils.sTypeBoolean))
-                            return getInitialization((Variable) element).getValue().equals(boolean_values[0]) ? new Integer(0) : new Integer(1);
+                            return getInitialization((Variable) element).getValue().equals(boolean_values[0]) ? Integer.valueOf(0) : Integer.valueOf(1);
                         else {
                             enum_values = ((Variable) element).getEnumerationType().getValues().split(","); //$NON-NLS-1$
                             for (int i = 0; i < enum_values.length; i++) {
                                 if (getInitialization((Variable) element) != null && getInitialization((Variable) element).getValue() != null
                                         && getInitialization((Variable) element).getValue().equals(enum_values[i]))
-                                    return new Integer(i);
+                                    return Integer.valueOf(i);
                             }
-                            return new Integer(0);
+                            return Integer.valueOf(0);
                         }
                     } else {
                         if (((Variable) element).getType().equals(ScenarioUtils.sTypeInteger))

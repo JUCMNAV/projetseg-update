@@ -15,13 +15,13 @@ import seg.jUCMNav.figures.util.TransformationHelper;
 public class AnythingFigure extends PathNodeFigure implements IRotateable {
 
     private FreeformLayer layer;
-    private Vector pointList;
-    private Vector lines;
+    private Vector<PointList> pointList;
+    private Vector<Polyline> lines;
 
     @Override
     protected void createFigure() {
-        pointList = new Vector();
-        lines = new Vector();
+        pointList = new Vector<PointList>();
+        lines = new Vector<Polyline>();
         
         layer = new FreeformLayer();
         layer.setBounds(new Rectangle(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));

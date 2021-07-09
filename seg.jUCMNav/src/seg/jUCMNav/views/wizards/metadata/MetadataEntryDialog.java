@@ -72,7 +72,7 @@ public class MetadataEntryDialog extends Dialog {
             if (values[i] != null) {
                 text.setText(values[i]);
             }
-            text.setData("index", new Integer(i)); //$NON-NLS-1$
+            text.setData("index", Integer.valueOf(i)); //$NON-NLS-1$
             addTextListener(text);
         }
 

@@ -165,10 +165,10 @@ public class MetadataHelper {
     }
     
     public static int getIntMetaData(URNmodelElement elem, String name, int def) {
-        Integer i = new Integer(def);
+        Integer i = Integer.valueOf(def);
         
         try {
-            i = new Integer(getMetaData(elem, name));
+            i = Integer.valueOf(getMetaData(elem, name));
         } catch(Exception e) { return def; }
         
         return i.intValue();

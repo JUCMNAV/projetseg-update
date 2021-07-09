@@ -3,6 +3,10 @@
  */
 package seg.jUCMNav.model.commands.delete;
 
+import java.util.Iterator;
+
+import org.eclipse.gef.commands.CompoundCommand;
+
 import grl.ElementLink;
 import grl.Evaluation;
 import grl.EvaluationStrategy;
@@ -10,13 +14,7 @@ import grl.IntentionalElement;
 import grl.IntentionalElementRef;
 import grl.kpimodel.Indicator;
 import grl.kpimodel.KPIModelLink;
-
-import java.util.Iterator;
-
-import org.eclipse.gef.commands.CompoundCommand;
-
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextUrnModelElementTreeEditPart;
 import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextsUtils;
 import seg.jUCMNav.model.commands.delete.internal.PreDeleteUrnModelElementCommand;
 import seg.jUCMNav.model.commands.delete.internal.RemoveIntentionalElementCommand;

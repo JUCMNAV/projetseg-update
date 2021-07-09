@@ -2,27 +2,22 @@ package seg.jUCMNav.model.commands.create;
 
 import java.lang.reflect.InvocationTargetException;
 
-import grl.GRLGraph;
-import grl.GRLLinkableElement;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.part.MultiPageEditorPart;
 
+import grl.GRLGraph;
+import grl.GRLLinkableElement;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editors.DelegatingCommandStack;
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.editors.UrnEditor;
 import seg.jUCMNav.importexport.ExportLayoutDOT;
 import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.IGlobalStackCommand;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
-import seg.jUCMNav.model.commands.delete.DeleteGRLGraphCommand;
 import seg.jUCMNav.views.preferences.DisplayPreferences;
 import seg.jUCMNav.views.wizards.AutoLayoutWizard;
 import urn.URNspec;
@@ -54,7 +49,7 @@ public class ShowLinkedElementInNewDiagramCommand extends Command implements JUC
     private CreateGrlGraphCommand graphCmd;
     
     
-    private boolean refreshTabsBypass; // true if we want to repeat the command a few times and refresh the tabs of the editor only after the last command
+    //private boolean refreshTabsBypass; // true if we want to repeat the command a few times and refresh the tabs of the editor only after the last command
     
 
     public ShowLinkedElementInNewDiagramCommand(URNspec spec, EObject obj, IntentionalElementRef ref, UCMNavMultiPageEditor editor, CommandStack cmdStack) 
@@ -68,7 +63,7 @@ public class ShowLinkedElementInNewDiagramCommand extends Command implements JUC
         elemRef = ref.getDef();
         diagramOfElement = objRef.getDiagram();
         grlGraph = (GRLGraph) objRef.getDiagram();
-        this.refreshTabsBypass = refreshTabsBypass;
+        //this.refreshTabsBypass = refreshTabsBypass;
         this.cmdStack = cmdStack;
         
         if (obj instanceof GRLLinkableElement) 

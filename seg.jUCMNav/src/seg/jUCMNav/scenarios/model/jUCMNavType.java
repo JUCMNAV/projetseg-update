@@ -24,7 +24,7 @@ public class jUCMNavType {
     public final static jUCMNavType INTEGER = new jUCMNavType(_INT);
     public final static String ENUMERATION = "#ENUM#"; //$NON-NLS-1$
 
-    private ArrayList enumerationList;
+    private ArrayList<String> enumerationList;
     private String type;
 
     /**
@@ -51,8 +51,8 @@ public class jUCMNavType {
      * @param al
      *            the list of strings starting with {@link #ENUMERATION}
      */
-    public jUCMNavType(ArrayList al) {
-        for (Iterator iter = al.iterator(); iter.hasNext();) {
+    public jUCMNavType(ArrayList<String> al) {
+        for (Iterator<String> iter = al.iterator(); iter.hasNext();) {
             if (!iter.next().toString().startsWith(ENUMERATION)) {
                 throw new IllegalArgumentException(Messages.getString("jUCMNavType.InvalidTypeSpecified")); //$NON-NLS-1$
             }
@@ -79,9 +79,9 @@ public class jUCMNavType {
      * 
      * @return the list of enumerations.
      */
-    private ArrayList getEnumerationList() {
+    private ArrayList<String> getEnumerationList() {
         if (enumerationList == null)
-            enumerationList = new ArrayList();
+            enumerationList = new ArrayList<String>();
         return enumerationList;//((ArrayList) type);
     }
 
@@ -104,17 +104,17 @@ public class jUCMNavType {
             jUCMNavType other = (jUCMNavType)obj;
             String otherType = other.type;
             if (this.isPotentiallyAnEnumeration() || other.isPotentiallyAnEnumeration()) {
-                ArrayList type1, type2;
+                ArrayList<String> type1, type2;
                 if (this.isPotentiallyAnEnumeration() && !other.isPotentiallyAnEnumeration()) {
-                    type1 = new ArrayList(getEnumerationList());
-                    type2 = new ArrayList();
+                    type1 = new ArrayList<String>(getEnumerationList());
+                    type2 = new ArrayList<String>();
                     type2.add(otherType);
                 } else if (other.isPotentiallyAnEnumeration() && !this.isPotentiallyAnEnumeration()) {
-                    type1 = new ArrayList();
+                    type1 = new ArrayList<String>();
                     type1.add(type);
                     type2 = other.getEnumerationList();
                 } else {
-                    type1 = new ArrayList(getEnumerationList());
+                    type1 = new ArrayList<String>(getEnumerationList());
                     type2 = other.getEnumerationList();
                 }
                 type1.retainAll(type2);

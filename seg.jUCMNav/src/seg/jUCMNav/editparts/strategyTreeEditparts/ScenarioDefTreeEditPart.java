@@ -51,7 +51,7 @@ public class ScenarioDefTreeEditPart extends StrategyUrnModelElementTreeEditPart
      * Returns all the children of a scenario (folders for start/end poitns, pre/post conditions, initializations and included scenarios).
      */
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
         list.add(Messages.getString("ScenarioLabelTreeEditPart.IncludedScenarios")); //$NON-NLS-1$
         list.add(Messages.getString("ScenarioLabelTreeEditPart.StartPoints")); //$NON-NLS-1$
         list.add(Messages.getString("ScenarioLabelTreeEditPart.Initializations")); //$NON-NLS-1$

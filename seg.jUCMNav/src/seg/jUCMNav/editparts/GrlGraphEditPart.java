@@ -115,15 +115,14 @@ public class GrlGraphEditPart extends URNDiagramEditPart {
     /**
      * @return the IURNConnections
      */
-    private List getConnections() {
-        List list = new ArrayList();
-
-        for (Iterator i = getDiagram().getConnections().iterator(); i.hasNext();) {
-            list.add(i.next());
-        }
-
-        return list;
-    }
+	/*
+	 * private List getConnections() { List list = new ArrayList();
+	 * 
+	 * for (Iterator i = getDiagram().getConnections().iterator(); i.hasNext();) {
+	 * list.add(i.next()); }
+	 * 
+	 * return list; }
+	 */
 
     /**
      * Refresh its children when something changes.

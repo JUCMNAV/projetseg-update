@@ -46,11 +46,11 @@ public class GrlGraphTreeEditPart extends UrnModelElementTreeEditPart {
      * 
      * @see org.eclipse.gef.EditPart#getChildren()
      */
-    public List getModelChildren() {
-        ArrayList list = new ArrayList();
+    public List<GRLNode> getModelChildren() {
+        ArrayList<GRLNode> list = new ArrayList<GRLNode>();
         GRLGraph graph = getGraph();
         list.addAll(graph.getContRefs());
-        Vector v = new Vector();
+        Vector<GRLNode> v = new Vector<GRLNode>();
         for (Iterator iter = graph.getNodes().iterator(); iter.hasNext();) {
             GRLNode element = (GRLNode) iter.next();
             v.add(element);

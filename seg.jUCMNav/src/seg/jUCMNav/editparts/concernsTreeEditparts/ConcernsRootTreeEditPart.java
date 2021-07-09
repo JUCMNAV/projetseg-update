@@ -39,7 +39,7 @@ public class ConcernsRootTreeEditPart extends OutlineRootEditPart implements Ada
      * @see seg.jUCMNav.editparts.treeEditparts.OutlineRootEditPart#getModelChildren()
      */
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<Object> list = new ArrayList<Object>();
         for (Iterator iter = ((UCMNavMultiPageEditor) getModel()).getModel().getUrndef().getConcerns().iterator(); iter.hasNext();) {
             Concern element = (Concern) iter.next();
             list.add(element);

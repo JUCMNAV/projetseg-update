@@ -95,7 +95,7 @@ public abstract class AbstractModelElement implements Serializable, IPropertySou
 	 * All of element's children (visible and invisible)
 	 * Comment for <code>children</code>
 	 */
-	protected ArrayList children;
+	protected ArrayList<Object> children;
 	 
 	/**
 	 * Number of the element - number of lifeline or 
@@ -117,7 +117,7 @@ public abstract class AbstractModelElement implements Serializable, IPropertySou
 	public AbstractModelElement(String id, String name) {
 		this.id = id;
 		this.name = name;
-		children = new ArrayList();
+		children = new ArrayList<Object>();
 	}
 	
 	/**
@@ -205,7 +205,7 @@ public abstract class AbstractModelElement implements Serializable, IPropertySou
 	 */
 	public void addChild(Object child) {
 		if (children == null) {
-			children = new ArrayList();
+			children = new ArrayList<Object>();
 		}
 		children.add(child);
 	}

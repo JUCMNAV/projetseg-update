@@ -81,7 +81,7 @@ public class KPIInformationElementRefTreeEditPart extends UrnModelElementTreeEdi
      */
     public void notifyChanged(Notification notification) {
         if (notification.getFeature() instanceof EStructuralFeature) {
-            EStructuralFeature structuralFeature = (EStructuralFeature) notification.getFeature();
+            //EStructuralFeature structuralFeature = (EStructuralFeature) notification.getFeature();
             // to be added if there is more types in future
         }
         super.notifyChanged(notification);

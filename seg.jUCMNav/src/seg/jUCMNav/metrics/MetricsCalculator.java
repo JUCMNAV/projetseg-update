@@ -37,8 +37,8 @@ public class MetricsCalculator {
     private MetricsCalculator() {
     }
 
-    public void calculate(URNspec urn, Vector result) {
-        int nTotal = 0;
+    public void calculate(URNspec urn, Vector<RuleManagementCheckingMessage> result) {
+        //int nTotal = 0;
         //FileInputStream in = null;
         try {
             OCL ocl = OCL.newInstance(EcoreEnvironmentFactory.INSTANCE);
@@ -49,7 +49,7 @@ public class MetricsCalculator {
             for (int i = 0; i < rules.size(); i++) {
                 Rule r = (Rule) rules.get(i);
                 if (r.isEnabled()) {
-                    nTotal++;
+                    //nTotal++;
                     try {
                         List name = r.getClassifierAsList();
                         EClassifier e = (EClassifier) ocl.getEnvironment().lookupClassifier(name);

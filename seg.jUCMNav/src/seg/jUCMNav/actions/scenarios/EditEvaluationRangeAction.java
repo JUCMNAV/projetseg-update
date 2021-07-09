@@ -1,15 +1,13 @@
 package seg.jUCMNav.actions.scenarios;
 
-import fm.Feature;
-import grl.Evaluation;
-import grl.IntentionalElement;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import fm.Feature;
+import grl.Evaluation;
+import grl.IntentionalElement;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.actions.URNSelectionAction;
@@ -26,7 +24,7 @@ public class EditEvaluationRangeAction extends URNSelectionAction {
 
     public static final String EDITEVALUATIONRANGEACTION = "seg.jUCMNav.EditEvaluationRangeAction"; //$NON-NLS-1$
 
-    private EObject obj;
+    //private EObject obj;
     private URNspec urn;
 
     /**
@@ -53,7 +51,7 @@ public class EditEvaluationRangeAction extends URNSelectionAction {
         IntentionalElement ie = sel.getIntentionalElement();
         if (ie instanceof Feature)
         	return null;
-        obj = ie;
+        //obj = ie;
         urn = sel.getUrnspec();
         if (urn!=null && ie!=null) {
             Evaluation ev  = EvaluationStrategyManager.getInstance().getEvaluationObject(ie);

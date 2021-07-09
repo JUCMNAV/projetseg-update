@@ -183,7 +183,7 @@ public class EvaluationStrategyManager {
     private DynamicContext dynContext = null;
     private Timepoint tp = null;
     private IGRLStrategyAlgorithm algo;
-    private HashMap kpiInformationConfigs = new HashMap();
+    private HashMap<KPIInformationElement, KPIInformationConfig> kpiInformationConfigs = new HashMap<KPIInformationElement, KPIInformationConfig>();
     private EvaluationStrategy oldStrategy = null;
    
     public static synchronized EvaluationStrategyManager getInstance(UCMNavMultiPageEditor multieditor, boolean canRefresh) {
@@ -253,7 +253,7 @@ public class EvaluationStrategyManager {
         // determines whether -100 or 0 should be used as a minimum scale.
         minRange = -100 * (StrategyEvaluationRangeHelper.getCurrentRange(urn) ? 0 : 1);
 
-        HashMap results = new HashMap();
+        HashMap<IntentionalElement, EvaluationRange> results = new HashMap<IntentionalElement, EvaluationRange>();
         // long before = System.currentTimeMillis();
 
         clearCalculationValues(urn);
@@ -273,8 +273,8 @@ public class EvaluationStrategyManager {
     }
 
     private void clearCalculationValues(URNspec urn) {
-        for (Iterator iterator = urn.getGrlspec().getIntElements().iterator(); iterator.hasNext();) {
-            IntentionalElement ie = (IntentionalElement) iterator.next();
+        for (Iterator<IntentionalElement> iterator = urn.getGrlspec().getIntElements().iterator(); iterator.hasNext();) {
+            IntentionalElement ie = iterator.next();
             MetadataHelper.removeMetaData(ie, METADATA_RANGEVALUES);
             MetadataHelper.addMetaData(urn, ie, METADATA_RANGEVALUES, ""); //$NON-NLS-1$
         }
@@ -284,7 +284,7 @@ public class EvaluationStrategyManager {
         if (strategy == null || range == null || range.getStep() == 0 || (range.getEnd() - range.getStart()) * range.getStep() < 0)
             return;
 
-        HashMap results = new HashMap();
+        HashMap<IntentionalElement, EvaluationRange> results = new HashMap<IntentionalElement, EvaluationRange>();
         // long before = System.currentTimeMillis();
 
         clearCalculationValues(urn);
@@ -304,10 +304,10 @@ public class EvaluationStrategyManager {
         refreshDiagrams();
     }
 
-    private void recordCalculationValues(URNspec urn, HashMap results, int i) {
-        for (Iterator iterator = evaluations.keySet().iterator(); iterator.hasNext();) {
+    private void recordCalculationValues(URNspec urn, HashMap<IntentionalElement, EvaluationRange> results, int i) {
+        for (Iterator<Object> iterator = evaluations.keySet().iterator(); iterator.hasNext();) {
             IntentionalElement ie = (IntentionalElement) iterator.next();
-            EvaluationRange r = (EvaluationRange) results.get(ie);
+            EvaluationRange r = results.get(ie);
             if (r == null) {
                 r = (EvaluationRange) ModelCreationFactory.getNewObject(urn, EvaluationRange.class);
                 r.setEnd(minRange);
@@ -372,8 +372,8 @@ public class EvaluationStrategyManager {
             	if( reexposeIDs != null){
             		 String[] reexposeArray = reexposeIDs.substring( reexposeIDs.indexOf(":") +1).split(",");
             	     List<String> reexposeFeatureList = Arrays.asList(reexposeArray);
-            	     for(Iterator itr = urn.getGrlspec().getIntElements().iterator(); itr.hasNext();){
-            			  IntentionalElement elem = (IntentionalElement) itr.next();
+            	     for(Iterator<IntentionalElement> itr = urn.getGrlspec().getIntElements().iterator(); itr.hasNext();){
+            			  IntentionalElement elem = itr.next();
             			  if (elem instanceof Feature){
             				  
             				  Metadata runtimeEvalObj = MetadataHelper.getMetaDataObj(elem, METADATA_NUMEVAL);
@@ -394,8 +394,8 @@ public class EvaluationStrategyManager {
     public static void clearAllRuntimeReexposeMetadata(URNspec urn) {
 		// TODO Auto-generated method stub
 		//LinkedList<Feature> list = new LinkedList<Feature>();
-		for(Iterator itr = urn.getGrlspec().getIntElements().iterator(); itr.hasNext();){
-			 IntentionalElement intElem = (IntentionalElement)itr.next();
+		for(Iterator<IntentionalElement> itr = urn.getGrlspec().getIntElements().iterator(); itr.hasNext();){
+			 IntentionalElement intElem = itr.next();
 			 if( intElem instanceof Feature && FeatureUtil.isReexposed(intElem)){
 				 
 				  MetadataHelper.removeMetaData(intElem, REEXPOSE_RUNTIMEMATADATA );
@@ -613,7 +613,7 @@ public class EvaluationStrategyManager {
     }
 
     public synchronized String getLevelOfDimension(KPIInformationElement elem) {
-        KPIInformationConfig temp = (KPIInformationConfig) kpiInformationConfigs.get(elem);
+        KPIInformationConfig temp = kpiInformationConfigs.get(elem);
         if (temp == null && strategy != null && strategy.getGrlspec() != null && strategy.getGrlspec().getUrnspec() != null) {
             temp = (KPIInformationConfig) ModelCreationFactory.getNewObject(strategy.getGrlspec().getUrnspec(), KPIInformationConfig.class);
             kpiInformationConfigs.put(elem, temp);
@@ -626,7 +626,7 @@ public class EvaluationStrategyManager {
     }
 
     public synchronized String getValueOfDimension(KPIInformationElement elem) {
-        KPIInformationConfig temp = (KPIInformationConfig) kpiInformationConfigs.get(elem);
+        KPIInformationConfig temp = kpiInformationConfigs.get(elem);
         if (temp == null && strategy != null && strategy.getGrlspec() != null && strategy.getGrlspec().getUrnspec() != null) {
             temp = (KPIInformationConfig) ModelCreationFactory.getNewObject(strategy.getGrlspec().getUrnspec(), KPIInformationConfig.class);
             kpiInformationConfigs.put(elem, temp);
@@ -728,7 +728,7 @@ public class EvaluationStrategyManager {
     }
 
     public synchronized KPIInformationConfig getKPIInformationConfigObject(KPIInformationElement elem) {
-        KPIInformationConfig temp = (KPIInformationConfig) kpiInformationConfigs.get(elem);
+        KPIInformationConfig temp = kpiInformationConfigs.get(elem);
         // if the KPIInformationConfig is null, it is a new element and we need to create a new KPIInformationConfig
         if (temp == null && strategy != null && strategy.getGrlspec() != null && strategy.getGrlspec().getUrnspec() != null) {
             temp = (KPIInformationConfig) ModelCreationFactory.getNewObject(strategy.getGrlspec().getUrnspec(), KPIInformationConfig.class);
@@ -760,20 +760,20 @@ public class EvaluationStrategyManager {
 
     }
 
-    protected synchronized HashMap getRecursiveEvaluations(EvaluationStrategy strategy, HashMap v) {
+    protected synchronized HashMap getRecursiveEvaluations(EvaluationStrategy strategy, HashMap<IntentionalElement, Evaluation> v) {
         for (Iterator iterator = strategy.getIncludedStrategies().iterator(); iterator.hasNext();) {
             EvaluationStrategy ev = (EvaluationStrategy) iterator.next();
             getRecursiveEvaluations(ev, v);
         }
         for (Iterator iterator = strategy.getEvaluations().iterator(); iterator.hasNext();) {
             Evaluation ev = (Evaluation) iterator.next();
-            Evaluation past = (Evaluation) v.get(ev.getIntElement());
+           // Evaluation past = (Evaluation) v.get(ev.getIntElement());
             v.put(ev.getIntElement(), ev);
         }
         return v;
     }
 
-    protected synchronized HashMap getRecursiveKPIInformationConfig(EvaluationStrategy strategy, HashMap v) {
+    protected synchronized HashMap getRecursiveKPIInformationConfig(EvaluationStrategy strategy, HashMap<KPIInformationElement, KPIInformationConfig> v) {
         for (Iterator iterator = strategy.getIncludedStrategies().iterator(); iterator.hasNext();) {
             EvaluationStrategy ev = (EvaluationStrategy) iterator.next();
             getRecursiveKPIInformationConfig(ev, v);
@@ -792,7 +792,7 @@ public class EvaluationStrategyManager {
         evaluations = new HashMap();
 
         // Create a new hash map for the KPIInformationConfig this strategy
-        kpiInformationConfigs = new HashMap();
+        kpiInformationConfigs = new HashMap<KPIInformationElement, KPIInformationConfig>();
         if (multieditor != null) {
         	URNspec urn = multieditor.getModel();
         
@@ -820,9 +820,9 @@ public class EvaluationStrategyManager {
                 }
             }
             
-            Iterator it = grl.getIntElements().iterator();
+            Iterator<IntentionalElement> it = grl.getIntElements().iterator();
             while (it.hasNext()) {
-                IntentionalElement elem = (IntentionalElement) it.next();
+                IntentionalElement elem = it.next();
                 // Verify if an evaluation exist for this strategy. This could create performance problem!!!!
                 Evaluation eval = (Evaluation) recursiveEvaluations.get(elem);
                 if (eval == null) {
@@ -1279,7 +1279,7 @@ public class EvaluationStrategyManager {
 
     public synchronized void setLevelOfDimension(KPIInformationElement element, String value) {
         if (value != null) {
-            KPIInformationConfig config = (KPIInformationConfig) kpiInformationConfigs.get(element);
+            KPIInformationConfig config = kpiInformationConfigs.get(element);
             // Change the value in the KPIInformationConfig
             if (!value.equals(config.getLevelOfDimension())) {
                 config.setLevelOfDimension(value);
@@ -1295,7 +1295,7 @@ public class EvaluationStrategyManager {
 
     public synchronized void setValueOfDimension(KPIInformationElement element, String value) {
         if (value != null) {
-            KPIInformationConfig config = (KPIInformationConfig) kpiInformationConfigs.get(element);
+            KPIInformationConfig config = kpiInformationConfigs.get(element);
             // Change the value in the KPIInformationConfig
             if (!value.equals(config.getValueOfDimension())) {
                 config.setValueOfDimension(value);
@@ -1314,12 +1314,12 @@ public class EvaluationStrategyManager {
         Evaluation eval = (Evaluation) evaluations.get(element);
 
         // KPIEvalValueSet kpiEval = getActiveKPIEvalValueSet(element);
-        Vector sets = new Vector();
+        Vector<KPIEvalValueSet> sets = new Vector<KPIEvalValueSet>();
         getRecursiveKPIEvalValueSetList(strategy, sets);
 
         // modify all applicable sets.
-        for (Iterator iterator = sets.iterator(); iterator.hasNext();) {
-            KPIEvalValueSet kpiEval = (KPIEvalValueSet) iterator.next();
+        for (Iterator<KPIEvalValueSet> iterator = sets.iterator(); iterator.hasNext();) {
+            KPIEvalValueSet kpiEval = iterator.next();
 
             if (feature.getName().equals("targetValue")) { //$NON-NLS-1$
                 kpiEval.setTargetValue(value);
@@ -1515,7 +1515,7 @@ public class EvaluationStrategyManager {
         comparisonEvaluations = new HashMap<IntentionalElement, Evaluation>();
         comparisonActorEvaluations = new HashMap<Actor, Integer>();
 
-        for (Iterator iter = evaluations.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<Object> iter = evaluations.keySet().iterator(); iter.hasNext();) {
             IntentionalElement ie = (IntentionalElement) iter.next();
             Evaluation eval = (Evaluation) evaluations.get(ie);
             comparisonEvaluations.put(ie, eval);
@@ -1610,17 +1610,17 @@ public class EvaluationStrategyManager {
      *            the parent strategy
      * @return the list of possible children.
      */
-    public static List getPossibleIncludedContributionContexts(ContributionContext parent) {
-        List list = getPossibleIncludedContributionContextsNonRecursive(parent);
+    public static List<ContributionContext> getPossibleIncludedContributionContexts(ContributionContext parent) {
+        List<ContributionContext> list = getPossibleIncludedContributionContextsNonRecursive(parent);
 
-        ArrayList toRemove = new ArrayList();
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            ContributionContext child = (ContributionContext) iter.next();
+        ArrayList<ContributionContext> toRemove = new ArrayList<ContributionContext>();
+        for (Iterator<ContributionContext> iter = list.iterator(); iter.hasNext();) {
+            ContributionContext child = iter.next();
             if (!getPossibleIncludedContributionContextsNonRecursive(child).contains(parent))
                 toRemove.add(child);
         }
-        for (Iterator iter = toRemove.iterator(); iter.hasNext();) {
-            ContributionContext element = (ContributionContext) iter.next();
+        for (Iterator<ContributionContext> iter = toRemove.iterator(); iter.hasNext();) {
+            ContributionContext element = iter.next();
             if (list.contains(element))
                 list.remove(element);
         }
@@ -1635,11 +1635,11 @@ public class EvaluationStrategyManager {
      *            the strategy
      * @return the list of possible {@link EvaluationStrategy}
      */
-    private static List getPossibleIncludedContributionContextsNonRecursive(ContributionContext parent) {
+    private static List<ContributionContext> getPossibleIncludedContributionContextsNonRecursive(ContributionContext parent) {
         if (parent.getGroups().size() == 0 || parent.getGrlspec() == null)
-            return new ArrayList();
+            return new ArrayList<ContributionContext>();
         URNspec urn = ((ContributionContextGroup) parent.getGroups().get(0)).getGrlspec().getUrnspec();
-        List list = getAllContributionContexts(urn);
+        List<ContributionContext> list = getAllContributionContexts(urn);
 
         removeIncludedContributionContexts(list, parent);
         return list;
@@ -1652,8 +1652,8 @@ public class EvaluationStrategyManager {
      *            the root urnspec
      * @return the list of contribution contexts
      */
-    public static List getAllContributionContexts(URNspec urn) {
-        ArrayList list = new ArrayList();
+    public static List<ContributionContext> getAllContributionContexts(URNspec urn) {
+        ArrayList<ContributionContext> list = new ArrayList<ContributionContext>();
         for (Iterator iter = urn.getGrlspec().getContributionGroups().iterator(); iter.hasNext();) {
             ContributionContextGroup group = (ContributionContextGroup) iter.next();
 
@@ -1673,7 +1673,7 @@ public class EvaluationStrategyManager {
      * @param parent
      *            the root ContributionContext from which we remove the children. we also remove the parent from the list.
      */
-    private static void removeIncludedContributionContexts(List list, ContributionContext parent) {
+    private static void removeIncludedContributionContexts(List<ContributionContext> list, ContributionContext parent) {
         for (Iterator iter = parent.getIncludedContexts().iterator(); iter.hasNext();) {
             ContributionContext child = (ContributionContext) iter.next();
             removeIncludedContributionContexts(list, child);
@@ -1690,8 +1690,8 @@ public class EvaluationStrategyManager {
      *            the strategy
      * @return the list of {@link ContributionContext}
      */
-    public static Vector getDefinedIncludedContributionContexts(ContributionContext def) {
-        Vector contexts = new Vector();
+    public static Vector<ContributionContext> getDefinedIncludedContributionContexts(ContributionContext def) {
+        Vector<ContributionContext> contexts = new Vector<ContributionContext>();
         getDefinedIncludedContributionContexts(def, contexts);
         return contexts;
     }
@@ -1704,7 +1704,7 @@ public class EvaluationStrategyManager {
      * @param contribs
      *            where to insert the found {@link ContributionContext}s
      */
-    private static void getDefinedIncludedContributionContexts(ContributionContext def, Vector contribs) {
+    private static void getDefinedIncludedContributionContexts(ContributionContext def, Vector<ContributionContext> contribs) {
         for (Iterator iter = def.getIncludedContexts().iterator(); iter.hasNext();) {
             ContributionContext contrib = (ContributionContext) iter.next();
             getDefinedIncludedContributionContexts(contrib, contribs);
@@ -1720,9 +1720,9 @@ public class EvaluationStrategyManager {
      *            the context
      * @return the list of indexes in the getDefinedIncludedContributionContext list.
      */
-    public static Vector getIndexesOfPrimaryDefinedIncludedContributionContexts(ContributionContext def) {
-        Vector all = getDefinedIncludedContributionContexts(def);
-        Vector indexes = new Vector();
+    public static Vector<Integer> getIndexesOfPrimaryDefinedIncludedContributionContexts(ContributionContext def) {
+        Vector<ContributionContext> all = getDefinedIncludedContributionContexts(def);
+        Vector<Integer> indexes = new Vector<Integer>();
         for (int i = 0; i < def.getIncludedContexts().size(); i++) {
             // add the index of the contribution context in this list.
             // given how we merge included contribution context (to avoid duplication), this list is non-obvious
@@ -1738,17 +1738,17 @@ public class EvaluationStrategyManager {
      *            the parent strategy
      * @return the list of possible children.
      */
-    public static List getPossibleIncludedStrategies(EvaluationStrategy parent) {
-        List list = getPossibleIncludedStrategiesNonRecursive(parent);
+    public static List<EvaluationStrategy> getPossibleIncludedStrategies(EvaluationStrategy parent) {
+        List<EvaluationStrategy> list = getPossibleIncludedStrategiesNonRecursive(parent);
 
-        ArrayList toRemove = new ArrayList();
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            EvaluationStrategy child = (EvaluationStrategy) iter.next();
+        ArrayList<EvaluationStrategy> toRemove = new ArrayList<EvaluationStrategy>();
+        for (Iterator<EvaluationStrategy> iter = list.iterator(); iter.hasNext();) {
+            EvaluationStrategy child = iter.next();
             if (!getPossibleIncludedStrategiesNonRecursive(child).contains(parent))
                 toRemove.add(child);
         }
-        for (Iterator iter = toRemove.iterator(); iter.hasNext();) {
-            EvaluationStrategy element = (EvaluationStrategy) iter.next();
+        for (Iterator<EvaluationStrategy> iter = toRemove.iterator(); iter.hasNext();) {
+            EvaluationStrategy element = iter.next();
             if (list.contains(element))
                 list.remove(element);
         }
@@ -1762,11 +1762,11 @@ public class EvaluationStrategyManager {
      *            the strategy
      * @return the list of possible {@link EvaluationStrategy}
      */
-    private static List getPossibleIncludedStrategiesNonRecursive(EvaluationStrategy parent) {
+    private static List<EvaluationStrategy> getPossibleIncludedStrategiesNonRecursive(EvaluationStrategy parent) {
         if (parent.getGroup() == null)
-            return new ArrayList();
+            return new ArrayList<EvaluationStrategy>();
         URNspec urn = parent.getGroup().getGrlspec().getUrnspec();
-        List list = getAllStrategies(urn);
+        List<EvaluationStrategy> list = getAllStrategies(urn);
 
         removeIncludedStrategies(list, parent);
         return list;
@@ -1780,10 +1780,10 @@ public class EvaluationStrategyManager {
      *            the root urnspec
      * @return the list of strategies
      */
-    public static List getAllStrategies(URNspec urn) {
+    public static List<EvaluationStrategy> getAllStrategies(URNspec urn) {
         minRange = -100 * (StrategyEvaluationRangeHelper.getCurrentRange(urn) ? 0 : 1);
 
-        ArrayList list = new ArrayList();
+        ArrayList<EvaluationStrategy> list = new ArrayList<EvaluationStrategy>();
         for (Iterator iter = urn.getGrlspec().getGroups().iterator(); iter.hasNext();) {
             StrategiesGroup group = (StrategiesGroup) iter.next();
 
@@ -1803,7 +1803,7 @@ public class EvaluationStrategyManager {
      * @param parent
      *            the root evaluationstrategy from which we remove the children. we also remove the parent from the list.
      */
-    private static void removeIncludedStrategies(List list, EvaluationStrategy parent) {
+    private static void removeIncludedStrategies(List<EvaluationStrategy> list, EvaluationStrategy parent) {
         for (Iterator iter = parent.getIncludedStrategies().iterator(); iter.hasNext();) {
             EvaluationStrategy child = (EvaluationStrategy) iter.next();
             removeIncludedStrategies(list, child);
@@ -1820,8 +1820,8 @@ public class EvaluationStrategyManager {
      *            the strategy
      * @return the list of {@link EvaluationStrategy}
      */
-    public static Vector getDefinedIncludedStrategies(EvaluationStrategy def) {
-        Vector strategies = new Vector();
+    public static Vector<EvaluationStrategy> getDefinedIncludedStrategies(EvaluationStrategy def) {
+        Vector<EvaluationStrategy> strategies = new Vector<EvaluationStrategy>();
         getDefinedIncludedStrategies(def, strategies);
         return strategies;
     }
@@ -1834,7 +1834,7 @@ public class EvaluationStrategyManager {
      * @param scenarios
      *            where to insert the found {@link EvaluationStrategy}s
      */
-    private static void getDefinedIncludedStrategies(EvaluationStrategy def, Vector scenarios) {
+    private static void getDefinedIncludedStrategies(EvaluationStrategy def, Vector<EvaluationStrategy> scenarios) {
         for (Iterator iter = def.getIncludedStrategies().iterator(); iter.hasNext();) {
             EvaluationStrategy strategy = (EvaluationStrategy) iter.next();
             getDefinedIncludedStrategies(strategy, scenarios);
@@ -1850,9 +1850,9 @@ public class EvaluationStrategyManager {
      *            the strategy
      * @return the list of indexes in the getDefinedIncludedStrategies list.
      */
-    public static Vector getIndexesOfPrimaryDefinedIncludedStrategies(EvaluationStrategy def) {
-        Vector all = getDefinedIncludedStrategies(def);
-        Vector indexes = new Vector();
+    public static Vector<Integer> getIndexesOfPrimaryDefinedIncludedStrategies(EvaluationStrategy def) {
+        Vector<EvaluationStrategy> all = getDefinedIncludedStrategies(def);
+        Vector<Integer> indexes = new Vector<Integer>();
         for (int i = 0; i < def.getIncludedStrategies().size(); i++) {
             // add the index of the strategy in this list.
             // given how we merge included strategy (to avoid duplication), this list is non-obvious
@@ -2039,7 +2039,7 @@ public class EvaluationStrategyManager {
      * @param strategy
      * @return
      */
-    protected synchronized void getRecursiveKPIEvalValueSetList(EvaluationStrategy strategy, Vector list) {
+    protected synchronized void getRecursiveKPIEvalValueSetList(EvaluationStrategy strategy, Vector<KPIEvalValueSet> list) {
         if (list == null)
             throw new NullPointerException();
         for (Iterator iterator = strategy.getEvaluations().iterator(); iterator.hasNext();) {
@@ -2110,8 +2110,8 @@ public class EvaluationStrategyManager {
     	List<Change> intEltsChanges = new ArrayList<Change>();
     	List<Change> linkChanges = new ArrayList<Change>();
     	if (changes.size() != 0) {
-	    	for (Iterator j = changes.iterator(); j.hasNext();){ 
-	    		Change change = (Change) j.next();
+	    	for (Iterator<Change> j = changes.iterator(); j.hasNext();){ 
+	    		Change change = j.next();
 	    		if (change.getElement() instanceof Actor)
 	    			actorChanges.add(change);
 	    		else if (change.getElement() instanceof IntentionalElement)
@@ -2122,23 +2122,23 @@ public class EvaluationStrategyManager {
 	    	
 	    	if (actorChanges.size() != 0) {
 		    	//First apply changes to Actors 
-		    	for (Iterator j = actorChanges.iterator(); j.hasNext();){ 
-		        	Change change = (Change) j.next();
+		    	for (Iterator<Change> j = actorChanges.iterator(); j.hasNext();){ 
+		        	Change change = j.next();
 		    		updatedGRLmodel = applyChange(updatedGRLmodel, change, tp);
 		    	}
 	    	}
 	    	//Apply changes to Intentional Elements 
 	    	if (intEltsChanges.size() != 0) {
-		    	for (Iterator j = intEltsChanges.iterator(); j.hasNext();){ 
-		        	Change change = (Change) j.next();
+		    	for (Iterator<Change> j = intEltsChanges.iterator(); j.hasNext();){ 
+		        	Change change = j.next();
 		    		updatedGRLmodel = applyChange(updatedGRLmodel, change, tp);
 		    	}
 	    	}
 	    	
 	    	//Apply changes to Links 
 	    	if (linkChanges.size() != 0) {
-		    	for (Iterator j = linkChanges.iterator(); j.hasNext();){ 
-		        	Change change = (Change) j.next();
+		    	for (Iterator<Change> j = linkChanges.iterator(); j.hasNext();){ 
+		        	Change change = j.next();
 		    		updatedGRLmodel = applyChange(updatedGRLmodel, change, tp);
 		    	}
 	    	}
@@ -2150,7 +2150,7 @@ public class EvaluationStrategyManager {
     /*
      * Collects the list of changes applicable to the model according to the Timepoint selected 
      */
-    private List<Change> collectChanges (DynamicContext dynContext, Timepoint tp, List affected) {
+    private List<Change> collectChanges (DynamicContext dynContext, Timepoint tp, List<String> affected) {
     	List<Change> changes = new ArrayList<Change>();
     	for (Iterator j = dynContext.getChanges().iterator(); j.hasNext();){
     		Change change = (Change) j.next();
@@ -2490,8 +2490,8 @@ public class EvaluationStrategyManager {
     	EvaluationStrategy strategySave = null;
     	
     	// Restore original values for Intentional Elements
-        for (Iterator iter = grl.getIntElements().iterator(); iter.hasNext();) {
-            IntentionalElement ie = (IntentionalElement) iter.next();
+        for (Iterator<IntentionalElement> iter = grl.getIntElements().iterator(); iter.hasNext();) {
+            IntentionalElement ie = iter.next();
             Metadata metaOrigImp = MetadataHelper.getMetaDataObj(ie, METADATA_ORIGIMP);
             if (metaOrigImp != null) {
             	String origImp = MetadataHelper.getMetaData(ie, METADATA_ORIGIMP);

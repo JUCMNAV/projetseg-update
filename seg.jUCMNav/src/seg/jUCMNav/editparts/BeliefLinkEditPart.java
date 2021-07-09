@@ -1,8 +1,5 @@
 package seg.jUCMNav.editparts;
 
-import grl.BeliefLink;
-import grl.GrlPackage;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.emf.common.notify.Adapter;
@@ -14,6 +11,7 @@ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import grl.BeliefLink;
 import seg.jUCMNav.editpolicies.element.BeliefLinkComponentEditPolicy;
 import seg.jUCMNav.editpolicies.feedback.ConnectionFeedbackEditPolicy;
 import seg.jUCMNav.views.preferences.GeneralPreferencePage;
@@ -59,7 +57,7 @@ public class BeliefLinkEditPart extends AbstractConnectionEditPart {
         public void notifyChanged(Notification notification) {
 
             int type = notification.getEventType();
-            int featureId = notification.getFeatureID(GrlPackage.class);
+            //int featureId = notification.getFeatureID(GrlPackage.class);
             if (type == Notification.SET) { // If a modification to the properties have been done
                 refreshVisuals();
             }

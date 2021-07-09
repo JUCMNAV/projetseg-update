@@ -1,21 +1,5 @@
 package seg.jUCMNav.editparts;
 
-import fm.Feature;
-import fm.FeatureDiagram;
-//import grl.ActorRef;
-import grl.Decomposition;
-import grl.DecompositionType;
-import grl.ElementLink;
-import grl.Evaluation;
-import grl.GrlPackage;
-import grl.ImportanceType;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.IntentionalElementType;
-import grl.LinkRef;
-import grl.kpimodel.Indicator;
-import grl.kpimodel.KPIEvalValueSet;
-
 import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.List;
@@ -40,12 +24,25 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
-import org.eclipse.gef.editparts.ZoomManager;
-import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.properties.IPropertySource;
 
+import fm.Feature;
+import fm.FeatureDiagram;
+//import grl.ActorRef;
+import grl.Decomposition;
+import grl.DecompositionType;
+import grl.ElementLink;
+import grl.Evaluation;
+import grl.GrlPackage;
+import grl.ImportanceType;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.IntentionalElementType;
+import grl.LinkRef;
+import grl.kpimodel.Indicator;
+import grl.kpimodel.KPIEvalValueSet;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextsUtils;
@@ -549,7 +546,7 @@ public class IntentionalElementEditPart extends GrlNodeEditPart implements NodeE
                     position.y = position.y - 16;
 
                     // Take zoom factor into consideration to fix the label position
-                    double zoomLevel = ((ZoomManager) ((ScrollingGraphicalViewer) getViewer()).getProperty(ZoomManager.class.toString())).getZoom();
+                    //double zoomLevel = ((ZoomManager) ((ScrollingGraphicalViewer) getViewer()).getProperty(ZoomManager.class.toString())).getZoom();
 
                     evaluationLabel.setLocation(position);
                     evaluationLabel.setVisible(true);

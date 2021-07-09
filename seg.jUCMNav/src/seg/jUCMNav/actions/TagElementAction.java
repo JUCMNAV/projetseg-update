@@ -31,7 +31,7 @@ public class TagElementAction extends URNSelectionAction {
 
     public static final String TAG_ELEMENT_ACTION = "seg.jUCMNav.TagElementAction"; //$NON-NLS-1$
     
-    private URNspec urnElement;
+    //private URNspec urnElement;
     
     private URNmodelElement element;
     private URNspec urnspec;
@@ -52,7 +52,7 @@ public class TagElementAction extends URNSelectionAction {
     	
         SelectionHelper sel = new SelectionHelper(getSelectedObjects());
         element = sel.getURNmodelElement();
-        urnElement = sel.getUrnspec();
+        //urnElement = sel.getUrnspec();
         
         if (element == null /* && urnElement == null */) {
             return false;
@@ -101,10 +101,11 @@ public class TagElementAction extends URNSelectionAction {
     	te.tagElement( getCommandStack(), element, urnspec );
     }
 
-    private String className( URNspec urnElement){
-    	String className = urnElement.getClass().getSimpleName();
-    	return className.substring( 0, className.length()-4 );  // strip suffix 'Impl' from class name
-    }
+	/*
+	 * private String className( URNspec urnElement){ String className =
+	 * urnElement.getClass().getSimpleName(); return className.substring( 0,
+	 * className.length()-4 ); // strip suffix 'Impl' from class name }
+	 */
     
 	private String className( URNmodelElement element )
 	{

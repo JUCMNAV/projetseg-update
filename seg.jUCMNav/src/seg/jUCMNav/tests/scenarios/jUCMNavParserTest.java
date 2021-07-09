@@ -691,7 +691,7 @@ public class jUCMNavParserTest extends TestCase {
 
     public void testAssignment2() {
         parseResponsibility("iJason=iKealey;"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(-3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(-3)); //$NON-NLS-1$
     }
 
     public void testAssignment3() {
@@ -750,42 +750,42 @@ public class jUCMNavParserTest extends TestCase {
         parseResponsibility("if (iJason==2)\n i=-iJason;"); //$NON-NLS-1$
         parseResponsibility("if iJason==2\n i=-iJason;"); //$NON-NLS-1$
         parseResponsibility("if iJason==2 i=-iJason;"); //$NON-NLS-1$
-        assertEquals(env.getValue("i"), new Integer(-2)); //$NON-NLS-1$
+        assertEquals(env.getValue("i"), Integer.valueOf(-2)); //$NON-NLS-1$
     }
 
     public void testIfStatement2() {
         parseResponsibility("if (iJason==3) x=y; else iJason=i;"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(3)); //$NON-NLS-1$
 
     }
 
     public void testIfStatement3() {
         parseResponsibility("if (iJason==3) { x=y; } else {iJason=i;}"); //$NON-NLS-1$
         parseResponsibility("if (iJason==3) {\n x=y; \n} else {\n iJason=i;\n}"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(3)); //$NON-NLS-1$
 
     }
 
     public void testIfStatement4() {
         // last two assignments are not in if
         parseResponsibility("if (x) i=iJason;iJason=iKealey;iKealey=i;"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(-3)); //$NON-NLS-1$
-        assertEquals(env.getValue("iKealey"), new Integer(3)); //$NON-NLS-1$
-        assertEquals(env.getValue("i"), new Integer(3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(-3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iKealey"), Integer.valueOf(3)); //$NON-NLS-1$
+        assertEquals(env.getValue("i"), Integer.valueOf(3)); //$NON-NLS-1$
     }
 
     public void testIfStatement5() {
         parseResponsibility("if (x) { i=iJason;iJason=iKealey;iKealey=i; }"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(2)); //$NON-NLS-1$
-        assertEquals(env.getValue("iKealey"), new Integer(-3)); //$NON-NLS-1$
-        assertEquals(env.getValue("i"), new Integer(3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(2)); //$NON-NLS-1$
+        assertEquals(env.getValue("iKealey"), Integer.valueOf(-3)); //$NON-NLS-1$
+        assertEquals(env.getValue("i"), Integer.valueOf(3)); //$NON-NLS-1$
     }
 
     public void testIfStatement6() {
         parseResponsibility("if (!x) { i=iJason;iJason=iKealey;iKealey=i; } else x=true;"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(-3)); //$NON-NLS-1$
-        assertEquals(env.getValue("iKealey"), new Integer(2)); //$NON-NLS-1$
-        assertEquals(env.getValue("i"), new Integer(2)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(-3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iKealey"), Integer.valueOf(2)); //$NON-NLS-1$
+        assertEquals(env.getValue("i"), Integer.valueOf(2)); //$NON-NLS-1$
         assertEquals(env.getValue("x"), Boolean.FALSE); //$NON-NLS-1$
     }
 
@@ -815,16 +815,16 @@ public class jUCMNavParserTest extends TestCase {
 
     public void testSequence1() {
         parseResponsibility("i=1;j=2;k=3; { iJason=i+j*k; }"); //$NON-NLS-1$
-        assertEquals(env.getValue("i"), new Integer(1)); //$NON-NLS-1$
-        assertEquals(env.getValue("j"), new Integer(2)); //$NON-NLS-1$
-        assertEquals(env.getValue("k"), new Integer(3)); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(7)); //$NON-NLS-1$
+        assertEquals(env.getValue("i"), Integer.valueOf(1)); //$NON-NLS-1$
+        assertEquals(env.getValue("j"), Integer.valueOf(2)); //$NON-NLS-1$
+        assertEquals(env.getValue("k"), Integer.valueOf(3)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(7)); //$NON-NLS-1$
 
     }
 
     public void testComplexResponsibility1() {
         parseResponsibility("iJason=3;\n if (iJason==3) {\n iJason=iJason+1;\n x=true; \n} else if (iJason=(-4))\n iJason:=0;  \nelse\n iJason=0;"); //$NON-NLS-1$
-        assertEquals(env.getValue("iJason"), new Integer(4)); //$NON-NLS-1$
+        assertEquals(env.getValue("iJason"), Integer.valueOf(4)); //$NON-NLS-1$
         assertEquals(env.getValue("x"), Boolean.TRUE); //$NON-NLS-1$
     }
     /*

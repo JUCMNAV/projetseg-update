@@ -538,7 +538,7 @@ public abstract class RuleManagementPreferencePage extends PreferencePage implem
         HashMap info = new HashMap();
         TreeItem[] items = item.getItems();
         for (int i = 0; i < items.length; ++i) {
-            info.put(items[i].getData(), new Boolean(items[i].getChecked()));
+            info.put(items[i].getData(), Boolean.valueOf(items[i].getChecked()));
         }
         return info;
     }

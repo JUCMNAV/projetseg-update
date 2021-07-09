@@ -74,7 +74,7 @@ public class UCMChangeImpactAnalysisAction extends URNSelectionAction{
 	  protected Command getCommand() {
 		  //*********************
 	        
-	    	Boolean isEmptyExpression=false;
+	    	//Boolean isEmptyExpression=false;
 	    	if(calculateEnabled())
 	        
 	    	{   
@@ -90,8 +90,8 @@ public class UCMChangeImpactAnalysisAction extends URNSelectionAction{
 	        			leftexpressionVariables=obj.getLeftVar();
 	        		}
 	        		//otherwise it's empty
-	        		else
-	        			isEmptyExpression=true;
+	        		//else
+	        			//isEmptyExpression=true;
 	    	    	
 	    		}
 	    		

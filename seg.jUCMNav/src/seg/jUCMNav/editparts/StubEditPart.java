@@ -101,12 +101,12 @@ public class StubEditPart extends PathNodeEditPart {
         if (req.getType() == REQ_OPEN) {
             Stub stub = (Stub) getModel();
 
-            Vector activeBindings = new Vector();
+            Vector<EObject> activeBindings = new Vector<EObject>();
 
-            EList bindings = stub.getBindings();
+            EList<EObject> bindings = stub.getBindings();
 
-            for (Iterator iter = bindings.iterator(); iter.hasNext();) {
-                EObject element = (EObject) iter.next();
+            for (Iterator<EObject> iter = bindings.iterator(); iter.hasNext();) {
+                EObject element = iter.next();
                 if (ScenarioUtils.getTraversalHitCount(element) > 0) {
                     activeBindings.add(element);
                 }

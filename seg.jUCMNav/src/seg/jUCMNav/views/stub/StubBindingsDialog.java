@@ -1168,7 +1168,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
         PluginBinding pluginBinding = selectedPluginBinding();
         if (pluginBinding != null) {
             try {
-                Double probability = new Double(txtProbability.getText());
+                Double probability = Double.valueOf(txtProbability.getText());
                 if (pluginBinding.getProbability() != probability.doubleValue()) {
                     ChangePluginBindingProbCommand changeProb = new ChangePluginBindingProbCommand(pluginBinding, probability.doubleValue());
                     execute(changeProb, false);
@@ -1189,7 +1189,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
         PluginBinding pluginBinding = selectedPluginBinding();
         if (pluginBinding != null) {
             try {
-                Integer repFactor = new Integer(txtRepFactor.getText());
+                Integer repFactor = Integer.valueOf(txtRepFactor.getText());
                 if (pluginBinding.getProbability() != repFactor.intValue()) {
                     ChangePluginBindingRepFactorCommand changeRepFactor = new ChangePluginBindingRepFactorCommand(pluginBinding, repFactor.intValue());
                     execute(changeRepFactor, false);

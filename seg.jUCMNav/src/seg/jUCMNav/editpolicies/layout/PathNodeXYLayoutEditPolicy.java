@@ -51,7 +51,7 @@ public class PathNodeXYLayoutEditPolicy extends XYLayoutEditPolicy {
      */
     protected Command createAddCommand(EditPart child, Object constraint) {
 
-        Vector selection = new Vector();
+        Vector<EditPart> selection = new Vector<EditPart>();
         selection.add(child);
         selection.add(getHost());
 

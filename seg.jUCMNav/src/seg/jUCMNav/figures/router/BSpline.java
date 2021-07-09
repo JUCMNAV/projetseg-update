@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
-import org.eclipse.draw2d.geometry.PrecisionPoint;
 
 /**
  * This class represent an interpolated B-Spline. Specify a point list representing the points on the curve and the class will be able to return a bspline going
@@ -45,12 +44,13 @@ public class BSpline {
             return; // We have to have two points or more to make a spline
         
         // avg total slope
-        int diffy = (list.getLastPoint().y - list.getFirstPoint().y);
-        int diffx = (list.getLastPoint().x - list.getFirstPoint().x);
+        //int diffy = (list.getLastPoint().y - list.getFirstPoint().y);
+        //int diffx = (list.getLastPoint().x - list.getFirstPoint().x);
         
-        double slope = 999999; 
-        if (diffx!=0)
-            slope = (double)diffy / (double) diffx; 
+        //double slope = 999999; 
+		/*
+		 * if (diffx!=0) slope = (double)diffy / (double) diffx;
+		 */
             
         //System.out.println("slope: " + slope);
         boolean isRoughlySameSlope=true;
@@ -245,10 +245,10 @@ public class BSpline {
      *            Return the index of the nearest point on the curve for this point.
      * @return The index of the nearest point on the curve for this point.
      */
-    private Point getPoint(Point point) {
-        int index = getPoint(point.x, point.y);
-        return new PrecisionPoint(Px[index], Py[index]);
-    }
+	/*
+	 * private Point getPoint(Point point) { int index = getPoint(point.x, point.y);
+	 * return new PrecisionPoint(Px[index], Py[index]); }
+	 */
 
     /**
      * Return a point list of the points of the curve between two points on the curve. The function checks for which point is the closest to the two points
@@ -298,10 +298,10 @@ public class BSpline {
      */
     public PointList getPointBetween(int start, int end) {
         int X, Y;
-        int Xo = (int) Math.round(Px[0]);
-        int Yo = (int) Math.round(Py[0]);
-        int Xold = Xo;
-        int Yold = Yo;
+        //int Xo = (int) Math.round(Px[0]);
+        //int Yo = (int) Math.round(Py[0]);
+        //int Xold = Xo;
+        //int Yold = Yo;
 
         PointList points = new PointList();
 
@@ -312,8 +312,8 @@ public class BSpline {
 
                 points.addPoint(X, Y);
 
-                Xold = X;
-                Yold = Y;
+                //Xold = X;
+                //Yold = Y;
             }
         }
         return points;

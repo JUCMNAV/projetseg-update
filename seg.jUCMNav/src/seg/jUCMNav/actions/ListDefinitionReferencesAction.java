@@ -1,17 +1,11 @@
 package seg.jUCMNav.actions;
 
-import grl.ElementLink;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuCreator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -25,6 +19,10 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
+import grl.ElementLink;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.LinkRef;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.model.util.EObjectClassNameComparator;
 import seg.jUCMNav.model.util.URNNamingHelper;
@@ -45,7 +43,7 @@ public class ListDefinitionReferencesAction extends URNSelectionAction {
     private Menu fCreatedMenu;
 
     // the list of actions that are contained within this action
-    private IAction[] actions;
+    //private IAction[] actions;
 
     public ListDefinitionReferencesAction(IWorkbenchPart part) {
         super(part);

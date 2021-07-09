@@ -307,7 +307,7 @@ public class IndicatorPropertySource extends URNElementPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((IntentionalElement) getEditableValue())))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
         } else if (feature.getName().equals("evaluationValue")) {
             IntentionalElement elem = null;
@@ -316,7 +316,7 @@ public class IndicatorPropertySource extends URNElementPropertySource {
             } else if (object instanceof IntentionalElement)
                 elem = (IntentionalElement) object;
             if (elem != null)
-                return new Double(EvaluationStrategyManager.getInstance().getActiveKPIValue(elem)).toString();
+                return Double.valueOf(EvaluationStrategyManager.getInstance().getActiveKPIValue(elem)).toString();
             else
                 return super.returnPropertyValue(feature, result);
         } else
@@ -384,7 +384,7 @@ public class IndicatorPropertySource extends URNElementPropertySource {
         if (feature.getContainerClass() == Evaluation.class) {
             // The feature should be a int
             if (feature.getEType().getInstanceClass() == int.class) {
-                Integer temp = new Integer(Integer.parseInt((String) value));
+                Integer temp = Integer.valueOf(Integer.parseInt((String) value));
                 EvaluationStrategyManager.getInstance().setIntentionalElementEvaluation(def, temp.intValue());
             }
         } else if (feature.getContainerClass() == KPIEvalValueSet.class) {

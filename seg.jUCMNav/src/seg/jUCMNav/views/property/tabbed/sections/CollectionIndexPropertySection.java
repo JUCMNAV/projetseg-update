@@ -22,7 +22,7 @@ public class CollectionIndexPropertySection extends AbstractDialogPropertySectio
     protected String getText() {
         if (spec == null)
             return ""; //$NON-NLS-1$
-        return (new Integer(spec.getSpecDiagrams().indexOf(current))).toString();
+        return (Integer.valueOf(spec.getSpecDiagrams().indexOf(current))).toString();
     }
 
     @Override

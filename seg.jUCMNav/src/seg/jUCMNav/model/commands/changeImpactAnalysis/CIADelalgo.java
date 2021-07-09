@@ -1,26 +1,22 @@
 package seg.jUCMNav.model.commands.changeImpactAnalysis;
 
-import grl.Actor;
-import grl.ActorRef;
-import grl.Contribution;
-import grl.Decomposition;
-import grl.Dependency;
-import grl.ElementLink;
-import grl.Evaluation;
-import grl.EvaluationStrategy;
-import grl.IntentionalElement;
-import grl.IntentionalElementRef;
-import grl.LinkRef;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.swt.widgets.Link;
-import org.eclipse.ui.internal.editorsupport.ComponentSupport;
 
+import grl.Actor;
+import grl.ActorRef;
+import grl.Contribution;
+import grl.Decomposition;
+import grl.Dependency;
+import grl.Evaluation;
+import grl.EvaluationStrategy;
+import grl.IntentionalElement;
+import grl.IntentionalElementRef;
+import grl.LinkRef;
 import ucm.map.ComponentRef;
 import ucm.map.RespRef;
 import ucm.map.UCMmap;
@@ -28,10 +24,7 @@ import urn.URNlink;
 import urn.URNspec;
 import urncore.Component;
 import urncore.IURNConnection;
-import urncore.IURNContainer;
-import urncore.IURNContainerRef;
 import urncore.IURNDiagram;
-import urncore.IURNNode;
 import urncore.Responsibility;
 
 /**

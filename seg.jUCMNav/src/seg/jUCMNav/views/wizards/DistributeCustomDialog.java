@@ -3,18 +3,9 @@
 
 package seg.jUCMNav.views.wizards;
 
-/*******************************************************************************
- * All Right Reserved. Copyright (c) 1998, 2004 Jackwind Li Guojie
- * 
- * Created on Mar 18, 2004 1:01:54 AM by JACK $Id$
- *  
- ******************************************************************************/
-
-import java.awt.Component;
 import java.util.HashMap;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -22,7 +13,6 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
@@ -121,7 +111,7 @@ public class DistributeCustomDialog extends JDialog {
             public void handleEvent(Event event) {
 
                 try {
-                    value = new Integer(text.getText().trim());
+                    value = Integer.valueOf(text.getText().trim());
 
                     if (value.intValue() >= lowRange && value.intValue() <= highRange &&
                     		values.get("DistributeType") != null) {

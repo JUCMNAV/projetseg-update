@@ -59,7 +59,7 @@ public class StaticSemanticDefMgr extends RuleManagementDefinitionManager {
      * Returns a list of default groups populated with default rules from files.
      */
     protected List getDefaultGroups() {
-        List defaultGroups = new ArrayList();
+        List<RuleGroup> defaultGroups = new ArrayList<RuleGroup>();
 
         // Special "All" group, always first
         RuleGroup all = new RuleGroup("All"); //$NON-NLS-1$

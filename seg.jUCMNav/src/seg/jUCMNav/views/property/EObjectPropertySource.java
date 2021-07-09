@@ -406,9 +406,9 @@ public class EObjectPropertySource implements IPropertySource2 {
         Object result = getPropertyValue(id);
 
         if (feature.getEType().getInstanceClass() == int.class) {
-            result = new Integer(Integer.parseInt((String) value));
+            result = Integer.valueOf(Integer.parseInt((String) value));
         } else if (feature.getEType().getInstanceClass() == double.class) {
-            result = new Double(Double.parseDouble(value.toString()));
+            result = Double.valueOf(Double.parseDouble(value.toString()));
         } else if (feature.getEType().getInstanceClass() == boolean.class) {
             result = value;
         } else if (result instanceof RGB) {

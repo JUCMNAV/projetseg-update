@@ -13,7 +13,6 @@ import seg.jUCMNav.Messages;
 import seg.jUCMNav.editpolicies.element.DynamicContextComponentEditPolicy;
 import urn.dyncontext.DynamicContext;
 import urn.dyncontext.DynamicContextGroup;
-import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextsUtils;
 
 /**
  * TreeEditPart for DynamicContext in the DynamicContext view
@@ -51,7 +50,7 @@ public class DynamicContextTreeEditPart extends DynamicContextUrnModelElementTre
      * Returns all the children of a dynamic context (folders for strategy, scenario, contribution context, changes, and included contexts).
      */
     protected List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
         list.add(Messages.getString("DynamicContextLabelTreeEditPart.IncludedContexts")); //$NON-NLS-1$
         list.add(Messages.getString("DynamicContextLabelTreeEditPart.EvaluationStrategy")); //$NON-NLS-1$
         list.add(Messages.getString("DynamicContextLabelTreeEditPart.ScenarioDef")); //$NON-NLS-1$

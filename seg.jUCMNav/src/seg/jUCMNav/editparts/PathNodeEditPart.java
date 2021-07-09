@@ -91,6 +91,7 @@ import urncore.Responsibility;
  * @author Etienne Tremblay, jkealey, gunterm
  * 
  */
+@SuppressWarnings("deprecation")
 public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPart {
 
     /**
@@ -212,7 +213,7 @@ public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPa
      * All succ NodeConnections except those that lead to connects.
      */
     protected List getModelSourceConnections() {
-        ArrayList v = new ArrayList();
+        ArrayList<NodeConnection> v = new ArrayList<NodeConnection>();
         for (Iterator iter = getNode().getSucc().iterator(); iter.hasNext();) {
             NodeConnection element = (NodeConnection) iter.next();
             if (!(element.getTarget() instanceof Connect))
@@ -225,7 +226,7 @@ public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPa
      * All pred NodeConnections except those that lead to connects.
      */
     protected List getModelTargetConnections() {
-        ArrayList v = new ArrayList();
+        ArrayList<NodeConnection> v = new ArrayList<NodeConnection>();
         for (Iterator iter = getNode().getPred().iterator(); iter.hasNext();) {
             NodeConnection element = (NodeConnection) iter.next();
             if (!(element.getSource() instanceof Connect))
@@ -337,7 +338,7 @@ public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPa
         if (req.getType() == REQ_OPEN) {
             if (getNode() instanceof StartPoint || getNode() instanceof EndPoint) {
 
-                Vector activeBindings = new Vector();
+                Vector<EObject> activeBindings = new Vector<EObject>();
 
                 EList bindings = null;
                 if (getNode() instanceof StartPoint) {
@@ -428,7 +429,8 @@ public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPa
      *            rotate this figure
      * @see #rotateFromPrevious(PathNodeFigure)
      */
-    private void rotateFromNext(PathNodeFigure nodeFigure) {
+    //@SuppressWarnings("deprecation")
+	private void rotateFromNext(PathNodeFigure nodeFigure) {
         if (getViewer() == null)
             return;
 
@@ -531,7 +533,8 @@ public class PathNodeEditPart extends ModelElementEditPart implements NodeEditPa
      *            rotate this figure
      * @see #rotateFromNext(PathNodeFigure)
      */
-    private void rotateFromPrevious(PathNodeFigure nodeFigure) {
+    //@SuppressWarnings("deprecation")
+	private void rotateFromPrevious(PathNodeFigure nodeFigure) {
         if (getViewer() == null)
             return;
 

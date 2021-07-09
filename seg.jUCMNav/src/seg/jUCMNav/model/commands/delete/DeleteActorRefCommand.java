@@ -3,20 +3,14 @@
  */
 package seg.jUCMNav.model.commands.delete;
 
-import grl.Actor;
-import grl.ActorRef;
-
-import java.util.Iterator;
-
 import org.eclipse.gef.commands.CompoundCommand;
 
+import grl.Actor;
+import grl.ActorRef;
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.editparts.dynamicContextTreeEditparts.DynamicContextsUtils;
 import seg.jUCMNav.model.commands.delete.internal.PreDeleteUrnModelElementCommand;
 import seg.jUCMNav.model.commands.delete.internal.RemoveURNmodelElementCommand;
 import seg.jUCMNav.views.preferences.DeletePreferences;
-import urn.dyncontext.Change;
-import urn.dyncontext.DynamicContext;
 
 /**
  * Command to delete a ActorRef

@@ -67,7 +67,7 @@ public class ReexposeFeatureAction extends URNSelectionAction {
 				return false;
 			else {
 				Feature selectedFeature = (Feature)((IntentionalElementRef)((IntentionalElementEditPart) obj).getModel()).getDef();
-                Evaluation evaluation = EvaluationStrategyManager.getInstance().getEvaluationObject(selectedFeature);
+                //Evaluation evaluation = EvaluationStrategyManager.getInstance().getEvaluationObject(selectedFeature);
                 boolean typeOfSelectedFeatureCorrect = false;
                 for(ElementLink link : (EList<ElementLink>)selectedFeature.getLinksSrc()){
                 	if( link instanceof Decomposition && link.getDest() instanceof Feature){
@@ -83,7 +83,7 @@ public class ReexposeFeatureAction extends URNSelectionAction {
                 URNspec urn = selectedFeature.getGrlspec().getUrnspec();
                 
                 String value = MetadataHelper.getMetaData( urn, REEXPOSE_MATADATA );
-                String reexposeIDs = MetadataHelper.getMetaData(strategy, REEXPOSE_MATADATA );
+                //String reexposeIDs = MetadataHelper.getMetaData(strategy, REEXPOSE_MATADATA );
 //                for(String currID : reexposeIDs.substring( reexposeIDs.indexOf(":")+1).split(",")){
 //                	if( currID.equals(selectedFeature.getId()))
 //                		return false;
@@ -115,7 +115,7 @@ public class ReexposeFeatureAction extends URNSelectionAction {
         if (sel.getSelectionType() == SelectionHelper.INTENTIONALELEMENTREF && (sel.getIntentionalElementRef().getDef() instanceof Feature)) {
             IntentionalElementRef selection = sel.getIntentionalElementRef();
             intElementRefs.add(selection);
-            URNspec currUrn = selection.getDef().getGrlspec().getUrnspec();
+            //URNspec currUrn = selection.getDef().getGrlspec().getUrnspec();
             String id = selection.getDef().getId();
             CompoundCommand stack = new CompoundCommand();
             

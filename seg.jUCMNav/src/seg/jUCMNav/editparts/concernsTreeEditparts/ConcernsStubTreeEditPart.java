@@ -31,7 +31,7 @@ public class ConcernsStubTreeEditPart extends StubTreeEditPart {
      * @see org.eclipse.gef.editparts.AbstractEditPart#getModelChildren()
      */
     public List getModelChildren() {
-        ArrayList list = new ArrayList();
+        ArrayList<UCMmap> list = new ArrayList<UCMmap>();
         for (Iterator iter = getStub().getBindings().iterator(); iter.hasNext();) {
             PluginBinding element = (PluginBinding) iter.next();
             UCMmap map = element.getPlugin();

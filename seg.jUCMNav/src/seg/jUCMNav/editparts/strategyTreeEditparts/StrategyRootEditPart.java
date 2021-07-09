@@ -36,7 +36,7 @@ public class StrategyRootEditPart extends UrnAbstractTreeEditPart {
      * Return the root URNSpec
      */
     protected List getModelChildren() {
-        ArrayList l = new ArrayList();
+        ArrayList<Object> l = new ArrayList<Object>();
 
         if (!DisplayPreferences.getInstance().isGlobalFilterEnabled() || DisplayPreferences.getInstance().getShowUCMS())
             l.add(((UCMNavMultiPageEditor) getModel()).getModel().getUcmspec());

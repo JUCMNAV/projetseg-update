@@ -57,8 +57,8 @@ import urncore.Responsibility;
  * 
  */
 public class ScenarioUtils {
-    private static HashMap activeScenario = new HashMap();
-    private static HashMap environments;
+    private static HashMap<UcmEnvironment, EObject> activeScenario = new HashMap<UcmEnvironment, EObject>();
+    private static HashMap<EObject, UcmEnvironment> environments;
     private static DynamicContext dynContext;
     private static Timepoint tp = null;
     // static reference to jUCMNavParser. can't have more than one reference to
@@ -70,7 +70,7 @@ public class ScenarioUtils {
 
     public static boolean IS_ELSE_CONDITION_ALLOWED = true;
 
-    private static HashMap traversals = new HashMap();
+    private static HashMap<UcmEnvironment, IScenarioTraversalAlgorithm> traversals = new HashMap<UcmEnvironment, IScenarioTraversalAlgorithm>();
 
 	public static DynamicContext getDynContext() {
         return dynContext;
@@ -113,7 +113,7 @@ public class ScenarioUtils {
      */
     public static void clearTraversalResults(UcmEnvironment env) {
         if (traversals.containsKey(env)) {
-            IScenarioTraversalAlgorithm results = (IScenarioTraversalAlgorithm) traversals.get(env);
+            IScenarioTraversalAlgorithm results = traversals.get(env);
             results.clearTraversalResults();
         }
         if (activeScenario.containsKey(env)) {
@@ -166,7 +166,7 @@ public class ScenarioUtils {
             NodeConnection nodeConnection = (NodeConnection) cond.eContainer();
             if (nodeConnection.getSource() instanceof OrFork) {
                 OrFork orFork = (OrFork) nodeConnection.getSource();
-                Vector conditions = new Vector();
+                Vector<String> conditions = new Vector<String>();
                 for (Iterator iterator = orFork.getSucc().iterator(); iterator.hasNext();) {
                     NodeConnection nc = (NodeConnection) iterator.next();
                     if (!isEmptyCondition(nc.getCondition()) && !isElseCondition(nc.getCondition().getExpression())) {
@@ -177,7 +177,7 @@ public class ScenarioUtils {
             }
         } else if (cond.eContainer() instanceof PluginBinding && cond.eContainer().eContainer() instanceof Stub) {
             Stub stub = (Stub) cond.eContainer().eContainer();
-            Vector conditions = new Vector();
+            Vector<String> conditions = new Vector<String>();
             for (Iterator iterator = stub.getBindings().iterator(); iterator.hasNext();) {
                 PluginBinding binding = (PluginBinding) iterator.next();
                 if (!isEmptyCondition(binding.getPrecondition()) && !isElseCondition(binding.getPrecondition().getExpression())) {
@@ -204,10 +204,10 @@ public class ScenarioUtils {
      * @param conditions
      * @return
      */
-    private static String concatenateConditions(Vector conditions) {
+    private static String concatenateConditions(Vector<String> conditions) {
         String result = null;
-        for (Iterator iterator = conditions.iterator(); iterator.hasNext();) {
-            String c = (String) iterator.next();
+        for (Iterator<String> iterator = conditions.iterator(); iterator.hasNext();) {
+            String c = iterator.next();
             if (result == null)
                 result = "!(" + c + ")"; //$NON-NLS-1$ //$NON-NLS-2$
             else
@@ -275,7 +275,7 @@ public class ScenarioUtils {
     public static EObject getActiveScenario(EObject obj) {
         UcmEnvironment initial = getEnvironment(obj);
         if (activeScenario.containsKey(initial))
-            return (EObject) activeScenario.get(initial); // can be ScenarioDef, ScenarioGroup or UCMspec
+            return activeScenario.get(initial); // can be ScenarioDef, ScenarioGroup or UCMspec
         else
             return null;
     }
@@ -287,8 +287,8 @@ public class ScenarioUtils {
      *            the root urnspec
      * @return the list of scenarios
      */
-    public static List getAllScenarios(URNspec urn) {
-        ArrayList list = new ArrayList();
+    public static List<ScenarioDef> getAllScenarios(URNspec urn) {
+        ArrayList<ScenarioDef> list = new ArrayList<ScenarioDef>();
         for (Iterator iter = urn.getUcmspec().getScenarioGroups().iterator(); iter.hasNext();) {
             ScenarioGroup group = (ScenarioGroup) iter.next();
 
@@ -307,8 +307,8 @@ public class ScenarioUtils {
      *            the scenario
      * @return a List of {@link ScenarioEndPoint}
      */
-    public static Vector getDefinedEndPoints(ScenarioDef def) {
-        Vector endPoints = new Vector();
+    public static Vector<ScenarioEndPoint> getDefinedEndPoints(ScenarioDef def) {
+        Vector<ScenarioEndPoint> endPoints = new Vector<ScenarioEndPoint>();
         getDefinedEndPoints(def, endPoints);
         return endPoints;
     }
@@ -321,7 +321,7 @@ public class ScenarioUtils {
      * @param endPoints
      *            where to insert the found {@link ScenarioEndPoint}
      */
-    private static void getDefinedEndPoints(ScenarioDef def, Vector endPoints) {
+    private static void getDefinedEndPoints(ScenarioDef def, Vector<ScenarioEndPoint> endPoints) {
         for (Iterator iter = def.getIncludedScenarios().iterator(); iter.hasNext();) {
             ScenarioDef scenario = (ScenarioDef) iter.next();
             getDefinedEndPoints(scenario, endPoints);
@@ -341,8 +341,8 @@ public class ScenarioUtils {
      *            the scenario
      * @return the list of {@link ScenarioDef}
      */
-    public static Vector getDefinedIncludedScenarios(ScenarioDef def) {
-        Vector scenarios = new Vector();
+    public static Vector<ScenarioDef> getDefinedIncludedScenarios(ScenarioDef def) {
+        Vector<ScenarioDef> scenarios = new Vector<ScenarioDef>();
         getDefinedIncludedScenarios(def, scenarios);
         return scenarios;
     }
@@ -353,9 +353,9 @@ public class ScenarioUtils {
      * @param def the scenario
      * @return the list of indexes in the getDefinedIncludedScenarios list. 
      */
-    public static Vector getIndexesOfPrimaryDefinedIncludedScenarios(ScenarioDef def) {
-        Vector all = getDefinedIncludedScenarios(def);
-        Vector indexes = new Vector();
+    public static Vector<Integer> getIndexesOfPrimaryDefinedIncludedScenarios(ScenarioDef def) {
+        Vector<ScenarioDef> all = getDefinedIncludedScenarios(def);
+        Vector<Integer> indexes = new Vector<Integer>();
         for (int i=0;i<def.getIncludedScenarios().size();i++)
         {
             // add the index of the scenario in this list. 
@@ -375,7 +375,7 @@ public class ScenarioUtils {
      * @param scenarios
      *            where to insert the found {@link ScenarioDef}s
      */
-    private static void getDefinedIncludedScenarios(ScenarioDef def, Vector scenarios) {
+    private static void getDefinedIncludedScenarios(ScenarioDef def, Vector<ScenarioDef> scenarios) {
         for (Iterator iter = def.getIncludedScenarios().iterator(); iter.hasNext();) {
             ScenarioDef scenario = (ScenarioDef) iter.next();
             getDefinedIncludedScenarios(scenario, scenarios);
@@ -391,19 +391,19 @@ public class ScenarioUtils {
      *            the scenario
      * @return the list of {@link Initialization}s
      */
-    public static Vector getDefinedInitializations(ScenarioDef def) {
+    public static Vector<Initialization> getDefinedInitializations(ScenarioDef def) {
 
-        Vector initializations = new Vector();
+        Vector<Initialization> initializations = new Vector<Initialization>();
         if (def.getGroup() == null)
             return initializations;
         getDefinedInitializations(def, initializations);
 
-        Vector uniqueSubsetInitializations = new Vector();
+        Vector<Initialization> uniqueSubsetInitializations = new Vector<Initialization>();
         for (Iterator iter = def.getGroup().getUcmspec().getVariables().iterator(); iter.hasNext();) {
             Variable var = (Variable) iter.next();
             // only add last occurrence
             for (int i = initializations.size() - 1; i >= 0; i--) {
-                Initialization init = (Initialization) initializations.get(i);
+                Initialization init = initializations.get(i);
                 if (init.getVariable() == var) {
                     uniqueSubsetInitializations.add(init);
                     break;
@@ -420,7 +420,7 @@ public class ScenarioUtils {
      * @param def
      *            the scenario param initializations where to store the found {@link Initialization}s
      */
-    private static void getDefinedInitializations(ScenarioDef def, Vector initializations) {
+    private static void getDefinedInitializations(ScenarioDef def, Vector<Initialization> initializations) {
         for (Iterator iter = def.getIncludedScenarios().iterator(); iter.hasNext();) {
             ScenarioDef scenario = (ScenarioDef) iter.next();
             getDefinedInitializations(scenario, initializations);
@@ -440,8 +440,8 @@ public class ScenarioUtils {
      *            the scenario
      * @return a list of {@link Condition}s
      */
-    public static Vector getDefinedPostconditions(ScenarioDef def) {
-        Vector postconditions = new Vector();
+    public static Vector<Condition> getDefinedPostconditions(ScenarioDef def) {
+        Vector<Condition> postconditions = new Vector<Condition>();
         getDefinedPostconditions(def, postconditions);
         return postconditions;
     }
@@ -452,7 +452,7 @@ public class ScenarioUtils {
      * @param def
      *            the scenario param postconditions where to add the found {@link Condition}s
      */
-    private static void getDefinedPostconditions(ScenarioDef def, Vector postconditions) {
+    private static void getDefinedPostconditions(ScenarioDef def, Vector<Condition> postconditions) {
         for (Iterator iter = def.getIncludedScenarios().iterator(); iter.hasNext();) {
             ScenarioDef scenario = (ScenarioDef) iter.next();
             getDefinedPostconditions(scenario, postconditions);
@@ -472,8 +472,8 @@ public class ScenarioUtils {
      *            the scenario
      * @return a list of {@link Condition}s
      */
-    public static Vector getDefinedPreconditions(ScenarioDef def) {
-        Vector preconditions = new Vector();
+    public static Vector<Condition> getDefinedPreconditions(ScenarioDef def) {
+        Vector<Condition> preconditions = new Vector<Condition>();
         getDefinedPreconditions(def, preconditions);
         return preconditions;
     }
@@ -484,7 +484,7 @@ public class ScenarioUtils {
      * @param def
      *            the scenario param postconditions where to add the found {@link Condition}s
      */
-    private static void getDefinedPreconditions(ScenarioDef def, Vector preconditions) {
+    private static void getDefinedPreconditions(ScenarioDef def, Vector<Condition> preconditions) {
         for (Iterator iter = def.getIncludedScenarios().iterator(); iter.hasNext();) {
             ScenarioDef scenario = (ScenarioDef) iter.next();
             getDefinedPreconditions(scenario, preconditions);
@@ -504,8 +504,8 @@ public class ScenarioUtils {
      *            the scenario
      * @return a List of {@link ScenarioStartPoint}
      */
-    public static Vector getDefinedStartPoints(ScenarioDef def) {
-        Vector startPoints = new Vector();
+    public static Vector<ScenarioStartPoint> getDefinedStartPoints(ScenarioDef def) {
+        Vector<ScenarioStartPoint> startPoints = new Vector<ScenarioStartPoint>();
         getDefinedStartPoints(def, startPoints);
         return startPoints;
     }
@@ -518,9 +518,9 @@ public class ScenarioUtils {
      * @param startPoints
      *            where to insert the found {@link ScenarioStartPoint}
      */
-    private static void getDefinedStartPoints(ScenarioDef def, Vector startPoints) {
-        for (Iterator iter = getDefinedIncludedScenarios(def).iterator(); iter.hasNext();) {
-            ScenarioDef scenario = (ScenarioDef) iter.next();
+    private static void getDefinedStartPoints(ScenarioDef def, Vector<ScenarioStartPoint> startPoints) {
+        for (Iterator<ScenarioDef> iter = getDefinedIncludedScenarios(def).iterator(); iter.hasNext();) {
+            ScenarioDef scenario = iter.next();
             getDefinedStartPoints(scenario, startPoints);
         }
 
@@ -547,7 +547,7 @@ public class ScenarioUtils {
             if (!getEnvironments().containsKey(object)) {
                 getEnvironments().put(object, new UcmEnvironment((URNspec) object));
             }
-            return (UcmEnvironment) getEnvironments().get(object);
+            return getEnvironments().get(object);
         } else
             return getEnvironment(object.eContainer());
 
@@ -558,9 +558,9 @@ public class ScenarioUtils {
      * 
      * @return a HashMap of URNspec -> UcmEnvironment
      */
-    private static synchronized HashMap getEnvironments() {
+    private static synchronized HashMap<EObject, UcmEnvironment> getEnvironments() {
         if (environments == null)
-            environments = new HashMap();
+            environments = new HashMap<EObject, UcmEnvironment>();
 
         return environments;
     }
@@ -572,17 +572,17 @@ public class ScenarioUtils {
      *            the parent scenario definition
      * @return the list of possible children.
      */
-    public static List getPossibleIncludedScenarios(ScenarioDef parent) {
-        List list = getPossibleIncludedScenariosNonRecursive(parent);
+    public static List<ScenarioDef> getPossibleIncludedScenarios(ScenarioDef parent) {
+        List<ScenarioDef> list = getPossibleIncludedScenariosNonRecursive(parent);
 
-        ArrayList toRemove = new ArrayList();
-        for (Iterator iter = list.iterator(); iter.hasNext();) {
-            ScenarioDef child = (ScenarioDef) iter.next();
+        ArrayList<ScenarioDef> toRemove = new ArrayList<ScenarioDef>();
+        for (Iterator<ScenarioDef> iter = list.iterator(); iter.hasNext();) {
+            ScenarioDef child = iter.next();
             if (!getPossibleIncludedScenariosNonRecursive(child).contains(parent))
                 toRemove.add(child);
         }
-        for (Iterator iter = toRemove.iterator(); iter.hasNext();) {
-            ScenarioDef element = (ScenarioDef) iter.next();
+        for (Iterator<ScenarioDef> iter = toRemove.iterator(); iter.hasNext();) {
+            ScenarioDef element = iter.next();
             if (list.contains(element))
                 list.remove(element);
         }
@@ -596,11 +596,11 @@ public class ScenarioUtils {
      *            the scenario
      * @return the list of possible {@link ScenarioDef}
      */
-    private static List getPossibleIncludedScenariosNonRecursive(ScenarioDef parent) {
+    private static List<ScenarioDef> getPossibleIncludedScenariosNonRecursive(ScenarioDef parent) {
         if (parent.getGroup() == null)
-            return new ArrayList();
+            return new ArrayList<ScenarioDef>();
         URNspec urn = parent.getGroup().getUcmspec().getUrnspec();
-        List list = getAllScenarios(urn);
+        List<ScenarioDef> list = getAllScenarios(urn);
 
         removeIncludedScenarios(list, parent);
         return list;
@@ -630,7 +630,7 @@ public class ScenarioUtils {
     private static TraversalResult getTraversalResults(EObject obj) {
         UcmEnvironment env = getEnvironment(obj);
         if (traversals.containsKey(env)) {
-            IScenarioTraversalAlgorithm results = (IScenarioTraversalAlgorithm) traversals.get(env);
+            IScenarioTraversalAlgorithm results = traversals.get(env);
             return results.getTraversalResults(obj);
         } else
             return null;
@@ -798,7 +798,7 @@ public class ScenarioUtils {
      * @param parent
      *            the root scenariodef from which we remove the children. we also remove the parent from the list.
      */
-    private static void removeIncludedScenarios(List list, ScenarioDef parent) {
+    private static void removeIncludedScenarios(List<ScenarioDef> list, ScenarioDef parent) {
         for (Iterator iter = parent.getIncludedScenarios().iterator(); iter.hasNext();) {
             ScenarioDef child = (ScenarioDef) iter.next();
             removeIncludedScenarios(list, child);
@@ -962,7 +962,7 @@ public class ScenarioUtils {
     	return ucm;
     }     	
     
-    protected static List<Change> collectChanges (DynamicContext dynContext, Timepoint tp, List affected) {
+    protected static List<Change> collectChanges (DynamicContext dynContext, Timepoint tp, List<String> affected) {
     	List<Change> changes = new ArrayList<Change>();
     	try {
     		if(dynContext!= null){
@@ -1027,14 +1027,14 @@ public class ScenarioUtils {
        	    
     	if (changes.size() != 0) {
         	List<Change> respCompChanges = new ArrayList<Change>();
-    		for (Iterator j = changes.iterator(); j.hasNext();){ 
-    			Change change = (Change) j.next();
+    		for (Iterator<Change> j = changes.iterator(); j.hasNext();){ 
+    			Change change = j.next();
     			if (change.getElement() instanceof Responsibility || change.getElement() instanceof Component)
     				respCompChanges.add(change);
     		}
     		if (respCompChanges.size() != 0) {
-    			for (Iterator j = respCompChanges.iterator(); j.hasNext();){ 
-    				Change change = (Change) j.next();
+    			for (Iterator<Change> j = respCompChanges.iterator(); j.hasNext();){ 
+    				Change change = j.next();
     				updatedUCMmodel = applychange(updatedUCMmodel, change, tp);
     			}
     		}

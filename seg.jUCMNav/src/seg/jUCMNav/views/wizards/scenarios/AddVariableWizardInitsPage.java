@@ -214,13 +214,13 @@ public class AddVariableWizardInitsPage extends WizardPage {
                         if (getVariableType().equals(ScenarioUtils.sTypeInteger))
                             return getInitialization((ScenarioDef) element);
                         else if (getVariableType().equals(ScenarioUtils.sTypeBoolean))
-                            return getInitialization((ScenarioDef) element).equals(boolean_values[0]) ? new Integer(0) : new Integer(1);
+                            return getInitialization((ScenarioDef) element).equals(boolean_values[0]) ? Integer.valueOf(0) : Integer.valueOf(1);
                         else {
                             for (int i = 0; i < enum_values.length; i++) {
                                 if (getInitialization((ScenarioDef) element).equals(enum_values[i]))
-                                    return new Integer(i);
+                                    return Integer.valueOf(i);
                             }
-                            return new Integer(0);
+                            return Integer.valueOf(0);
                         }
                     } else {
                         if (getVariableType().equals(ScenarioUtils.sTypeInteger))

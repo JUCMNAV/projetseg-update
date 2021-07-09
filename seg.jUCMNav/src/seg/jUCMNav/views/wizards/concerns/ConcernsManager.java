@@ -17,8 +17,6 @@ import seg.jUCMNav.model.commands.concerns.CreateConcernCommand;
 import seg.jUCMNav.model.commands.concerns.DeleteConcernCommand;
 import seg.jUCMNav.model.commands.concerns.UpdateConcernCommand;
 import urn.URNspec;
-import urncore.Concern;
-import urncore.IURNDiagram;
 import urncore.URNdefinition;
 import urncore.URNmodelElement;
 

@@ -170,7 +170,7 @@ public class ContainerPropertySource extends URNElementPropertySource {
             Collections.sort(list, new EObjectClassNameComparator());
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(((IURNContainerRef) getEditableValue()).getContDef()))
-                    result = new Integer(i);
+                    result = Integer.valueOf(i);
             }
 
         } else
