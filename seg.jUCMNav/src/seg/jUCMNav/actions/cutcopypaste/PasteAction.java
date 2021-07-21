@@ -93,7 +93,7 @@ public class PasteAction extends URNSelectionAction {
 
     public void run() {
         // bug 868: track existing content on diagram
-        HashMap points = new HashMap();
+        HashMap<EObject, EObject> points = new HashMap<EObject, EObject>();
         IURNDiagram map = null;
         if (getSelectedInsertionPoint() instanceof IURNDiagram) {
             map = (IURNDiagram) getSelectedInsertionPoint();
@@ -117,7 +117,7 @@ public class PasteAction extends URNSelectionAction {
         }
 
         // bug 868: figure out what was added.
-        Vector toSelect = new Vector();
+        Vector<EObject> toSelect = new Vector<EObject>();
         if (map != null) {
             for (Iterator iterator = map.getNodes().iterator(); iterator.hasNext();) {
                 IURNNode node = (IURNNode) iterator.next();
@@ -136,7 +136,7 @@ public class PasteAction extends URNSelectionAction {
             GraphicalViewer viewer = editor.getCurrentPage().getGraphicalViewer();
             Map registry = viewer.getEditPartRegistry();
 
-            Vector list = new Vector(); // edit parts.
+            Vector<Object> list = new Vector<Object>(); // edit parts.
             for (Iterator iterator = toSelect.iterator(); iterator.hasNext();) {
                 EObject o = (EObject) iterator.next();
                 Object ep = registry.get(o);

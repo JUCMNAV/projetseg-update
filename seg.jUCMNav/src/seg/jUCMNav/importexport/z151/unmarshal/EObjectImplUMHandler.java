@@ -198,7 +198,7 @@ public abstract class EObjectImplUMHandler {
 		return null;
 	}
 
-	protected <V> void processList(List<V> list, EList targetList, boolean isFullConstruction) {
+	protected <V> void processList(List<V> list, EList<Object> targetList, boolean isFullConstruction) {
 		if (list != null && list.size() > 0) {
 			for (Object obj : list) {
 				EObjectImplUMHandler h = null;

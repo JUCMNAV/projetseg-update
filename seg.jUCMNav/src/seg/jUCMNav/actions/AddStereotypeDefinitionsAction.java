@@ -112,7 +112,7 @@ public class AddStereotypeDefinitionsAction extends URNSelectionAction {
 				return null;
 			}
 
-            mdList = (Metadata[]) otherMetadata.toArray(new Metadata[0]);
+            mdList = otherMetadata.toArray(new Metadata[0]);
         	commandLabel = Messages.getString("ActionRegistryManager.updateStereotypeDefinitions"); //$NON-NLS-1$
         } else {
         	mdList = (Metadata[]) urnspec.getMetadata().toArray(new Metadata[0]);

@@ -26,7 +26,7 @@ import seg.jUCMNav.model.commands.transformations.ChangeQualitativeImportanceCom
 
 public class SetQualitativeImportanceAction extends URNSelectionAction {
     public static final String SET_QUALITATIVE_IMPORTANCE = "seg.jUCMNav.SET_QUALITATIVE_IMPORTANCE"; //$NON-NLS-1$
-    private Vector intElementRefs;
+    private Vector<EObject> intElementRefs;
     private int id;
     private static String[] values = { "(H)igh", "(M)edium", "(L)ow", "None", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             Messages.getString("SetEvaluation.Increase") + "   (x)", //$NON-NLS-1$ //$NON-NLS-2$ 
@@ -90,7 +90,7 @@ public class SetQualitativeImportanceAction extends URNSelectionAction {
             }
         }
 
-        intElementRefs = new Vector(); // all tests passed, create list
+        intElementRefs = new Vector<EObject>(); // all tests passed, create list
 
         for (Iterator iter = getSelectedObjects().iterator(); iter.hasNext();) {
             EObject ier = (EObject) (((EditPart) iter.next()).getModel());

@@ -54,7 +54,7 @@ public class ShowLinkedElementAlternativeCommand extends Command implements JUCM
     private List<ElementLink> linksDestinationList; 
     
     public ShowLinkedElementAlternativeCommand(URNspec spec, EObject obj, IntentionalElementRef ref, String numOfLevel) {
-        int counter = 0;      
+        //int counter = 0;      
         urnspec = spec;
         objRef = ref;
         diagramOfElement = objRef.getDiagram();
@@ -95,8 +95,9 @@ public class ShowLinkedElementAlternativeCommand extends Command implements JUCM
     public void redo() {
         testPreConditions();
         
-        int size, previousNumberOfNodes, newNumberOfNodes = 1;
-        boolean Done = false;
+        int size;
+        int previousNumberOfNodes, newNumberOfNodes = 1;
+        //boolean Done = false;
         IntentionalElementRef ieRef;
         initialIntentionalElementRefList = new ArrayList<IntentionalElementRef>(grlGraph.getNodes());
         

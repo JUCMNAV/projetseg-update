@@ -39,7 +39,7 @@ public class DelegatingZoomManager extends ZoomManager implements ZoomListener {
     private ZoomManager currentZoomManager;
 
     /** listeners */
-    private ListenerList zoomListeners = new ListenerList(ListenerList.IDENTITY);
+    private ListenerList<ZoomListener> zoomListeners = new ListenerList<ZoomListener>(ListenerList.IDENTITY);
 
     private UCMNavMultiPageEditor editor;
 
@@ -51,7 +51,7 @@ public class DelegatingZoomManager extends ZoomManager implements ZoomListener {
 
         setEditor(editor);
 
-        List zoomLevels = new ArrayList(3);
+        List<String> zoomLevels = new ArrayList<String>(3);
         zoomLevels.add(ZoomManager.FIT_ALL);
         zoomLevels.add(ZoomManager.FIT_WIDTH);
         zoomLevels.add(ZoomManager.FIT_HEIGHT);

@@ -36,6 +36,7 @@ import seg.jUCMNav.model.commands.create.CreateGrlGraphCommand;
 import seg.jUCMNav.model.util.URNNamingHelper;
 import seg.jUCMNav.views.property.LinkRefPropertySource;
 import urn.URNspec;
+import urncore.GRLmodelElement;
 import urncore.IURNContainerRef;
 import urncore.Metadata;
 
@@ -48,11 +49,11 @@ public class ImportGRLCatalog extends DefaultHandler implements IURNImport {
 
     private URNspec urn;
     private GRLGraph graph;
-    private HashMap map;
+    private HashMap<String, GRLmodelElement> map;
     private int state;
-    private ArrayList idList;
+    private ArrayList<String> idList;
 
-    private Vector autolayoutDiagrams;
+    private Vector<String> autolayoutDiagrams;
 
     /*
      * (non-Javadoc)
@@ -85,10 +86,10 @@ public class ImportGRLCatalog extends DefaultHandler implements IURNImport {
      */
     public URNspec importURN(FileInputStream fis, URNspec urn, Vector autolayoutDiagrams) throws InvocationTargetException {
         this.urn = (URNspec) EcoreUtil.copy(urn);
-        this.map = new HashMap();
+        this.map = new HashMap<String, GRLmodelElement>();
         this.autolayoutDiagrams = autolayoutDiagrams;
         this.state = -1;
-        this.idList = new ArrayList();
+        this.idList = new ArrayList<String>();
         // Use the default parser
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(true);

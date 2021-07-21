@@ -284,6 +284,7 @@ public class ExportScenariosTraversalListener {
 	    }
 	}
 
+	@SuppressWarnings("unused")
 	public void codeExecuted(TraversalVisit visit, String code) {
 	    // is null in scenario initializations
 	    // if (visit == null)

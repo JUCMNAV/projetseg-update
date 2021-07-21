@@ -1,9 +1,5 @@
 package seg.jUCMNav.editparts.strategyTreeEditparts;
 
-import grl.Contribution;
-import grl.ContributionChange;
-import grl.ContributionContext;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +7,8 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TreeItem;
 
+import grl.ContributionChange;
+import grl.ContributionContext;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.editpolicies.element.ContributionChangeComponentEditPolicy;
 import seg.jUCMNav.model.util.URNNamingHelper;
@@ -95,9 +93,10 @@ public class ContributionChangeTreeEditPart extends StrategyUrnModelElementTreeE
      * 
      * @return the Contribution associated with the ContributionChange
      */
-    private Contribution getContribution() {
-        return getContributionChange().getContribution();
-    }
+	/*
+	 * private Contribution getContribution() { return
+	 * getContributionChange().getContribution(); }
+	 */
 
     /**
      * Is this element inherited from another contribution context? This depends on the edit part and not the model instance; the model instance is not duplicated, the edit

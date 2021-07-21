@@ -32,9 +32,9 @@ import urn.URNspec;
  */
 public class UcmEnvironment implements Adapter, Cloneable {
 
-    private HashMap declarations;
-    private HashMap enumerations;
-    private HashMap valuations;
+    private HashMap<String, Object> declarations;
+    private HashMap<String, String[]> enumerations;
+    private HashMap<String, Object> valuations;
 
     private URNspec urn;
 
@@ -45,9 +45,9 @@ public class UcmEnvironment implements Adapter, Cloneable {
      *            the urnspec; pass null if you do not want to register any listeners.
      */
     public UcmEnvironment(URNspec urn) {
-        declarations = new HashMap();
-        valuations = new HashMap();
-        enumerations = new HashMap();
+        declarations = new HashMap<String, Object>();
+        valuations = new HashMap<String, Object>();
+        enumerations = new HashMap<String, String[]>();
 
         if (urn != null)
             registerUCMspec(urn.getUcmspec());

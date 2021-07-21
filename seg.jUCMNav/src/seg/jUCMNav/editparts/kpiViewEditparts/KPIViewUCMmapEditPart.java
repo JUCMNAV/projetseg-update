@@ -23,11 +23,11 @@ public class KPIViewUCMmapEditPart extends AbstractKPIViewEditPart {
     }
 
     // retrieve and return KPIViewObjects from the model element
-    protected List createKPIViewObjects() {
-        List kpiViewObjects = new ArrayList();
+    protected List<KPIViewObject> createKPIViewObjects() {
+        List<KPIViewObject> kpiViewObjects = new ArrayList<KPIViewObject>();
         Indicator[] indicators = new Indicator[0];
 
-        Map indicatorMap = new HashMap();
+        Map<String, Indicator> indicatorMap = new HashMap<String, Indicator>();
         UCMmap model = getNode();
         List urnLinks = model.getToLinks();
         for (int i = 0; i < urnLinks.size(); i++) {
@@ -37,7 +37,7 @@ public class KPIViewUCMmapEditPart extends AbstractKPIViewEditPart {
             }
         }
 
-        indicators = (Indicator[]) indicatorMap.values().toArray(new Indicator[0]);
+        indicators = indicatorMap.values().toArray(new Indicator[0]);
         int current_y = 0;
         for (int i = 0; i < indicators.length; i++) {
             KPIViewObject kpiViewObject = new KPIViewObject((Indicator) indicators[i]);
@@ -50,7 +50,7 @@ public class KPIViewUCMmapEditPart extends AbstractKPIViewEditPart {
         return kpiViewObjects;
     }
 
-    private void findAllIndicators(IntentionalElement model, Map indicatorMap) {
+    private void findAllIndicators(IntentionalElement model, Map<String, Indicator> indicatorMap) {
         ElementLink[] elementLinks = (ElementLink[]) model.getLinksDest().toArray(new ElementLink[0]);
         if (elementLinks != null) {
             for (int i = 0; i < elementLinks.length; i++) {

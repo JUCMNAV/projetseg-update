@@ -54,7 +54,7 @@ public class ShowLinkedElementCommand extends Command implements JUCMNavCommand
     
     public ShowLinkedElementCommand(URNspec spec, EObject obj, IntentionalElementRef ref) 
     {
-        int counter = 0;
+        //int counter = 0;
       
         urnspec = spec;
         objRef = ref;

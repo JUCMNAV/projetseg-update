@@ -50,7 +50,7 @@ public class ImportGRLStrategies implements IURNImport  {
 	public URNspec importURN(FileInputStream fis, URNspec urn,
 			Vector autolayoutDiagrams) throws InvocationTargetException {
 
-		urnSpec = (URNspec) EcoreUtil.copy(urn);
+		urnSpec = EcoreUtil.copy(urn);
         URNNamingHelper.sanitizeURNspec(this.urnSpec); // Sanitize urnspec to resolve naming conflict
 
         esm = EvaluationStrategyManager.getInstance(false);
@@ -62,7 +62,7 @@ public class ImportGRLStrategies implements IURNImport  {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 			String strLine;
-            HashMap strategyDefinition = new HashMap();
+            HashMap<String, String> strategyDefinition = new HashMap<String, String>();
             boolean inStrategyDefinitions = false;
             
 			while( (strLine = br.readLine()) != null) {
@@ -121,7 +121,7 @@ public class ImportGRLStrategies implements IURNImport  {
 		}
 	}
 	
-	private void processSectionHeader( String headerLine, BufferedReader br, HashMap strategyDefinition ) throws IOException {
+	private void processSectionHeader( String headerLine, BufferedReader br, HashMap<String, String> strategyDefinition ) throws IOException {
 
 		String [] columns = headerLine.split(","); //$NON-NLS-1$
 		elementIndexes.clear();
@@ -151,7 +151,7 @@ public class ImportGRLStrategies implements IURNImport  {
 		this.processStrategyElementValues(br, strategyDefinition); // process Evaluation values for each strategy
 	}
 	
-	private void processStrategyElementValues(BufferedReader br, HashMap strategyDefinition) throws IOException {
+	private void processStrategyElementValues(BufferedReader br, HashMap<String, String> strategyDefinition) throws IOException {
 
 		String strLine;
 		EvaluationStrategy strategy = null;
@@ -174,7 +174,7 @@ public class ImportGRLStrategies implements IURNImport  {
 			} else { // create a new strategy
 			    
 			    String [] strategyColumns = null;
-			    String strategyLine = (String)strategyDefinition.get(strategyName);
+			    String strategyLine = strategyDefinition.get(strategyName);
 			    if (strategyLine!=null) strategyColumns = strategyLine.split(",");
 			    
 				StrategiesGroup group = this.getStrategiesGroup();
@@ -304,8 +304,8 @@ public class ImportGRLStrategies implements IURNImport  {
 	
 	private boolean isGroupNameUnique( String name )
 	{
-		for( Iterator iter = urnSpec.getGrlspec().getGroups().iterator(); iter.hasNext(); ) {
-			StrategiesGroup group = (StrategiesGroup) iter.next();
+		for( Iterator<StrategiesGroup> iter = urnSpec.getGrlspec().getGroups().iterator(); iter.hasNext(); ) {
+			StrategiesGroup group = iter.next();
 			if( group.getName().contentEquals( name ))
 				return false;
 		}

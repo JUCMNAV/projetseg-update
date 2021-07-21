@@ -46,7 +46,7 @@ public class HTMLMenuParser {
 
 	private String xmlFullPath = ""; //$NON-NLS-1$
 	private Document xmlDocument = null;
-	private ArrayList selectedMaps = new ArrayList();
+	private ArrayList<Element> selectedMaps = new ArrayList<Element>();
 
 	private final static String xmlFileName = "tree.xml"; //$NON-NLS-1$
 	//private final static String TREE = "tree"; //$NON-NLS-1$
@@ -86,7 +86,7 @@ public class HTMLMenuParser {
 	 */
 	public void resetDocument() {
 		xmlDocument = null;
-		selectedMaps = new ArrayList();
+		selectedMaps = new ArrayList<Element>();
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class HTMLMenuParser {
 		if (!isExisting) {
 			IURNDiagram diagram = htmlMenuItem.getDiagram();
 			Iterator nodeIter = null;
-			ArrayList childDiagramList = new ArrayList();
+			ArrayList<UCMmap> childDiagramList = new ArrayList<UCMmap>();
 
 			EList nodes = diagram.getNodes();
 			if (!nodes.isEmpty()) {

@@ -31,7 +31,7 @@ import urncore.Metadata;
 
 public class SetNumericalContributionAction extends URNSelectionAction {
     public static final String SET_NUMERICAL_CONTRIBUTION = "seg.jUCMNav.SET_NUMERICAL_CONTRIBUTION"; //$NON-NLS-1$
-    private Vector linkRefs;
+    private Vector<LinkRef> linkRefs;
     private int id;
     private static String[] values = { "+100", "+75", "+50", "+25", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         "0", "-25", "-50", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
@@ -105,7 +105,7 @@ public class SetNumericalContributionAction extends URNSelectionAction {
             }
         }
 
-        linkRefs = new Vector(); // all tests passed, create list
+        linkRefs = new Vector<LinkRef>(); // all tests passed, create list
 
         for (Iterator iter = getSelectedObjects().iterator(); iter.hasNext();) {
             LinkRef lr = (LinkRef) (((LinkRefEditPart) iter.next()).getModel());
@@ -116,8 +116,8 @@ public class SetNumericalContributionAction extends URNSelectionAction {
     }
 
     public void run() {
-        boolean isPositiveRange = StrategyEvaluationPreferences.getVisualizeAsPositiveRange(getUrnspec());
-        isPositiveRange = false; // disabled for contributions
+        //boolean isPositiveRange = StrategyEvaluationPreferences.getVisualizeAsPositiveRange(getUrnspec());
+        //isPositiveRange = false; // disabled for contributions
         if (id < ChangeNumericalContributionCommand.USER_ENTRY || id >= ChangeNumericalContributionCommand.INCREASE)
             execute(new ChangeNumericalContributionCommand(linkRefs, id, 1, getCommandStack()));
         else if (id == ChangeNumericalContributionCommand.USER_ENTRY) {

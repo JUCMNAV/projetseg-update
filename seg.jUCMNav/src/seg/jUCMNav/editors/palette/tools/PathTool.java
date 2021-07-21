@@ -85,9 +85,9 @@ public class PathTool extends BaseCreationTool implements ISelectionChangedListe
     /**
      * We should not allow the use of the default constructor. We need a URNspec.
      */
-    private PathTool() {
-        super();
-    }
+	/*
+	 * private PathTool() { super(); }
+	 */
 
     /**
      * The default constructor with the URNspec.

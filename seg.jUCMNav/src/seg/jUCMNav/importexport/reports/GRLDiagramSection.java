@@ -9,7 +9,6 @@ import grl.ActorRef;
 import grl.Belief;
 import grl.IntentionalElement;
 import grl.IntentionalElementRef;
-import grl.kpimodel.Indicator;
 import seg.jUCMNav.Messages;
 import seg.jUCMNav.importexport.reports.utils.ReportUtils;
 import seg.jUCMNav.views.preferences.ReportGeneratorPreferences;
@@ -248,7 +247,9 @@ public class GRLDiagramSection extends PDFReportDiagram {
         }
     }
 
-    private boolean hasGrlKPIData(Indicator indicator) {
-        return true; //(ReportUtils.notEmpty(belief.getDescription()) || !belief.getMetadata().isEmpty());
-    }
+	/*
+	 * private boolean hasGrlKPIData(Indicator indicator) { return true;
+	 * //(ReportUtils.notEmpty(belief.getDescription()) ||
+	 * !belief.getMetadata().isEmpty()); }
+	 */
 }

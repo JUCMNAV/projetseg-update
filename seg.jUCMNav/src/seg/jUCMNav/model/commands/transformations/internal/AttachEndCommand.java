@@ -62,9 +62,9 @@ public class AttachEndCommand extends Command implements JUCMNavCommand {
     /**
      * Disable the default constructor.
      */
-    private AttachEndCommand() {
-        super();
-    }
+	/*
+	 * private AttachEndCommand() { super(); }
+	 */
 
     /**
      * @see org.eclipse.gef.commands.Command#canExecute()

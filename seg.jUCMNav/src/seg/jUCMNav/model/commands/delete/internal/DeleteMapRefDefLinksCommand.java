@@ -3,6 +3,7 @@ package seg.jUCMNav.model.commands.delete.internal;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 
 import seg.jUCMNav.model.commands.JUCMNavCommand;
@@ -14,6 +15,7 @@ import urn.URNspec;
 import urncore.Component;
 import urncore.Concern;
 import urncore.Responsibility;
+import urncore.UCMmodelElement;
 
 /**
  * This class unlinks a Map from its ComponentRef->Component and RespRef->Responsibility references. It will also remove the map from its URNspec.
@@ -26,7 +28,7 @@ import urncore.Responsibility;
 public class DeleteMapRefDefLinksCommand extends Command implements JUCMNavCommand {
 
     // its references to definitions.
-    private Hashtable htReferences;
+    private Hashtable<UCMmodelElement, EObject> htReferences;
 
     // the map to delete
     private UCMmap map;
@@ -61,7 +63,7 @@ public class DeleteMapRefDefLinksCommand extends Command implements JUCMNavComma
     public void execute() {
         // also set the relations
         urn = getMap().getUrndefinition().getUrnspec();
-        htReferences = new Hashtable();
+        htReferences = new Hashtable<UCMmodelElement, EObject>();
         for (Iterator iter = map.getContRefs().iterator(); iter.hasNext();) {
             ComponentRef comp = (ComponentRef) iter.next();
             htReferences.put(comp, comp.getContDef());

@@ -63,7 +63,7 @@ public class ShowLinkedElementCompleteSubNodesCommand extends Command implements
     
     public ShowLinkedElementCompleteSubNodesCommand(URNspec spec, EObject obj, IntentionalElementRef ref) 
     {
-        int counter = 0;
+       //int counter = 0;
       
         urnspec = spec;
         objRef = ref;

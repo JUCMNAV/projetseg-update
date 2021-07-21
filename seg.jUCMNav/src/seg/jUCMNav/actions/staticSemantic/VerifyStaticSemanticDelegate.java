@@ -48,7 +48,7 @@ public class VerifyStaticSemanticDelegate implements IEditorActionDelegate {
 	 */
 	public void run(IAction action) {
 		if (getEditor() != null) {
-			Vector problems = new Vector();
+			Vector<RuleManagementCheckingMessage> problems = new Vector<RuleManagementCheckingMessage>();
 			StaticSemanticChecker.getInstance().check(getEditor().getModel(),
 					problems);
 			refreshProblemView(problems);
@@ -56,8 +56,8 @@ public class VerifyStaticSemanticDelegate implements IEditorActionDelegate {
 			String header = Messages
 					.getString("VerifyStaticSemanticDelegate.StaticSemanticCheck"); //$NON-NLS-1$
 			boolean hasError = false;
-			for (Iterator iterator = problems.iterator(); iterator.hasNext();) {
-				RuleManagementCheckingMessage m = (RuleManagementCheckingMessage) iterator
+			for (Iterator<RuleManagementCheckingMessage> iterator = problems.iterator(); iterator.hasNext();) {
+				RuleManagementCheckingMessage m = iterator
 						.next();
 				if (m.getSeverity() == IMarker.SEVERITY_ERROR) {
 					hasError = true;
@@ -68,7 +68,7 @@ public class VerifyStaticSemanticDelegate implements IEditorActionDelegate {
 			String message = Messages
 					.getString("VerifyStaticSemanticDelegate.NoErrors"); //$NON-NLS-1$
 			if (problems.size() > 0)
-				message = ((RuleManagementCheckingMessage) problems.get(0))
+				message = problems.get(0)
 						.getMessage(); // first is the info message.
 
 			message += Messages
@@ -94,7 +94,7 @@ public class VerifyStaticSemanticDelegate implements IEditorActionDelegate {
 	 *            RuleManagementCheckingMessage.
 	 * @see RuleManagementCheckingMessage
 	 */
-	protected void refreshProblemView(Vector problems) {
+	protected void refreshProblemView(Vector<RuleManagementCheckingMessage> problems) {
 		if (getEditor() != null) {
 			IFile resource = ((FileEditorInput) getEditor().getEditorInput())
 					.getFile();
@@ -113,7 +113,7 @@ public class VerifyStaticSemanticDelegate implements IEditorActionDelegate {
 			if (problems.size() > 0) {
 
 				for (int i = 0; i < problems.size(); ++i) {
-					RuleManagementCheckingMessage o = (RuleManagementCheckingMessage) problems
+					RuleManagementCheckingMessage o = problems
 							.get(i);
 					try {
 						IMarker marker = resource.createMarker(IMarker.PROBLEM);

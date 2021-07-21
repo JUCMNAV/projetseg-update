@@ -125,7 +125,7 @@ public abstract class EmfModelManager {
         init();
         // Register the XMI resource factory for the .ucm extension
         Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-        Map m = reg.getExtensionToFactoryMap();
+        Map<String, Object> m = reg.getExtensionToFactoryMap();
         m.put(getFileExtension(), new XMIResourceFactoryImpl());
         m.put(CORE_FILE_EXTENSION , new CoreResourceFactoryImpl());
         // Obtain a new resource set
@@ -146,7 +146,7 @@ public abstract class EmfModelManager {
      */
     public void load(File path) throws IOException {
         getResource(path);
-        Map options = new HashMap();
+        Map<String, Boolean> options = new HashMap<String, Boolean>();
 
         options.put(XMLResource.OPTION_DECLARE_XML, Boolean.TRUE);
         resource.load(options);
@@ -160,7 +160,7 @@ public abstract class EmfModelManager {
      */
     public void load(IPath path) throws IOException {
         getResource(path);
-        Map options = new HashMap();
+        Map<String, Boolean> options = new HashMap<String, Boolean>();
 
         options.put(XMLResource.OPTION_DECLARE_XML, Boolean.TRUE);
         resource.load(options);
@@ -222,7 +222,7 @@ public abstract class EmfModelManager {
      */
     public void save(File path) throws IOException {
         getResource(path);
-        Map options = new HashMap();
+        Map<String, Comparable> options = new HashMap<String, Comparable>();
         options.put(XMLResource.OPTION_DECLARE_XML, Boolean.TRUE);
         // latin 1
         options.put(XMLResource.OPTION_ENCODING, "ISO-8859-1"); //$NON-NLS-1$
@@ -239,7 +239,7 @@ public abstract class EmfModelManager {
     public EObject loadModel(String file)
     {
     	
-    	EList<Resource> resources = getResourceSet().getResources();
+    	//EList<Resource> resources = getResourceSet().getResources();
     	
     	Resource resource = getResourceSet().getResource( URI.createFileURI( new File(file).getAbsolutePath()), true);
     	return resource.getContents().get(0);
@@ -269,7 +269,7 @@ public abstract class EmfModelManager {
      */
     public void save(IPath path) throws IOException {
         getResource(path);
-        Map options = new HashMap();
+        Map<String, Comparable> options = new HashMap<String, Comparable>();
         options.put(XMLResource.OPTION_DECLARE_XML, Boolean.TRUE);
         // latin 1
         options.put(XMLResource.OPTION_ENCODING, "ISO-8859-1"); //$NON-NLS-1$

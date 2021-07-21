@@ -102,8 +102,8 @@ public class ApplyConcernAction extends URNSelectionAction {
             MatchList matchResult = new MatchList();
             String capture = ""; //$NON-NLS-1$
             int size = 0;
-            for (Iterator iterator = pointcutMaps.iterator(); iterator.hasNext();) {
-				pointcutMap = (UCMmap) iterator.next();
+            for (Iterator<UCMmap> iterator = pointcutMaps.iterator(); iterator.hasNext();) {
+				pointcutMap = iterator.next();
 	       		if (showInfoMessages) 
 	       			MessageDialog.openConfirm(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Result", "Found pointcut expression: " + pointcutMap.getName() + " [" + pointcutMap.getId() + Messages.getString("ApplyConcernAction.CloseBracketJoinPoints") + joinpoints.size() + Messages.getString("ApplyConcernAction.SpacePathNodes")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	            try {
@@ -126,8 +126,8 @@ public class ApplyConcernAction extends URNSelectionAction {
             UCMAspectComposer.resetCounter();
         	List<List<AspectMarkerMappings>> composeResultList = new ArrayList<List<AspectMarkerMappings>>();
         	boolean compositionSuccessful = false;
-            for (Iterator iterator = pointcutMaps.iterator(); iterator.hasNext();) {
-            	pointcutMap = (UCMmap) iterator.next();
+            for (Iterator<UCMmap> iterator = pointcutMaps.iterator(); iterator.hasNext();) {
+            	pointcutMap = iterator.next();
             	MatchList mResult = matchResultList.get(i++);
             	// if there are some matches, continue with the composition
             	if (mResult.getMatchList().size() > 0) {

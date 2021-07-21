@@ -84,11 +84,11 @@ import urncore.URNmodelElement;
 public class ExportCSM implements IURNExport {
 
     private FileOutputStream fos = null;
-    private List processedComponents = new ArrayList();
-    private List processedResources = new ArrayList();
+    private List<String> processedComponents = new ArrayList<String>();
+    private List<String> processedResources = new ArrayList<String>();
     private int dummy_id = 5000; // TODO: wave limitation
     private int emptyPoint_id = 9000; // TODO: wave limitation
-    Vector problems = new Vector(); // List of warnings and errors for the Problems view
+    Vector<CsmExportWarning> problems = new Vector<CsmExportWarning>(); // List of warnings and errors for the Problems view
 
     // Converts object through polymorphism (dynamic binding)
     private void doComponentRefConvert(ComponentRefConverter obj, PrintStream ps) {
@@ -203,7 +203,7 @@ public class ExportCSM implements IURNExport {
      * @param warnings
      *            to advertise export problems
      */
-    private void exportMap(UCMmap ucmMap, PrintStream ps, PluginBinding pluginBinding, Vector warnings) {
+    private void exportMap(UCMmap ucmMap, PrintStream ps, PluginBinding pluginBinding, Vector<CsmExportWarning> warnings) {
         String probability;
         String transaction;
         String name_extension;
@@ -314,7 +314,7 @@ public class ExportCSM implements IURNExport {
      * @param ps
      * @param warnings
      */
-    private void outputDynamicStubSubMaps(CSMDupNodeList dupMaplist, UCMmap ucmMap, PrintStream ps, Vector warnings) {
+    private void outputDynamicStubSubMaps(CSMDupNodeList dupMaplist, UCMmap ucmMap, PrintStream ps, Vector<CsmExportWarning> warnings) {
 
         String oneTab = "        "; //$NON-NLS-1$
         String twoTab = "            "; //$NON-NLS-1$
@@ -537,7 +537,7 @@ public class ExportCSM implements IURNExport {
      * Once the essence of the UCM map has been converted, the duplicate map is revisited and ResourceAcquisition and ResourceRelease nodes are added as
      * required.
      */
-    private void transform(CSMDupNodeList list, CSMDupConnectionList conn_list, PrintStream ps, Vector warnings) {
+    private void transform(CSMDupNodeList list, CSMDupConnectionList conn_list, PrintStream ps, Vector<CsmExportWarning> warnings) {
         ResourceAcquisition ra = new ResourceAcquisition(ps);
         ResourceRelease rr = new ResourceRelease(ps);
         int i = 0;
@@ -586,7 +586,7 @@ public class ExportCSM implements IURNExport {
     /**
      * Output each node of the duplicate map. Keep an opened eye for anomalies (w.r.t. CSM expectations).
      */
-    private void saveXML(UCMmap map, PrintStream ps, CSMDupNodeList dupMaplist, CSMDupConnectionList dupMapConnlist, Vector warnings) {
+    private void saveXML(UCMmap map, PrintStream ps, CSMDupNodeList dupMaplist, CSMDupConnectionList dupMapConnlist, Vector<CsmExportWarning> warnings) {
 
         int startPoints = 0;
 
@@ -634,8 +634,8 @@ public class ExportCSM implements IURNExport {
             else {
                 String curr_node_id = dupMaplist.get(dupMapListIndex).getId();
                 // determine new source and target of all PathConnection types
-                ArrayList sourcesList = new ArrayList();
-                ArrayList targetsList = new ArrayList();
+                ArrayList<String> sourcesList = new ArrayList<String>();
+                ArrayList<String> targetsList = new ArrayList<String>();
                 // retrieve list of target/source nodes
                 sourcesList = getSources(dupMapConnlist, curr_node_id);
                 targetsList = getTargets(dupMapConnlist, curr_node_id);
@@ -704,8 +704,8 @@ public class ExportCSM implements IURNExport {
     }
 
     // retrieve list of source nodes
-    private ArrayList getSources(CSMDupConnectionList dupMapConnlist, String edge_id) {
-        ArrayList sources = new ArrayList();
+    private ArrayList<String> getSources(CSMDupConnectionList dupMapConnlist, String edge_id) {
+        ArrayList<String> sources = new ArrayList<String>();
         for (int i = 0; i < dupMapConnlist.size(); i++) {
             String add_h = "h"; //$NON-NLS-1$
             String source_id = dupMapConnlist.get(i).getSourceStr();
@@ -725,8 +725,8 @@ public class ExportCSM implements IURNExport {
     } // method
 
     // retrieve list of target nodes
-    private ArrayList getTargets(CSMDupConnectionList dupMapConnlist, String edge_id) {
-        ArrayList targets = new ArrayList();
+    private ArrayList<String> getTargets(CSMDupConnectionList dupMapConnlist, String edge_id) {
+        ArrayList<String> targets = new ArrayList<String>();
         for (int i = 0; i < dupMapConnlist.size(); i++) {
             String add_h = "h"; //$NON-NLS-1$
             String source_id = add_h.concat(dupMapConnlist.get(i).getSourceStr());
@@ -745,7 +745,7 @@ public class ExportCSM implements IURNExport {
     } // method
 
     // Adds a Dummy responsibility in between 2 steps
-    private void addDummy(CSMDupNodeList node_list, CSMDupConnectionList conn_list, Vector warnings) {
+    private void addDummy(CSMDupNodeList node_list, CSMDupConnectionList conn_list, Vector<CsmExportWarning> warnings) {
         boolean work_to_do = true;
 
         while (work_to_do) {
@@ -777,14 +777,14 @@ public class ExportCSM implements IURNExport {
                             work_to_do = true; // we need to start over after adding connections
                         }
                         // if necessary, insert a DummyStep before each successor node
-                        ArrayList conns = new ArrayList();
+                        ArrayList<CSMDupConnection> conns = new ArrayList<CSMDupConnection>();
                         for (int j = 0; j < conn_list.size(); j++) {
                             if (conn_list.get(j).getSource() == target.getNode()) {
                                 conns.add(conn_list.get(j));
                             }
                         }
                         for (int j = 0; j < conns.size(); j++) {
-                            CSMDupConnection con = (CSMDupConnection) conns.get(j);
+                            CSMDupConnection con = conns.get(j);
                             CSMDupNode nod = con.getCSMTarget();
                             if ((nod.isPathNode() && ((nod.getType() == CSMDupNode.RESPREF) || (nod.getType() == CSMDupNode.STUB)))
                                     || (nod.getType() == CSMDupNode.RR) || (nod.getType() == CSMDupNode.RA) || (nod.getType() == CSMDupNode.CONNECT) // CONNECT
@@ -945,7 +945,7 @@ public class ExportCSM implements IURNExport {
      * @param warnings
      *            a vector of {@link CsmExportWarning}s to be pushed to the problems view.
      */
-    public static void refreshProblemsView(Vector warnings) {
+    public static void refreshProblemsView(Vector<CsmExportWarning> warnings) {
 
         IWorkbenchWindow[] wbw = PlatformUI.getWorkbench().getWorkbenchWindows();
         UCMNavMultiPageEditor editor = null;
@@ -973,8 +973,8 @@ public class ExportCSM implements IURNExport {
 
             if (warnings.size() > 0) {
 
-                for (Iterator iter = warnings.iterator(); iter.hasNext();) {
-                    CsmExportWarning o = (CsmExportWarning) iter.next();
+                for (Iterator<CsmExportWarning> iter = warnings.iterator(); iter.hasNext();) {
+                    CsmExportWarning o = iter.next();
 
                     try {
                         IMarker marker = resource.createMarker(IMarker.PROBLEM);

@@ -151,18 +151,18 @@ public class UCMChangeImpactAnalysisCommand extends Command implements JUCMNavCo
 		ForSlicingAlg.UnrelatedOrForkbranches.clear();
 		ForSlicingAlg.allNotRelevantRespRefList.clear();
 		ForSlicingAlg.allRelevantRespRefList.clear();
-		slicing.visitedNodes.clear();
-		slicing.visitedNodes.add(Criterion);
+		ForSlicingAlg.visitedNodes.clear();
+		ForSlicingAlg.visitedNodes.add(Criterion);
     		 
 		if(Criterion instanceof PathNode)
 		{
 			slicing.setUrn(((PathNode)Criterion).getDiagram().getUrndefinition().getUrnspec());
-			slicing.maps.add((UCMmap)((PathNode)Criterion).getDiagram());
+			ForSlicingAlg.maps.add((UCMmap)((PathNode)Criterion).getDiagram());
 		}
 		else
 		{
 			slicing.setUrn(((NodeConnection)Criterion).getDiagram().getUrndefinition().getUrnspec());
-			slicing.maps.add((UCMmap)((NodeConnection)Criterion).getDiagram());
+			ForSlicingAlg.maps.add((UCMmap)((NodeConnection)Criterion).getDiagram());
 			//when criterion is a node connection, add unrelated branches of the source
 			ArrayList<NodeConnection> temp=new ArrayList<NodeConnection>();
 			PathNode source=(PathNode) ((NodeConnection)Criterion).getSource();
@@ -173,17 +173,17 @@ public class UCMChangeImpactAnalysisCommand extends Command implements JUCMNavCo
 			//add to the unrelatedOrFork list
 			for(NodeConnection nc:temp)
 			{
-				if(!slicing.UnrelatedOrForkbranches.contains(nc))
-					slicing.UnrelatedOrForkbranches.add(nc);
-				if(!slicing.unrelatedStubINS.contains(nc))
-					slicing.unrelatedStubINS.add(nc);
+				if(!ForSlicingAlg.UnrelatedOrForkbranches.contains(nc))
+					ForSlicingAlg.UnrelatedOrForkbranches.add(nc);
+				if(!ForSlicingAlg.unrelatedStubINS.contains(nc))
+					ForSlicingAlg.unrelatedStubINS.add(nc);
 			}
 			//add source to visited nodes list
 			
-			slicing.visitedNodes.add((EObject)source);
+			ForSlicingAlg.visitedNodes.add((EObject)source);
 		}
     			
-		 slicing.emptyRespRef.clear();
+		 ForSlicingAlg.emptyRespRef.clear();
 		 ForSlicingAlg.criterionExcludedNC.clear();
 		 ForSlicingAlg.concurrencyNodeConnections.clear();
 		 ForSlicingAlg.criterionForwardBranches.clear();
@@ -222,7 +222,7 @@ public class UCMChangeImpactAnalysisCommand extends Command implements JUCMNavCo
 			//otherwise, execute the other form of traversal in which no dependencies are computed
 			else{
 				if(isorAndTimerCriterion)
-					slicing.visitedNodes.clear(); // inorder to unclor the preds Hasan
+					ForSlicingAlg.visitedNodes.clear(); // inorder to unclor the preds Hasan
 				
 				slicing.executeAlg(startingNC,new Stack<Stub>(),pathVisitedJoins);
 				
@@ -268,20 +268,20 @@ public class UCMChangeImpactAnalysisCommand extends Command implements JUCMNavCo
 	    		con.handleGroups(ForSlicingAlg.concurrencyGroups);
     		}
     		
-    		System.out.println("Number of unrelated respRef = "+ slicing.allNotRelevantRespRefList.size());
+    		System.out.println("Number of unrelated respRef = "+ ForSlicingAlg.allNotRelevantRespRefList.size());
     		
     		if(Criterion instanceof RespRef){
-    			slicing.allRelevantRespRefList.add((RespRef)Criterion);	    			
+    			ForSlicingAlg.allRelevantRespRefList.add((RespRef)Criterion);	    			
     		}
     		
-    		System.out.println("Related RespRef = "+slicing.allRelevantRespRefList.size());
+    		System.out.println("Related RespRef = "+ForSlicingAlg.allRelevantRespRefList.size());
     		
     		
-    		System.out.println("# of visited Node = "+slicing.visitedNodes.size());
+    		System.out.println("# of visited Node = "+ForSlicingAlg.visitedNodes.size());
     		
     		int temp = 0;
     		String names = "";
-    		for(EObject ob: slicing.visitedNodes)
+    		for(EObject ob: ForSlicingAlg.visitedNodes)
     			if(ob instanceof RespRef){
     				names += ++temp + " - "+ ((RespRef)ob).getRespDef().getName() + "\n";
     			}
@@ -294,8 +294,8 @@ public class UCMChangeImpactAnalysisCommand extends Command implements JUCMNavCo
     		
     		//Display the relevant ResRefs  
     			
-    		infoRelevantResRefs += "Number of Relevant RespRes :[ " + (slicing.allRelevantRespRefList.size() + 
-    				slicing.allRelevantRespRefListTemp.size() + slicing.allRelevantElementListTemp.size()) + " ]\n";
+    		infoRelevantResRefs += "Number of Relevant RespRes :[ " + (ForSlicingAlg.allRelevantRespRefList.size() + 
+    				ForSlicingAlg.allRelevantRespRefListTemp.size() + ForSlicingAlg.allRelevantElementListTemp.size()) + " ]\n";
     		for(RespRef respp: slicing.allRelevantRespRefList)
     			infoRelevantResRefs += "- Name :" + respp.getRespDef().getName() + "  ID :" + respp.getRespDef().getId()+ "\n";
     		infoRelevantResRefs += " ======== urn Links ======== \n";
@@ -317,7 +317,7 @@ public class UCMChangeImpactAnalysisCommand extends Command implements JUCMNavCo
     public void undo() {
     	
     		slicing.Uncoloring();
-    		slicing.allRelevantRespRefListTemp.clear();
+    		ForSlicingAlg.allRelevantRespRefListTemp.clear();
     	
     		infoRelevantResRefs = "";
     		infoUrnLinks = "";

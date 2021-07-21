@@ -193,7 +193,7 @@ public class ScenarioTraversalTests extends TestCase {
      */
     public void testSimple6() {
 
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
         v.add("INITIAL"); //$NON-NLS-1$
         v.add("MIDPOINT"); //$NON-NLS-1$
         v.add("FINAL"); //$NON-NLS-1$
@@ -232,7 +232,7 @@ public class ScenarioTraversalTests extends TestCase {
         ((NodeConnection) tester.fork.getSucc().get(0)).setCondition(getCondition("!b")); //$NON-NLS-1$
         ((NodeConnection) tester.fork.getSucc().get(1)).setCondition(getCondition("b")); //$NON-NLS-1$
 
-        HashSet set = new HashSet();
+        HashSet<NodeConnection> set = new HashSet<NodeConnection>();
         set.add(((NodeConnection) tester.fork.getSucc().get(0)));
 
         QFindReachableEndPoints qry = new EndPointFinder.QFindReachableEndPoints(tester.fork, set, QFindReachableNodes.DIRECTION_FORWARD);
@@ -264,7 +264,7 @@ public class ScenarioTraversalTests extends TestCase {
         ((NodeConnection) tester.fork.getSucc().get(0)).setCondition(getCondition("i>=25")); //$NON-NLS-1$
         ((NodeConnection) tester.fork.getSucc().get(1)).setCondition(getCondition("i<25")); //$NON-NLS-1$
 
-        HashSet set = new HashSet();
+        HashSet<NodeConnection> set = new HashSet<NodeConnection>();
         set.add(((NodeConnection) tester.fork.getSucc().get(0)));
 
         QFindReachableEndPoints qry = new EndPointFinder.QFindReachableEndPoints(tester.fork, set, QFindReachableNodes.DIRECTION_FORWARD);
@@ -282,7 +282,7 @@ public class ScenarioTraversalTests extends TestCase {
      */
     public void testFork3() {
         tester.testForkPathsCommand();
-        Vector v = new Vector();
+        Vector<String> v = new Vector<String>();
         v.add("INITIAL"); //$NON-NLS-1$
         v.add("MIDPOINT"); //$NON-NLS-1$
         v.add("FINAL"); //$NON-NLS-1$
@@ -301,7 +301,7 @@ public class ScenarioTraversalTests extends TestCase {
         ((NodeConnection) tester.fork.getSucc().get(0)).setCondition(getCondition("state==FINAL")); //$NON-NLS-1$
         ((NodeConnection) tester.fork.getSucc().get(1)).setCondition(getCondition("state!=FINAL")); //$NON-NLS-1$
 
-        HashSet set = new HashSet();
+        HashSet<NodeConnection> set = new HashSet<NodeConnection>();
         set.add(((NodeConnection) tester.fork.getSucc().get(0)));
 
         QFindReachableEndPoints qry = new EndPointFinder.QFindReachableEndPoints(tester.fork, set, QFindReachableNodes.DIRECTION_FORWARD);
@@ -728,7 +728,7 @@ public class ScenarioTraversalTests extends TestCase {
         // should have same behaviour as testStub1
         runscenario();
 
-        Vector toDelete = new Vector();
+        Vector<EObject> toDelete = new Vector<EObject>();
         for (Iterator iter = scenario.getStartPoints().iterator(); iter.hasNext();) {
             ScenarioStartPoint ssp = (ScenarioStartPoint) iter.next();
             if (ssp.getStartPoint().getDiagram() == urnspec.getUrndef().getSpecDiagrams().get(1))

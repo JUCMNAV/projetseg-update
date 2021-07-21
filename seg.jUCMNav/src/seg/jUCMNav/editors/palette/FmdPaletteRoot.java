@@ -37,7 +37,7 @@ public class FmdPaletteRoot extends GrlPaletteRoot {
      * Builds the palette entries.
      */
     protected void buildPalette() {
-        keyboardMapping = new HashMap();
+        keyboardMapping = new HashMap<String, ToolEntry>();
         // a group of default control tools
         PaletteGroup controls = new PaletteGroup(Messages.getString("FmdPaletteRoot.controls")); //$NON-NLS-1$
 

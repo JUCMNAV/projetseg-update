@@ -676,8 +676,8 @@ public class StubBindingsDialog extends Dialog implements Adapter {
 
     private void createTabFolder() {
         GridLayout grid;
-        GridData g;
-        Label lb;
+        //GridData g;
+        //Label lb;
         GridData f;
 
         CTabFolder tabFolder = new CTabFolder(addPluginClient, SWT.TOP);
@@ -1394,7 +1394,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             boolean finished = false;
             // Loop through all PluginBindings to find the one wich plug to the
             // selected unchecked map.
-            for (Iterator i = stub.getBindings().iterator(); i.hasNext() && !finished;) {
+            for (Iterator<?> i = stub.getBindings().iterator(); i.hasNext() && !finished;) {
                 PluginBinding plug = (PluginBinding) i.next();
                 if (plug.getPlugin() == map) {
                     finished = true;
@@ -1416,7 +1416,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
      * 
      */
     protected void resetTreeItemsBackground() {
-        Display d = treeBindings.getDisplay();
+        //Display d = treeBindings.getDisplay();
 
         treeBindings.setRedraw(false);
         setTreeItemBackground(treeBindings.getItem(0), null, null);
@@ -1961,22 +1961,22 @@ public class StubBindingsDialog extends Dialog implements Adapter {
         // Clear the list of maps
         tabMapList.removeAll();
         // Get the list of all maps in the .jucm.
-        List mapsList = stub.getDiagram().getUrndefinition().getSpecDiagrams();
+        List<?> mapsList = stub.getDiagram().getUrndefinition().getSpecDiagrams();
 
         // Array wich will contain all binded maps to this stub
-        ArrayList binded = new ArrayList();
+        ArrayList<UCMmap> binded = new ArrayList<UCMmap>();
 
-        List plugins = stub.getBindings();
+        List<?> plugins = stub.getBindings();
         // Loop through all the pluginbindings and find the maps wich are binded
         // to this map.
-        for (Iterator i = plugins.iterator(); i.hasNext();) {
+        for (Iterator<?> i = plugins.iterator(); i.hasNext();) {
             PluginBinding plugin = (PluginBinding) i.next();
             binded.add(plugin.getPlugin());
         }
 
         TableItem item;
         // For each map
-        for (Iterator i = mapsList.iterator(); i.hasNext();) {
+        for (Iterator<?> i = mapsList.iterator(); i.hasNext();) {
             IURNDiagram g = (IURNDiagram) i.next();
             if (g instanceof UCMmap) {
                 UCMmap map = (UCMmap) g;
@@ -2007,7 +2007,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
     private void refreshBindingsTree() {
         treeBindings.removeAll();
 
-        List list = stub.getBindings();
+        List<?> list = stub.getBindings();
         TreeItem root = new TreeItem(treeBindings, SWT.NULL);
         root.setText(Messages.getString("StubBindingsDialog.bindings")); //$NON-NLS-1$
         TreeItem item; // This represents a PluginBinding
@@ -2018,7 +2018,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
         Image image;
 
         // Loop through all the PluginBindings
-        for (Iterator i = list.iterator(); i.hasNext();) {
+        for (Iterator<?> i = list.iterator(); i.hasNext();) {
             item = root;
             PluginBinding binding = (PluginBinding) i.next();
             // Generate a tree item under root for this PluginBinding
@@ -2031,7 +2031,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             item.setData(binding);
 
             // Then add a label for InBindings under this item
-            List in = binding.getIn();
+            List<?> in = binding.getIn();
 
             if (in.size() > 0) {
                 subLabelItem = new TreeItem(item, SWT.NULL);
@@ -2042,7 +2042,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
 
                 // Loop through all the InBindings and add them under the InBinding
                 // label
-                for (Iterator j = in.iterator(); j.hasNext();) {
+                for (Iterator<?> j = in.iterator(); j.hasNext();) {
                     InBinding inBind = (InBinding) j.next();
                     subItem = new TreeItem(subLabelItem, SWT.NULL);
                     subItem.setText("IN" + (stub.getPred().indexOf(inBind.getStubEntry()) + 1) + " <-> " + inBind.getStartPoint().getName()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -2054,7 +2054,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
                 subLabelItem.setExpanded(true); // We want everything expanded by default.
             }
 
-            List out = binding.getOut();
+            List<?> out = binding.getOut();
             if (out.size() > 0) {
                 // The add the label for OutBindings under the PluginBinding item
                 subLabelItem = new TreeItem(item, SWT.NULL);
@@ -2065,7 +2065,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
 
                 // Loop through all the OutBindings and add them under the
                 // OutBinding label
-                for (Iterator j = out.iterator(); j.hasNext();) {
+                for (Iterator<?> j = out.iterator(); j.hasNext();) {
                     OutBinding outBind = (OutBinding) j.next();
                     subItem = new TreeItem(subLabelItem, SWT.NULL);
                     subItem.setText("OUT" + (stub.getSucc().indexOf(outBind.getStubExit()) + 1) + " <-> " + outBind.getEndPoint().getName()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -2078,7 +2078,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
                 subLabelItem.setExpanded(true);
             }
 
-            List comps = binding.getComponents();
+            List<?> comps = binding.getComponents();
 
             if (comps.size() > 0) {
                 // The add the label for Component Bindings under the PluginBinding item
@@ -2091,7 +2091,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
                 // Loop through all the Component Bindings and add them under the
                 // Component Bindings label
 
-                for (Iterator j = comps.iterator(); j.hasNext();) {
+                for (Iterator<?> j = comps.iterator(); j.hasNext();) {
                     ComponentBinding compBind = (ComponentBinding) j.next();
                     subItem = new TreeItem(subLabelItem, SWT.NULL);
                     subItem.setText(URNNamingHelper.getName(compBind.getParentComponent()) + " <-> " + URNNamingHelper.getName(compBind.getPluginComponent())); //$NON-NLS-1$ 
@@ -2104,7 +2104,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
                 subLabelItem.setExpanded(true);
             }
 
-            List refs = binding.getResponsibilities();
+            List<?> refs = binding.getResponsibilities();
 
             if (refs.size() > 0) {
                 // The add the label for Component Bindings under the PluginBinding item
@@ -2117,7 +2117,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
                 // Loop through all the Component Bindings and add them under the
                 // Component Bindings label
 
-                for (Iterator j = refs.iterator(); j.hasNext();) {
+                for (Iterator<?> j = refs.iterator(); j.hasNext();) {
                     ResponsibilityBinding refBind = (ResponsibilityBinding) j.next();
                     subItem = new TreeItem(subLabelItem, SWT.NULL);
                     subItem.setText(URNNamingHelper.getName(refBind.getParentResp()) + " <-> " + URNNamingHelper.getName(refBind.getPluginResp())); //$NON-NLS-1$ 
@@ -2136,11 +2136,11 @@ public class StubBindingsDialog extends Dialog implements Adapter {
     }
 
     // The list of all the incoming connections from outside to the stub
-    private ArrayList inStubList;
+    private ArrayList<NodeConnection> inStubList;
     // The list of all the StartPoints of the binded map.
     private ArrayList<StartPoint> inMapList;
     // The list of all the outgoing connections from the stub to the outside.
-    private ArrayList outStubList;
+    private ArrayList<NodeConnection> outStubList;
     // The list of all the EndPoints of the binded map.
     private ArrayList<EndPoint> outMapList;
     // The list of all the parent components of the binded map
@@ -2170,14 +2170,14 @@ public class StubBindingsDialog extends Dialog implements Adapter {
         tabPluginResps.removeAll();
 
         // Clear the arrays
-        inStubList = new ArrayList();
-        inMapList = new ArrayList();
-        outStubList = new ArrayList();
-        outMapList = new ArrayList();
-        parentCompList = new ArrayList();
-        pluginCompList = new ArrayList();
-        parentRespList = new ArrayList();
-        pluginRespList = new ArrayList();
+        inStubList = new ArrayList<NodeConnection>();
+        inMapList = new ArrayList<StartPoint>();
+        outStubList = new ArrayList<NodeConnection>();
+        outMapList = new ArrayList<EndPoint>();
+        parentCompList = new ArrayList<ComponentRef>();
+        pluginCompList = new ArrayList<ComponentRef>();
+        parentRespList = new ArrayList<Responsibility>();
+        pluginRespList = new ArrayList<RespRef>();
 
         // If the user selected a plugin
         if (selectedPlugin != null) {
@@ -2205,11 +2205,11 @@ public class StubBindingsDialog extends Dialog implements Adapter {
 
             // Get the list of all the incoming connections from outside to the
             // stub to fill the 'in' list.
-            List list = stub.getPred();
+            List<?> list = stub.getPred();
             TableItem item;
             int j = 1;
             // This will fill the list for the entries of the stub.
-            for (Iterator i = list.iterator(); i.hasNext();) {
+            for (Iterator<?> i = list.iterator(); i.hasNext();) {
                 NodeConnection con = (NodeConnection) i.next();
                 if (!isNodeConnectionInBinded(con, selectedPlugin)) {
                     inStubList.add(con);
@@ -2223,7 +2223,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             list = stub.getSucc();
             j = 1;
             // This will fill the list for the exists of the stub.
-            for (Iterator i = list.iterator(); i.hasNext();) {
+            for (Iterator<?> i = list.iterator(); i.hasNext();) {
                 NodeConnection con = (NodeConnection) i.next();
                 if (!isNodeConnectionOutBinded(con, selectedPlugin)) {
                     outStubList.add(con);
@@ -2237,7 +2237,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             list = selectedPlugin.getPlugin().getNodes();
             // Loop through all the nodes of the map and add the start and end
             // points to the lists.
-            for (Iterator i = list.iterator(); i.hasNext();) {
+            for (Iterator<?> i = list.iterator(); i.hasNext();) {
                 PathNode node = (PathNode) i.next();
                 // The node is a start point
                 if (node instanceof StartPoint) {
@@ -2259,7 +2259,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             }
 
             list = ((UCMmap) stub.getDiagram()).getContRefs();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = list.iterator(); iterator.hasNext();) {
                 ComponentRef c = (ComponentRef) iterator.next();
                 parentCompList.add(c);
                 item = new TableItem(tabParentComps, SWT.NULL);
@@ -2267,7 +2267,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
                 item.setImage(comp);
             }
             list = selectedPlugin.getPlugin().getContRefs();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = list.iterator(); iterator.hasNext();) {
                 ComponentRef c = (ComponentRef) iterator.next();
                 if (c.getPluginBindings().size() == 0) {
                     pluginCompList.add(c);
@@ -2278,7 +2278,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             }
 
             list = urnSpec.getUrndef().getResponsibilities();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = list.iterator(); iterator.hasNext();) {
                 Responsibility r = (Responsibility) iterator.next();
                 parentRespList.add(r);
                 item = new TableItem(tabParentResps, SWT.NULL);
@@ -2287,7 +2287,7 @@ public class StubBindingsDialog extends Dialog implements Adapter {
             }
 
             list = selectedPlugin.getPlugin().getNodes();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = list.iterator(); iterator.hasNext();) {
                 Object c = (Object) iterator.next();
                 if (c instanceof RespRef) {
                     RespRef r = (RespRef) c;
@@ -2320,8 +2320,8 @@ public class StubBindingsDialog extends Dialog implements Adapter {
      */
     private boolean isNodeConnectionOutBinded(NodeConnection con, PluginBinding plugin) {
         if (stub.getBindings().size() > 0) {
-            List outs = plugin.getOut();
-            for (Iterator i = outs.iterator(); i.hasNext();) {
+            List<?> outs = plugin.getOut();
+            for (Iterator<?> i = outs.iterator(); i.hasNext();) {
                 OutBinding out = (OutBinding) i.next();
                 if (out.getStubExit() == con)
                     return true;
@@ -2339,8 +2339,8 @@ public class StubBindingsDialog extends Dialog implements Adapter {
      */
     private boolean isEndPointOutBinded(EndPoint end, PluginBinding plugin) {
         if (stub.getBindings().size() > 0) {
-            List ins = plugin.getOut();
-            for (Iterator i = ins.iterator(); i.hasNext();) {
+            List<?> ins = plugin.getOut();
+            for (Iterator<?> i = ins.iterator(); i.hasNext();) {
                 OutBinding out = (OutBinding) i.next();
                 if (out.getEndPoint() == end)
                     return true;
@@ -2378,8 +2378,8 @@ public class StubBindingsDialog extends Dialog implements Adapter {
      */
     private boolean isNodeConnectionInBinded(NodeConnection con, PluginBinding plugin) {
         if (stub.getBindings().size() > 0) {
-            List ins = plugin.getIn();
-            for (Iterator i = ins.iterator(); i.hasNext();) {
+            List<?> ins = plugin.getIn();
+            for (Iterator<?> i = ins.iterator(); i.hasNext();) {
                 InBinding in = (InBinding) i.next();
                 if (in.getStubEntry() == con)
                     return true;

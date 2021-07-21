@@ -85,7 +85,7 @@ public class TagURNElements {
     	MenuItem item = new MenuItem(menu, SWT.PUSH);
     	item.setText(Messages.getString("TagURNElements.TagElementQuote") + parentElement.getName() + Messages.getString("TagURNElements.TagElementEndQuote")); //$NON-NLS-1$ //$NON-NLS-2$
     	item.setEnabled(false);
-    	MenuItem item2 = new MenuItem(menu, SWT.SEPARATOR);
+    	//MenuItem item2 = new MenuItem(menu, SWT.SEPARATOR);
 
 		for( Iterator iter = urnspec.getMetadata().iterator(); iter.hasNext();) {
 			Metadata md = (Metadata) iter.next();	

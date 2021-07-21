@@ -28,7 +28,7 @@ import urncore.Metadata;
 public class ConditionalBasedGRLStrategyAlgorithm extends FormulaBasedGRLStrategyAlgorithm {
 
     List strategyMetaDataValue;
-    HashMap acceptStereotypes = new HashMap<String, String>();
+    HashMap<String, String> acceptStereotypes = new HashMap<String, String>();
 
     /*
      * (non-Javadoc)

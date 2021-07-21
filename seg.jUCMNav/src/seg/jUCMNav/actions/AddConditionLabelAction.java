@@ -17,7 +17,6 @@ import ucm.map.OrFork;
 import ucm.map.PathNode;
 import ucm.map.StartPoint;
 import ucm.map.WaitingPlace;
-import urncore.UCMmodelElement;
 
 /**
  * Adds a label to a PathNode or ComponentRef.
@@ -91,7 +90,7 @@ public class AddConditionLabelAction extends URNSelectionAction {
                 return new CreateLabelCommand(point.getPostcondition());
             }
         } else if ((part.getModel() instanceof OrFork) || (part.getModel() instanceof WaitingPlace) || (part.getModel() instanceof FailurePoint)) {
-            UCMmodelElement modelElement = (UCMmodelElement) part.getModel();
+            //UCMmodelElement modelElement = (UCMmodelElement) part.getModel();
 
             CompoundCommand cmd = new CompoundCommand();
             for (Iterator iter = ((PathNode) part.getModel()).getSucc().iterator(); iter.hasNext();) {

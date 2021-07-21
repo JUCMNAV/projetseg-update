@@ -74,7 +74,7 @@ public class FormulaBasedGRLStrategyAlgorithm extends QuantitativeGRLStrategyAlg
             //strategyManager.setActiveKPIEvaluationValue(element, resultContrib, false /* don't recompute all */);
             strategyManager.setActiveKPIEvaluationValue(element, resultContrib, true);
             //eval.getKpiEvalValueSet().setEvaluationValue(resultContrib);
-            int v = strategyManager.calculateIndicatorEvalLevel(eval);
+            //int v = strategyManager.calculateIndicatorEvalLevel(eval);
             result = eval.getEvaluation();
         }
 
@@ -89,7 +89,7 @@ public class FormulaBasedGRLStrategyAlgorithm extends QuantitativeGRLStrategyAlg
             return super.computeContributionResult(link, contrib);
         } else {
             EvaluationStrategyManager strategyManager = EvaluationStrategyManager.getInstance();
-            int quantitativeContrib = strategyManager.getActiveQuantitativeContribution(contrib);
+            //int quantitativeContrib = strategyManager.getActiveQuantitativeContribution(contrib);
             double srcNodeEvaluationValue = strategyManager.getActiveKPIValue((IntentionalElement)link.getSrc());
             // TODO: it might be better if we change this to use the name of the source node as opposed to link
             // TODO: I have noticed if the name of the link does not match the variables used in the formula it can cause errors.

@@ -114,11 +114,11 @@ public class PointcutMatcher {
 			IURNContainer cDef = ((ComponentRef) joinpointElement).getContDef();
 			listJP.addAll(((URNmodelElement) cDef).getMetadata());
 		}
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			Metadata m = (Metadata) iterator.next();
+		for (Iterator<Metadata> iterator = list.iterator(); iterator.hasNext();) {
+			Metadata m = iterator.next();
 			boolean matched = false;
-			for (Iterator iterator2 = listJP.iterator(); iterator2.hasNext();) {
-				Metadata mJP = (Metadata) iterator2.next();
+			for (Iterator<Metadata> iterator2 = listJP.iterator(); iterator2.hasNext();) {
+				Metadata mJP = iterator2.next();
 				if (namesAreMatching(m.getName(), mJP.getName()) && namesAreMatching(m.getValue(), mJP.getValue())) {
 					matched = true;
 					break;
@@ -230,8 +230,8 @@ public class PointcutMatcher {
 			// reduced to only those that are not "forward" neighbors;
 			// there is always only one PointcutElement before an end point
 			List<MatchableNeighbor> backwardJoinpoints = new ArrayList<MatchableNeighbor>();
-			for (Iterator iter = joinpointNeighbors.iterator(); iter.hasNext();) {
-				MatchableNeighbor joinpointNeighbor = (MatchableNeighbor) iter.next();
+			for (Iterator<MatchableNeighbor> iter = joinpointNeighbors.iterator(); iter.hasNext();) {
+				MatchableNeighbor joinpointNeighbor = iter.next();
 				if (!joinpointNeighbor.isForward()) {
 					backwardJoinpoints.add(joinpointNeighbor);
 				}
@@ -244,8 +244,8 @@ public class PointcutMatcher {
 			// reduced to only those that are "forward" neighbors;
 			// there is always only one PointcutElement after a start point
 			List<MatchableNeighbor> forwardJoinpoints = new ArrayList<MatchableNeighbor>();
-			for (Iterator iter = joinpointNeighbors.iterator(); iter.hasNext();) {
-				MatchableNeighbor joinpointNeighbor = (MatchableNeighbor) iter.next();
+			for (Iterator<MatchableNeighbor> iter = joinpointNeighbors.iterator(); iter.hasNext();) {
+				MatchableNeighbor joinpointNeighbor = iter.next();
 				if (joinpointNeighbor.isForward()) {
 					forwardJoinpoints.add(joinpointNeighbor);
 				}
@@ -274,8 +274,8 @@ public class PointcutMatcher {
 		int reduceBy = joinpointNeighbors.size() - pointcutNeighbors.size();
 		if (reduceBy > 0) {
 			int position = pointcutNeighbors.size();
-			for (Iterator iter = permutations.iterator(); iter.hasNext();) {
-				List<MatchableNeighbor> permJoinpoints = (List<MatchableNeighbor>) iter.next();
+			for (Iterator<List<MatchableNeighbor>> iter = permutations.iterator(); iter.hasNext();) {
+				List<MatchableNeighbor> permJoinpoints = iter.next();
 				for (int i = 0; i < reduceBy; i++) {
 					permJoinpoints.remove(position);
 				}
@@ -312,8 +312,8 @@ public class PointcutMatcher {
 		}
 		// finally, now we can actually match each permutation
 		boolean success = false;
-		for (Iterator iter = permutations.iterator(); iter.hasNext();) {
-			List<MatchableNeighbor> permJoinpoints = (List<MatchableNeighbor>) iter.next();
+		for (Iterator<List<MatchableNeighbor>> iter = permutations.iterator(); iter.hasNext();) {
+			List<MatchableNeighbor> permJoinpoints = iter.next();
 			try {
 				Match mappings = PointcutMatcher.matchPermutations2(pointcutNeighbors, permJoinpoints, mapping);
 				matchList.getMatchList().add(mappings);
@@ -331,10 +331,10 @@ public class PointcutMatcher {
 	// the size of pointcutElements and joinpoints is now the same; match each pair as they appear in the lists
 	private static Match matchPermutations2(List<MatchableNeighbor> pointcutElements, List<MatchableNeighbor> joinpoints, Mapping mapping) throws MatchingFailedException {
 		Match match = new Match();
-		Iterator iter2 = joinpoints.iterator();
-		for (Iterator iter = pointcutElements.iterator(); iter.hasNext();) {
-			MatchableNeighbor pointcutElement = (MatchableNeighbor) iter.next();
-			MatchableNeighbor joinpoint = (MatchableNeighbor) iter2.next();
+		Iterator<MatchableNeighbor> iter2 = joinpoints.iterator();
+		for (Iterator<MatchableNeighbor> iter = pointcutElements.iterator(); iter.hasNext();) {
+			MatchableNeighbor pointcutElement = iter.next();
+			MatchableNeighbor joinpoint = iter2.next();
 			Mapping newMapping;
 			try {
 				if (matchNeighbor(pointcutElement, joinpoint)) {

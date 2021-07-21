@@ -54,7 +54,7 @@ public class ShowLinkedElementAlternativeSubNodesCommand extends Command impleme
     private List<ElementLink> linksDestinationList; 
     
     public ShowLinkedElementAlternativeSubNodesCommand(URNspec spec, EObject obj, IntentionalElementRef ref, String numOfLevel) {
-        int counter = 0;      
+        //int counter = 0;      
         urnspec = spec;
         objRef = ref;
         diagramOfElement = objRef.getDiagram();
@@ -96,7 +96,7 @@ public class ShowLinkedElementAlternativeSubNodesCommand extends Command impleme
         testPreConditions();
         
         int size, previousNumberOfNodes, newNumberOfNodes = 1;
-        boolean Done = false;
+        //boolean Done = false;
         IntentionalElementRef ieRef;
         initialIntentionalElementRefList = new ArrayList<IntentionalElementRef>(grlGraph.getNodes());
         

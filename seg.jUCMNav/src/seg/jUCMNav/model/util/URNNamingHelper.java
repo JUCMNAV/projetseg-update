@@ -623,7 +623,7 @@ public class URNNamingHelper {
      * @param elem
      *            the element to check
      */
-    private static void findConflicts(HashMap htIDs, HashMap htNames, Vector idConflicts, Vector nameConflicts, URNspec urn, URNmodelElement elem) {
+    private static void findConflicts(HashMap htIDs, HashMap htNames, Vector<URNmodelElement> idConflicts, Vector<URNmodelElement> nameConflicts, URNspec urn, URNmodelElement elem) {
 
         if (urn != null) {
             if (!isNameAndIDSet(elem)) {
@@ -919,7 +919,7 @@ public class URNNamingHelper {
         }
 
         if (names.containsKey(elem.getName().toLowerCase())) {
-            Vector v = new Vector();
+            Vector<URNmodelElement> v = new Vector<URNmodelElement>();
             v.add(elem);
             resolveNamingConflicts(urn, names, v);
         }
@@ -1151,7 +1151,7 @@ public class URNNamingHelper {
      * @return the sorted list of GRL variables.
      */
     public static Vector getGrlVariableNames(URNspec urn) {
-        Vector v2 = new Vector();
+        Vector<String> v2 = new Vector<String>();
         for (int i = 0; i < urn.getGrlspec().getIntElements().size(); i++) {
             v2.add(getGrlVariableName((IntentionalElement) urn.getGrlspec().getIntElements().get(i)));
         }

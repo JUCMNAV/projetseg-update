@@ -90,7 +90,7 @@ public class UCMChangeImpactAnalysisModificationAction extends URNSelectionActio
     * @return a {@link UCMChangeImpactAnalysisCommand}
     */
 	protected Command getCommand(){
-		Boolean isEmptyExpression = false;
+		//Boolean isEmptyExpression = false;
 		if(calculateEnabled()){
 			ArrayList<String> expressionVariables = null;
 			if(criterion instanceof RespRef){
@@ -102,8 +102,9 @@ public class UCMChangeImpactAnalysisModificationAction extends URNSelectionActio
 		    	    expressionVariables = obj.getAllVariables();
 	        	}
 	    		//otherwise it's empty
-	        	else
-	        		isEmptyExpression = true;	    	    	
+				/*
+				 * else isEmptyExpression = true;
+				 */	    	    	
 	    	}
 			//if criterion is StartPoint
 			else if(criterion instanceof StartPoint){
@@ -120,10 +121,10 @@ public class UCMChangeImpactAnalysisModificationAction extends URNSelectionActio
 		    		NodeConnection nodeConn = (NodeConnection) criterion;
 		    		
 		    		if(nodeConn.getTarget() instanceof OrFork || nodeConn.getTarget() instanceof AndFork || nodeConn.getTarget() instanceof Timer){
-		    			isEmptyExpression = true;
+		    			//isEmptyExpression = true;
 		    			expressionVariables = null;
 			    	}else if(nodeConn.getSource() instanceof OrJoin || nodeConn.getSource() instanceof AndJoin){
-			    		isEmptyExpression = true;
+			    		//isEmptyExpression = true;
 		    			expressionVariables = null;
 		    	   	}else{
 		    	   		String condition = nodeConn.getCondition().getExpression();

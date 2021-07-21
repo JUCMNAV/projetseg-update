@@ -59,7 +59,7 @@ public class Rule {
     /**
      * The rule utilities
      */
-    private List utilities = new ArrayList();
+    private List<String> utilities = new ArrayList<String>();
     /**
      * The rule enabled/disabled indicator
      */
@@ -163,7 +163,7 @@ public class Rule {
      * Returns a list of names, which are separated from <b>the rule classifier</b> by delimiter '::'.
      */
     public List getClassifierAsList() {
-        ArrayList array = new ArrayList();
+        ArrayList<String> array = new ArrayList<String>();
         StringTokenizer tok = new StringTokenizer(classifier, "::"); //$NON-NLS-1$
         while (tok.hasMoreTokens()) {
             array.add(tok.nextToken());

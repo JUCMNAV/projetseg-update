@@ -70,9 +70,9 @@ public class AttachStartCommand extends Command implements JUCMNavCommand {
     /**
      * Disable the default constructor.
      */
-    private AttachStartCommand() {
-        super();
-    }
+	/*
+	 * private AttachStartCommand() { super(); }
+	 */
 
     /**
      * @see org.eclipse.gef.commands.Command#canExecute()

@@ -13,7 +13,8 @@ import org.eclipse.jface.action.IMenuManager;
  */
 public class KPIViewContextMenuProvider extends ContextMenuProvider {
 
-    private ActionRegistry actionRegistry;
+    @SuppressWarnings("unused")
+	private ActionRegistry actionRegistry;
 
     /**
      * @param viewer
@@ -41,9 +42,9 @@ public class KPIViewContextMenuProvider extends ContextMenuProvider {
      * 
      * @return the action registry used by the context menu provider.
      */
-    private ActionRegistry getActionRegistry() {
-        return actionRegistry;
-    }
+	/*
+	 * private ActionRegistry getActionRegistry() { return actionRegistry; }
+	 */
 
     /**
      * 

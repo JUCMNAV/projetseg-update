@@ -47,10 +47,10 @@ public abstract class RuleManagementDefinitionManager {
     private static final String GROUP_PREFIX = "Group"; //$NON-NLS-1$
     private static final String MEMBER_NUMBER = "MemberNumber"; //$NON-NLS-1$   
 
-    protected List rules;
-    protected List groups;
+    protected List<Rule> rules;
+    protected List<RuleGroup> groups;
 
-    public abstract List getDefaultDefinitions();
+    public abstract List<Rule> getDefaultDefinitions();
 
     protected abstract RuleManagementDefinitionManager getDefferManagerInstance();
 
@@ -147,7 +147,7 @@ public abstract class RuleManagementDefinitionManager {
     /**
      * Returns a list of default groups. Different for metrics and constraints.
      */
-    protected abstract List getDefaultGroups();
+    protected abstract List<RuleGroup> getDefaultGroups();
 
     /**
      * Returns a group filled with rules from a file.

@@ -138,7 +138,7 @@ public class AddDynamicContextStrategyPage extends WizardPage {
             updateStatus(Messages.getString("AddDynamicContextStrategyPage.SelectDynamicContextStrategy")); //$NON-NLS-1$
         else {
             strategy = null;
-            int a = 1;
+            //int a = 1;
             for (int i = 0; i < strategies.getSelectionIndices().length; i++) {
                 int index = strategies.getSelectionIndices()[i];
                 strategy = (EvaluationStrategy) parent.getUrnspec().getGrlspec().getStrategies().get(index);

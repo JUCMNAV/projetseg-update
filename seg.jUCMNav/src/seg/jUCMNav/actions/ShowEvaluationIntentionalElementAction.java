@@ -3,7 +3,6 @@ package seg.jUCMNav.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
@@ -56,7 +55,7 @@ public class ShowEvaluationIntentionalElementAction extends URNSelectionAction
             return false;
         
         UCMNavMultiPageEditor editor = getEditor();
-        EditPartViewer viewer = editor.getCurrentPage().getGraphicalViewer();
+        //EditPartViewer viewer = editor.getCurrentPage().getGraphicalViewer();
         if ( editor.getModel().getUrndef().getUrnspec().getGrlspec().getStrategies().isEmpty() )
             return false;
         

@@ -3,16 +3,6 @@
  */
 package seg.jUCMNav.actions;
 
-//import grl.Evaluation;
-import java.util.List;
-
-//import grl.Evaluation; never used
-import grl.EvaluationStrategy;
-import grl.GRLGraph;
-//import grl.IntentionalElement; never used
-//import grl.IntentionalElement;
-//import grl.IntentionalElementRef; // import never used
-
 //import java.util.List;
 
 //import org.eclipse.gef.EditPartViewer; //Import never used
@@ -22,6 +12,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+//import grl.Evaluation; never used
+import grl.EvaluationStrategy;
+import grl.GRLGraph;
+//import grl.IntentionalElement; never used
+//import grl.IntentionalElement;
+//import grl.IntentionalElementRef; // import never used
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.Messages;
 //import seg.jUCMNav.editors.UCMNavMultiPageEditor; //import never used
@@ -61,7 +57,7 @@ public class ShowEvaluationIntentionalElementV1Action extends URNSelectionAction
      */
     protected boolean calculateEnabled() 
     {   
-        List objects = getSelectedObjects();
+        //List objects = getSelectedObjects();
 //        List<Evaluation> evals; // Never called
 //        List<IntentionalElement> nodesInStrategy;
 //        List<grl.ElementLink> links;

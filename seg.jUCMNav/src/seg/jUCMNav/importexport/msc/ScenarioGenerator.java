@@ -66,12 +66,12 @@ public class ScenarioGenerator {
 
     // factory
     private UcmscenariosFactory f = UcmscenariosFactory.eINSTANCE;
-    private HashMap hmCompDefToComponent;
+    private HashMap<Component, ucmscenarios.Component> hmCompDefToComponent;
 
     private HashMap hmCompRefToInstance;
-    private HashMap processedPathNodes;
+    private HashMap<PathNode, Object> processedPathNodes;
 
-    private HashMap queuedMessages;
+    private HashMap<PathNode, ArrayList> queuedMessages;
 
     private ScenarioSpec scenariospec;
 
@@ -403,7 +403,7 @@ public class ScenarioGenerator {
 
             // add queued messages
             if (queuedMessages.containsKey(pn)) {
-                ArrayList msgs = (ArrayList) queuedMessages.get(pn);
+                ArrayList msgs = queuedMessages.get(pn);
                 for (Iterator iter = msgs.iterator(); iter.hasNext();) {
                     Message msg = (Message) iter.next();
                     msg.setSequence(seq);
@@ -511,7 +511,7 @@ public class ScenarioGenerator {
         if (!queuedMessages.containsKey(next))
             queuedMessages.put(next, new ArrayList());
 
-        ((ArrayList) queuedMessages.get(next)).add(msg);
+        queuedMessages.get(next).add(msg);
     }
 
     /**
@@ -616,8 +616,8 @@ public class ScenarioGenerator {
 
                         // update ALL pointers for next, not just this one.
                         // location[1] = new Integer(location_pos.intValue() +1);
-                        for (Iterator iter = processedPathNodes.values().iterator(); iter.hasNext();) {
-                            Object o = (Object) iter.next();
+                        for (Iterator<Object> iter = processedPathNodes.values().iterator(); iter.hasNext();) {
+                            Object o = iter.next();
                             if (o instanceof Object[]) {
                                 Integer location_pos2 = (Integer) ((Object[]) o)[1];
                                 if (location_pos2.intValue() >= where) {
@@ -692,8 +692,8 @@ public class ScenarioGenerator {
 
             //boolean b = addScenario(element, scenario);
 
-            for (Iterator iterator = processedPathNodes.values().iterator(); iterator.hasNext();) {
-                Object model = (Object) iterator.next();
+            for (Iterator<Object> iterator = processedPathNodes.values().iterator(); iterator.hasNext();) {
+                Object model = iterator.next();
                 // if parallel
                 // if timer reset at end of child sequence, move it outside after the parallel
                 if (model instanceof Parallel) {
@@ -740,14 +740,14 @@ public class ScenarioGenerator {
      *            the component definition
      * @return the component.
      */
-    private ucmscenarios.Component getComponent(Component comp) {
-
-        if (hmCompDefToComponent.containsKey(comp))
-            return (ucmscenarios.Component) hmCompDefToComponent.get(comp);
-        else
-            return _environmentComponent;
-
-    }
+	/*
+	 * private ucmscenarios.Component getComponent(Component comp) {
+	 * 
+	 * if (hmCompDefToComponent.containsKey(comp)) return (ucmscenarios.Component)
+	 * hmCompDefToComponent.get(comp); else return _environmentComponent;
+	 * 
+	 * }
+	 */
 
     /**
      * Returns the component reference's definition
@@ -756,9 +756,10 @@ public class ScenarioGenerator {
      *            the reference
      * @return the definition
      */
-    private Component getDef(ComponentRef element) {
-        return ((Component) element.getContDef());
-    }
+	/*
+	 * private Component getDef(ComponentRef element) { return ((Component)
+	 * element.getContDef()); }
+	 */
 
     /**
      * Returns the responsibility reference's definition
@@ -793,12 +794,12 @@ public class ScenarioGenerator {
      *            the condition
      * @return a string representing the condition
      */
-    private String getLabel(Condition cond) {
-        if (cond.getLabel() != null && cond.getLabel().length() > 0)
-            return "[" + cond.getLabel() + "]"; //$NON-NLS-1$ //$NON-NLS-2$
-        else
-            return "[" + cond.getExpression() + "]"; //$NON-NLS-1$ //$NON-NLS-2$
-    }
+	/*
+	 * private String getLabel(Condition cond) { if (cond.getLabel() != null &&
+	 * cond.getLabel().length() > 0) return "[" + cond.getLabel() + "]";
+	 * //$NON-NLS-1$ //$NON-NLS-2$ else return "[" + cond.getExpression() + "]";
+	 * //$NON-NLS-1$ //$NON-NLS-2$ }
+	 */
 
     /**
      * Returns the target scenario; caches the result for future calls.
@@ -807,7 +808,7 @@ public class ScenarioGenerator {
      */
     public ScenarioSpec getScenarioDocument() {
         if (this.scenariospec == null) {
-            this.hmCompDefToComponent = new HashMap();
+            this.hmCompDefToComponent = new HashMap<Component, ucmscenarios.Component>();
             this.hmCompRefToInstance = new HashMap();
 
             scenariospec = f.createScenarioSpec();

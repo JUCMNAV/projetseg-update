@@ -28,7 +28,7 @@ public class CSMResourceSet {
 
     private int resources_count = 0;
 
-    public CSMResourceSet(PathNode pathnode, Vector warnings) {
+    public CSMResourceSet(PathNode pathnode, Vector<CsmExportWarning> warnings) {
         // Add the resources bound to components, implicitly and explicitly
         getContainingComponentsAndResources((ComponentRef) pathnode.getContRef(), resources);
         // Responsibilities:

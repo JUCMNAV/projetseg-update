@@ -56,7 +56,7 @@ public class AddDynamicContextStrategyAction extends URNSelectionAction {
      */
     protected void initDynamicContext() {
         List list = getSelectedObjects();
-        ArrayList list2 = new ArrayList();
+        ArrayList<Object> list2 = new ArrayList<Object>();
         for (Iterator iter = list.iterator(); iter.hasNext();) {
             Object object = iter.next();
 

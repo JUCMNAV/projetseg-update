@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.ocl.OCL;
 import org.eclipse.ocl.OCLInput;
 import org.eclipse.ocl.Query;
-import org.eclipse.ocl.ecore.Constraint;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.helper.OCLHelper;
@@ -72,7 +71,7 @@ public class MetricsCalculator {
 
                             helper.setContext(e);
 
-                            Constraint invariant = (Constraint) helper.createInvariant(r.getQuery());
+                            //Constraint invariant = (Constraint) helper.createInvariant(r.getQuery());
 
                             String s = ""; //$NON-NLS-1$
                             if (MetricsDefinitionManager.instance().isShowDesc()) {
@@ -104,7 +103,7 @@ public class MetricsCalculator {
                             message.setInfo();
                             result.add(message);
 
-                            Query constraintEval = ocl.createQuery(invariant);
+                            //Query constraintEval = ocl.createQuery(invariant);
                         }
 
                     } catch (Exception e) { // Parser

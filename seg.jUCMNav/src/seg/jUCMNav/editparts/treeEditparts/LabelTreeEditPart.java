@@ -139,7 +139,7 @@ public class LabelTreeEditPart extends UrnModelElementTreeEditPart {
         return list;
     }
 
-    protected void addAllIfMatch(ArrayList list, EList elements) {
+    protected void addAllIfMatch(ArrayList<Object> list, EList elements) {
         for (Iterator iterator = elements.iterator(); iterator.hasNext();) {
             URNmodelElement object = (URNmodelElement) iterator.next();
             if (!DisplayPreferences.getInstance().isElementFiltered(object))

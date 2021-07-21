@@ -49,7 +49,7 @@ public class UcmEditor extends UrnEditor {
         root = new UCMConnectionOnBottomRootEditPart(getParent());
 
         // zoom management is delegated to us from our parent.
-        List zoomLevels = new ArrayList(3);
+        List<String> zoomLevels = new ArrayList<String>(3);
         zoomLevels.add(ZoomManager.FIT_ALL);
         zoomLevels.add(ZoomManager.FIT_WIDTH);
         zoomLevels.add(ZoomManager.FIT_HEIGHT);

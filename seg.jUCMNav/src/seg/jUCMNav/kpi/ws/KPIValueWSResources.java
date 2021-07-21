@@ -28,7 +28,7 @@ public class KPIValueWSResources implements KPIValueResources {
                 String wsAddress = KPIMonitoringPreferences.getWebServiceAddress();
                 KPIValueWebServiceBean port = new KPIValueWebServiceBeanProxy(wsAddress).getKPIValueWebServiceBean();
 
-                List kpiEntities = new ArrayList();
+                List<KpiEntity> kpiEntities = new ArrayList<KpiEntity>();
                 for (int i = 0; i < evalObjects.size(); i++) {
                     KpiEntity kpiEntity = new KpiEntity();
                     EvaluationStrategy strategy = ((Evaluation) evalObjects.get(i)).getStrategies();

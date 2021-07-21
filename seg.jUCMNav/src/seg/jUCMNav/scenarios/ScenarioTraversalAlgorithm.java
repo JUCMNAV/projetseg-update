@@ -44,7 +44,7 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
     protected UcmEnvironment env;
 
     // HashMap of EObject -> TraversalResult
-    protected HashMap results;
+    protected HashMap<EObject, TraversalResult> results;
 
     // Scenario to be run.
     protected ScenarioDef scenario;
@@ -74,8 +74,8 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
      */
     public ScenarioTraversalAlgorithm() {
         // initialized in init()
-        results = new HashMap();
-        warnings = new Vector();
+        results = new HashMap<EObject, TraversalResult>();
+        warnings = new Vector<TraversalWarning>();
         listeners = new Vector();
     }
 
@@ -95,13 +95,13 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
      */
     protected TraversalResult createTraversalResults(EObject obj) {
         if (results == null) {
-            results = new HashMap();
+            results = new HashMap<EObject, TraversalResult>();
         }
 
         if (!results.containsKey(obj)) {
             results.put(obj, new TraversalResult());
         }
-        return (TraversalResult) results.get(obj);
+        return results.get(obj);
     }
 
     /**
@@ -113,7 +113,7 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
      */
     public TraversalResult getTraversalResults(EObject obj) {
         if (results.containsKey(obj)) {
-            TraversalResult count = (TraversalResult) results.get(obj);
+            TraversalResult count = results.get(obj);
             return count;
         } else
             return null;
@@ -257,7 +257,7 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
         if (ucmspec == null && scenariogroup == null)
             results = resp.getResults();
         else {
-            HashMap thisresult = resp.getResults();
+            HashMap<EObject, TraversalResult> thisresult = resp.getResults();
             // we want to memorize the sum of all visits. we don't care about getVisited() for now.
             for (Iterator iter = thisresult.entrySet().iterator(); iter.hasNext();) {
                 Map.Entry entry = (Map.Entry) iter.next();
@@ -436,7 +436,7 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
      * 
      * @see seg.jUCMNav.scenarios.IScenarioTraversalAlgorithm#getWarnings()
      */
-    public Vector getWarnings() {
+    public Vector<TraversalWarning> getWarnings() {
         return warnings;
     }
 
@@ -445,7 +445,7 @@ public class ScenarioTraversalAlgorithm implements IScenarioTraversalAlgorithm {
      * 
      * @see seg.jUCMNav.scenarios.IScenarioTraversalAlgorithm#getResults()
      */
-    public HashMap getResults() {
+    public HashMap<EObject, TraversalResult> getResults() {
         return results;
     }
 

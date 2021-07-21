@@ -26,7 +26,7 @@ import seg.jUCMNav.views.wizards.IntegerInputRangeDialog;
 
 public class SetNumericalEvaluationAction extends URNSelectionAction {
     public static final String SET_NUMERICAL_EVALUATION = "seg.jUCMNav.SET_NUMERICAL_EVALUATION"; //$NON-NLS-1$
-    private Vector intElementRefs;
+    private Vector<IntentionalElementRef> intElementRefs;
     private int id;
     private static String[] values = { "+100", "+75", "+50", "+25", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
             "0", "-25", "-50", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ 
@@ -92,7 +92,7 @@ public class SetNumericalEvaluationAction extends URNSelectionAction {
             }
         }
 
-        intElementRefs = new Vector(); // all tests passed, create list
+        intElementRefs = new Vector<IntentionalElementRef>(); // all tests passed, create list
 
         for (Iterator iter = getSelectedObjects().iterator(); iter.hasNext();) {
             IntentionalElementRef ier = (IntentionalElementRef) (((IntentionalElementEditPart) iter.next()).getModel());

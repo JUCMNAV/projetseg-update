@@ -119,14 +119,14 @@ public class RuleManagementUtil {
      * @return a list of rules
      */
     public static List readRules(InputStream rulesIS) {
-        List rules = null;
+        List<Rule> rules = null;
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
             Document doc = builder.parse(rulesIS);
             Element root = doc.getDocumentElement();
             NodeList utilityNodes = root.getElementsByTagName("Rule"); //$NON-NLS-1$
-            rules = new ArrayList();
+            rules = new ArrayList<Rule>();
             for (int i = 0; i < utilityNodes.getLength(); ++i) {
                 Rule r = new Rule(""); //$NON-NLS-1$
                 Node utilityNode = utilityNodes.item(i);

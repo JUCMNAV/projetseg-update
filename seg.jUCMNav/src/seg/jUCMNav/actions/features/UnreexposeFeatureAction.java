@@ -3,16 +3,15 @@ package seg.jUCMNav.actions.features;
 import org.eclipse.ui.IWorkbenchPart;
 
 import fm.Feature;
-import grl.Evaluation;
 import grl.EvaluationStrategy;
 import grl.IntentionalElementRef;
+import seg.jUCMNav.JUCMNavPlugin;
+import seg.jUCMNav.Messages;
 import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.actions.URNSelectionAction;
 import seg.jUCMNav.model.commands.transformations.UnreexposeFeatureCommand;
 import seg.jUCMNav.strategies.EvaluationStrategyManager;
 import seg.jUCMNav.strategies.util.FeatureUtil;
-import seg.jUCMNav.JUCMNavPlugin;
-import seg.jUCMNav.Messages;
 /**
  * This action is used to un-reexpose one feature (remove the metadata of reexpose from strategy).
  * 
@@ -45,7 +44,7 @@ public class UnreexposeFeatureAction extends URNSelectionAction {
 			IntentionalElementRef selection = sel.getIntentionalElementRef();
 			Feature currFeature = (Feature) selection.getDef();
 			if( strategy != null ){
-				Evaluation eval = EvaluationStrategyManager.getInstance().getEvaluationObject( currFeature);
+				//Evaluation eval = EvaluationStrategyManager.getInstance().getEvaluationObject( currFeature);
 				if( FeatureUtil.isReexposed(currFeature)){
 					return true;
 				}

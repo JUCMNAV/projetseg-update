@@ -56,7 +56,7 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
         if (index == -1)
             index = getChildren().size();
         if (children == null)
-            children = new ArrayList(2);
+            children = new ArrayList<EditPart>(2);
 
         int i = index;
         if (child.getModel() instanceof IURNContainerRef)
@@ -104,12 +104,12 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
      * 
      * @return All the components editparts children of this editpart.
      */
-    protected List getComponentEditParts() {
-        List children = getChildren();
-        List comps = new ArrayList();
+    protected List<EditPart> getComponentEditParts() {
+        List<EditPart> children = getChildren();
+        List<EditPart> comps = new ArrayList<EditPart>();
 
-        for (Iterator j = children.iterator(); j.hasNext();) {
-            EditPart edit = (EditPart) j.next();
+        for (Iterator<EditPart> j = children.iterator(); j.hasNext();) {
+            EditPart edit = j.next();
             if (edit.getModel() instanceof IURNContainerRef)
                 comps.add(edit);
         }
@@ -161,12 +161,12 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
     /**
      * @return Return all the specificationnode editparts children of this editpart.
      */
-    protected List getSpecificationNodeEditParts() {
-        List children = getChildren();
-        List nodes = new ArrayList();
+    protected List<EditPart> getSpecificationNodeEditParts() {
+        List<EditPart> children = getChildren();
+        List<EditPart> nodes = new ArrayList<EditPart>();
 
-        for (Iterator j = children.iterator(); j.hasNext();) {
-            EditPart edit = (EditPart) j.next();
+        for (Iterator<EditPart> j = children.iterator(); j.hasNext();) {
+            EditPart edit = j.next();
             if (edit.getModel() instanceof IURNNode)
                 nodes.add(edit);
         }
@@ -191,14 +191,14 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
         Object model;
         
 
-        HashMap modelToEditPart = new HashMap();
-        List children = getChildren();
-        List comps = getComponentEditParts(); // All the components of the model
-        List nodes = getSpecificationNodeEditParts(); // All the path nodes.
+        HashMap<Object, EditPart> modelToEditPart = new HashMap<Object, EditPart>();
+        List<EditPart> children = getChildren();
+        List<EditPart> comps = getComponentEditParts(); // All the components of the model
+        List<EditPart> nodes = getSpecificationNodeEditParts(); // All the path nodes.
 
         // Udate the hashmap (model, editpart)
         for (i = 0; i < children.size(); i++) {
-            editPart = (EditPart) children.get(i);
+            editPart = children.get(i);
             modelToEditPart.put(editPart.getModel(), editPart);
         }
 
@@ -215,14 +215,14 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
 
             if (!(model instanceof IURNContainerRef)) {
                 // Do a quick check to see if editPart[index] == model[index]
-                if (index < nodes.size() && ((EditPart) nodes.get(index)).getModel() == model) {
+                if (index < nodes.size() && nodes.get(index).getModel() == model) {
                     // This editpart is already updated, so just increase the counter and do nothing.
                     index++;
                     continue;
                 }
             } else {
                 // Do a quick check to see if editPart[comp] == model[comp]
-                if (comp < comps.size() && ((EditPart) comps.get(comp)).getModel() == model) {
+                if (comp < comps.size() && comps.get(comp).getModel() == model) {
                     // This editpart is already updated, so just increase the counter and do nothing.
                     comp++;
                     continue;
@@ -230,7 +230,7 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
             }
 
             // Look to see if the EditPart is already around but in the wrong location
-            editPart = (EditPart) modelToEditPart.get(model);
+            editPart = modelToEditPart.get(model);
 
             // If we found the model in the editpart children list
             if (editPart != null) {
@@ -250,18 +250,18 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
 
             }
         }
-        List trash = new ArrayList();
+        List<EditPart> trash = new ArrayList<EditPart>();
 
         // Pass through all the editpart children and trash the ones that are not in the model list anymore
-        for (Iterator iter = children.iterator(); iter.hasNext();) {
-            EditPart edit = (EditPart) iter.next();
+        for (Iterator<EditPart> iter = children.iterator(); iter.hasNext();) {
+            EditPart edit = iter.next();
             if (!modelObjects.contains(edit.getModel()))
                 trash.add(edit);
         }
 
         // Remove the trashed object from the editpart children
         for (i = 0; i < trash.size(); i++) {
-            EditPart ep = (EditPart) trash.get(i);
+            EditPart ep = trash.get(i);
             removeChild(ep);
         }
 
@@ -285,7 +285,7 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
      * @see seg.jUCMNav.editparts.ModelElementEditPart#refreshVisuals()
      */
     protected void refreshVisuals() {
-        for (Iterator iter = getChildren().iterator(); iter.hasNext();) {
+        for (Iterator<EditPart> iter = getChildren().iterator(); iter.hasNext();) {
             AbstractGraphicalEditPart element = (AbstractGraphicalEditPart) iter.next();
             element.refresh();
         }
@@ -329,7 +329,7 @@ public abstract class URNDiagramEditPart extends ModelElementEditPart {
             constraint = layout.getConstraint(childFigure);
 
         removeChildVisual(child);
-        List children = getChildren();
+        List<EditPart> children = getChildren();
         children.remove(child);
         children.add(i, child);
         addChildVisual(child, index);

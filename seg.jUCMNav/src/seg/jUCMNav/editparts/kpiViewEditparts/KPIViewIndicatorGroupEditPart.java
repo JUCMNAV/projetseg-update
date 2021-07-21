@@ -17,8 +17,8 @@ public class KPIViewIndicatorGroupEditPart extends AbstractKPIViewEditPart {
     }
 
     // retrieve and return KPIViewObjects from the model element
-    protected List createKPIViewObjects() {
-        List kpiViewObjects = new ArrayList();
+    protected List<KPIViewObject> createKPIViewObjects() {
+        List<KPIViewObject> kpiViewObjects = new ArrayList<KPIViewObject>();
         Indicator[] indicators = new Indicator[0];
 
         IndicatorGroup model = getNode();

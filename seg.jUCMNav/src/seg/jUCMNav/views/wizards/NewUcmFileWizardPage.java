@@ -100,14 +100,14 @@ public class NewUcmFileWizardPage extends WizardPage {
         });
 
         // Selection buttons for type of new diagram(s) in file
-        Label spacelabel = new Label(container, SWT.NULL); // Skip last column
+        //Label spacelabel = new Label(container, SWT.NULL); // Skip last column
         Label addLabel = new Label(container, SWT.NULL);
         addLabel.setText(Messages.getString("NewUcmFileWizardPage.CreateNewDiagram")); //$NON-NLS-1$
 
         Composite diagramComposite = new Composite(container, SWT.NO_RADIO_GROUP);
         RowLayout diagLayout = new RowLayout();
         diagramComposite.setLayout(diagLayout);
-        final Composite composite = diagramComposite;
+        //final Composite composite = diagramComposite;
 
         Listener checkGroupListener = new Listener() {
             public void handleEvent(Event event) {
@@ -132,7 +132,7 @@ public class NewUcmFileWizardPage extends WizardPage {
         
         // modified .jucm file options newly modified 
         // Selection buttons for choosing whether or not to be concern oriented 
-        Label concernlabel = new Label(container, SWT.NULL); // Skip last column
+        //Label concernlabel = new Label(container, SWT.NULL); // Skip last column
         Label addConcernLabel = new Label(container, SWT.NULL);
         addConcernLabel.setText(Messages.getString("NewUcmFileWizardPage.ConcernOrientedURNModel")); //$NON-NLS-1$
 

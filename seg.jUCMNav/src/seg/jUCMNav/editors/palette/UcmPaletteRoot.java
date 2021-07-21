@@ -64,7 +64,7 @@ public class UcmPaletteRoot extends PaletteRoot implements Disposable {
     protected UCMNavMultiPageEditor parent;
 
     /** Map from string to ToolEntry for hotkeys. */
-    protected HashMap keyboardMapping;
+    protected HashMap<String, ToolEntry> keyboardMapping;
 
     protected Vector advancedItems = new Vector();
 

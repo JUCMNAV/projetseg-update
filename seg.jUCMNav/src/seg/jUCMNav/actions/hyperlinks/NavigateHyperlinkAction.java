@@ -49,7 +49,7 @@ public class NavigateHyperlinkAction extends SelectionAction {
             return false;
 
         SelectionHelper sel = new SelectionHelper(objects);
-        urnspec = sel.getUrnspec();
+        setUrnspec(sel.getUrnspec());
         element = HyperlinkUtils.findURNmodelElement(sel);
 
         if (element != null) {
@@ -80,5 +80,13 @@ public class NavigateHyperlinkAction extends SelectionAction {
             e.printStackTrace();
         }
     }
+
+	public URNspec getUrnspec() {
+		return urnspec;
+	}
+
+	public void setUrnspec(URNspec urnspec) {
+		this.urnspec = urnspec;
+	}
 
 }

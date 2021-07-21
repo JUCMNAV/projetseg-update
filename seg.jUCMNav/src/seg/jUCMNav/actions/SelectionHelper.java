@@ -240,7 +240,7 @@ public class SelectionHelper {
     private GRLspec grlspec;
     private URNmodelElement urnelem;
 
-    private Vector allModel = new Vector();
+    private Vector<Object> allModel = new Vector<Object>();
 
     public SelectionHelper(List selection) {
         setSelection(selection);

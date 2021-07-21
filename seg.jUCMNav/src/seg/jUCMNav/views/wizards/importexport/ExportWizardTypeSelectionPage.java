@@ -4,7 +4,6 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -46,7 +45,7 @@ public class ExportWizardTypeSelectionPage extends WizardPage {
         // create the desired layout for this wizard page
         GridLayout gl = new GridLayout(1, false);
         composite.setLayout(gl);
-        GridData data;
+        //GridData data;
 
         Label lblPath = new Label(composite, SWT.NONE);
         lblPath.setText("Please select an option: "); //$NON-NLS-1$

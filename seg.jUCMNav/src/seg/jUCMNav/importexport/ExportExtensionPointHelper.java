@@ -34,7 +34,7 @@ public abstract class ExportExtensionPointHelper {
      */
     protected static ArrayList getExportConfigurationElements(String sExtensionPoint) {
         IExtension[] extensions = getExportExtensions(sExtensionPoint);
-        ArrayList confElems = new ArrayList();
+        ArrayList<IConfigurationElement> confElems = new ArrayList<IConfigurationElement>();
 
         for (int i = 0; i < extensions.length; i++) {
             IExtension ext = extensions[i];
@@ -69,7 +69,7 @@ public abstract class ExportExtensionPointHelper {
      */
     public static String[] getExportLabels(String sExtensionPoint) {
         ArrayList confElems = getExportConfigurationElements(sExtensionPoint);
-        ArrayList labels = new ArrayList();
+        ArrayList<String> labels = new ArrayList<String>();
         for (Iterator iter = confElems.iterator(); iter.hasNext();) {
             IConfigurationElement element = (IConfigurationElement) iter.next();
             labels.add(element.getAttribute("name")); //$NON-NLS-1$
@@ -92,7 +92,7 @@ public abstract class ExportExtensionPointHelper {
      */
     public static String getExporterFromLabelIndex(String sExtensionPoint, int index) {
         ArrayList confElems = getExportConfigurationElements(sExtensionPoint);
-        ArrayList labels = new ArrayList();
+        ArrayList<String> labels = new ArrayList<String>();
         for (Iterator iter = confElems.iterator(); iter.hasNext();) {
             IConfigurationElement element = (IConfigurationElement) iter.next();
             labels.add(element.getAttribute("name")); //$NON-NLS-1$

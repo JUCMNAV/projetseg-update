@@ -1,13 +1,11 @@
 package seg.jUCMNav.actions.kpi;
 
-import grl.IntentionalElementRef;
-import grl.kpimodel.Indicator;
-
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 
+import grl.IntentionalElementRef;
+import grl.kpimodel.Indicator;
 import seg.jUCMNav.JUCMNavPlugin;
 import seg.jUCMNav.actions.SelectionHelper;
 import seg.jUCMNav.actions.URNSelectionAction;
@@ -59,7 +57,7 @@ public class EditIndicatorGroupsAction extends URNSelectionAction {
      * @see org.eclipse.jface.action.IAction#run()
      */
     public void run() {
-        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+       // Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
         Indicator ind = null;
         if (obj instanceof Indicator) {

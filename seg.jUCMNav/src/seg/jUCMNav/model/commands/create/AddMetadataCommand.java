@@ -20,7 +20,8 @@ public class AddMetadataCommand extends Command implements JUCMNavCommand
 
     private URNmodelElement urnelem = null;
     private URNspec urnspec = null;    
-    private Metadata[] mdArray;
+    @SuppressWarnings("unused")
+	private Metadata[] mdArray;
     private Metadata mdElement;
 
     public AddMetadataCommand(EObject obj, Metadata metadataArray, String label) 
@@ -46,9 +47,9 @@ public class AddMetadataCommand extends Command implements JUCMNavCommand
      */
     public void execute() 
     {
-        EList metadata = this.getMetadata();
+        EList<Metadata> metadata = this.getMetadata();
         
-        mdArray = (Metadata[]) metadata.toArray(new Metadata[0]);
+        mdArray = metadata.toArray(new Metadata[0]);
         redo();
     }
 
@@ -61,7 +62,7 @@ public class AddMetadataCommand extends Command implements JUCMNavCommand
     {
         testPreConditions();
         
-        EList metadata = this.getMetadata();
+        EList<Metadata> metadata = this.getMetadata();
         metadata.add(this.mdElement);
         
         testPostConditions();
@@ -103,7 +104,7 @@ public class AddMetadataCommand extends Command implements JUCMNavCommand
         testPreConditions();*/
     }
     
-    private EList getMetadata() 
+    private EList<Metadata> getMetadata() 
     {
         if( urnelem != null )
             return( urnelem.getMetadata() );

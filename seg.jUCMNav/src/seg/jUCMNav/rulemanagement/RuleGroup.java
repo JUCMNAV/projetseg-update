@@ -17,14 +17,14 @@ public class RuleGroup {
     /**
      * All rules in the group
      */
-    private List members;
+    private List<Rule> members;
 
     /**
      * Constructs a rule group with a group name
      */
     public RuleGroup(String name) {
         this.name = name;
-        members = new ArrayList();
+        members = new ArrayList<Rule>();
     }
 
     /**

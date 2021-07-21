@@ -65,10 +65,11 @@ public class MetricsDefinitionManager extends RuleManagementDefinitionManager {
 
         return defaultGroups;
     }
-
+ 
     /**
      * @deprecated
      */
+    
     public List getDefaultDefinitions() {
         return new ArrayList();
     }

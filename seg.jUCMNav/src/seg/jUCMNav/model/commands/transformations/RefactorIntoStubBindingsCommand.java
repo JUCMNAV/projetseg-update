@@ -47,8 +47,8 @@ public class RefactorIntoStubBindingsCommand extends CompoundCommand {
 
     private void createInBindings(PluginBinding binding) {
         // nc -> start point in plugin
-        HashMap hmAssociated = new HashMap();
-        Vector notAssociated = new Vector();
+        HashMap<NodeConnection, PathNode> hmAssociated = new HashMap<NodeConnection, PathNode>();
+        Vector<NodeConnection> notAssociated = new Vector<NodeConnection>();
 
         // first associate by name.
         for (Iterator iterator = stub.getPred().iterator(); iterator.hasNext();) {
@@ -96,8 +96,8 @@ public class RefactorIntoStubBindingsCommand extends CompoundCommand {
 
     private void createOutBindings(PluginBinding binding) {
         // nc -> end point in plugin
-        HashMap hmAssociated = new HashMap();
-        Vector notAssociated = new Vector();
+        HashMap<NodeConnection, PathNode> hmAssociated = new HashMap<NodeConnection, PathNode>();
+        Vector<NodeConnection> notAssociated = new Vector<NodeConnection>();
 
         for (Iterator iterator = stub.getSucc().iterator(); iterator.hasNext();) {
             NodeConnection nc = (NodeConnection) iterator.next();

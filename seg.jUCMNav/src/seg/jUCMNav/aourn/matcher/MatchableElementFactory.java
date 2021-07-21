@@ -46,14 +46,14 @@ public class MatchableElementFactory {
 		List<PathNode> pathNodes = getJoinpoints(urn, aspectMap);
 		createAllJoinpoints(pathNodes);
 		List<PathNode> pointcutNodes = new ArrayList<PathNode>(); 
-		for (Iterator iterator = pointcutMaps.iterator(); iterator.hasNext();) {
-			UCMmap pointcutMap = (UCMmap) iterator.next();
+		for (Iterator<UCMmap> iterator = pointcutMaps.iterator(); iterator.hasNext();) {
+			UCMmap pointcutMap = iterator.next();
 			pointcutNodes.addAll(pointcutMap.getNodes());
 		}
 		createPointcutElements(pointcutNodes);
 		List<PathNode> filteredJoinpoints = new ArrayList<PathNode>();
-		for (Iterator iterator = joinpoints.values().iterator(); iterator.hasNext();) {
-			Joinpoint joinpoint = (Joinpoint) iterator.next();
+		for (Iterator<Joinpoint> iterator = joinpoints.values().iterator(); iterator.hasNext();) {
+			Joinpoint joinpoint = iterator.next();
 			PathNode pathNode = joinpoint.getElement();
 			filteredJoinpoints.add(pathNode);
 		}
@@ -61,7 +61,7 @@ public class MatchableElementFactory {
 	}
 	
     private static List<PathNode> getJoinpoints(URNspec urn, URNmodelElement aspectMap) {
-    	List<PathNode> joinpoints = new ArrayList();
+    	List<PathNode> joinpoints = new ArrayList<PathNode>();
    		// TODO assumes that there is only one aspect map for this aspect in the model
     	List diagrams = urn.getUrndef().getSpecDiagrams();
     	for (Iterator iter = diagrams.iterator(); iter.hasNext();) {
@@ -86,9 +86,9 @@ public class MatchableElementFactory {
     }
 
 	
-	private static void createAllJoinpoints(List pathNodes) {
-		for (Iterator iter = pathNodes.iterator(); iter.hasNext();) {
-			PathNode pathNode = (PathNode) iter.next();
+	private static void createAllJoinpoints(List<PathNode> pathNodes) {
+		for (Iterator<PathNode> iter = pathNodes.iterator(); iter.hasNext();) {
+			PathNode pathNode = iter.next();
 			if (!joinpoints.containsKey(pathNode.getId())) {
 				if (!isWhitespace(pathNode)) {
 					Joinpoint joinpoint = new Joinpoint(pathNode);
@@ -96,16 +96,16 @@ public class MatchableElementFactory {
 				}
 			}
 		}
-		for (Iterator iter = joinpoints.values().iterator(); iter.hasNext();) {
-			Joinpoint joinpoint = (Joinpoint) iter.next();
+		for (Iterator<Joinpoint> iter = joinpoints.values().iterator(); iter.hasNext();) {
+			Joinpoint joinpoint = iter.next();
 			joinpoint.setNeighbors();
 		}
 		createSemanticAlternatives();
 	}
 
 	private static void createSemanticAlternatives() {
-		for (Iterator iter = joinpoints.values().iterator(); iter.hasNext();) {
-			Joinpoint joinpoint = (Joinpoint) iter.next();
+		for (Iterator<Joinpoint> iter = joinpoints.values().iterator(); iter.hasNext();) {
+			Joinpoint joinpoint = iter.next();
 			PathNode pn = joinpoint.getElement();
 			// TODO this should also work for static aspect markers (right now only static stubs are supported)
 			// TODO this should also work for static stubs with more than one in/out-path and more than one plug-in map
@@ -189,9 +189,9 @@ public class MatchableElementFactory {
 		}
 	}
 
-	private static void createPointcutElements(List pathNodes) {
-		for (Iterator iter = pathNodes.iterator(); iter.hasNext();) {
-			PathNode pathNode = (PathNode) iter.next();
+	private static void createPointcutElements(List<PathNode> pathNodes) {
+		for (Iterator<PathNode> iter = pathNodes.iterator(); iter.hasNext();) {
+			PathNode pathNode = iter.next();
 			if (!pointcutElements.containsKey(pathNode.getId())) {
 				if (!isWhitespace(pathNode)) {
 					PointcutElement pointcutElement = new PointcutElement(pathNode);
@@ -199,8 +199,8 @@ public class MatchableElementFactory {
 				}
 			}			
 		}
-		for (Iterator iter = pointcutElements.values().iterator(); iter.hasNext();) {
-			PointcutElement pointcutElement = (PointcutElement) iter.next();
+		for (Iterator<PointcutElement> iter = pointcutElements.values().iterator(); iter.hasNext();) {
+			PointcutElement pointcutElement = iter.next();
 			pointcutElement.setNeighbors();
 		}		
 	}
@@ -271,8 +271,8 @@ public class MatchableElementFactory {
 	}
 	
 	public static PointcutElement getInitialMatchablePointcutElement(UCMmap pointcutMap) {
-		for (Iterator iter = pointcutMap.getNodes().iterator(); iter.hasNext();) {
-			PathNode pathNode = (PathNode) iter.next();
+		for (Iterator<PathNode> iter = pointcutMap.getNodes().iterator(); iter.hasNext();) {
+			PathNode pathNode = iter.next();
 			if (pathNode instanceof StartPoint) {
 				if (pointcutElements.containsKey(pathNode.getId())) {
 					return pointcutElements.get(pathNode.getId());

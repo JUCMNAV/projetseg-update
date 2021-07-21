@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RootEditPart;
 
+import grl.GRLspec;
 import seg.jUCMNav.editors.UCMNavMultiPageEditor;
 import seg.jUCMNav.editparts.treeEditparts.UrnAbstractTreeEditPart;
 
@@ -24,7 +25,7 @@ public class KPIRootEditPart extends UrnAbstractTreeEditPart {
      * Return the root URNSpec
      */
     protected List getModelChildren() {
-        ArrayList l = new ArrayList();
+        ArrayList<GRLspec> l = new ArrayList<GRLspec>();
         l.add(((UCMNavMultiPageEditor) getModel()).getModel().getGrlspec());
         return l;
     }

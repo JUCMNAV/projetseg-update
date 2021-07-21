@@ -47,7 +47,7 @@ public class RefactorIntoStubAction extends URNSelectionAction {
             return false;
         List parts = getSelectedObjects();
 
-        Vector selection = new Vector();
+        Vector<Object> selection = new Vector<Object>();
         boolean canExec = buildSelection(parts, selection);
 
         return canExec;
@@ -60,7 +60,7 @@ public class RefactorIntoStubAction extends URNSelectionAction {
      * @param selection
      * @return
      */
-    private boolean buildSelection(List parts, Vector selection) {
+    private boolean buildSelection(List parts, Vector<Object> selection) {
         boolean canExec = false;
 
         for (Iterator iterator = parts.iterator(); iterator.hasNext();) {
@@ -93,7 +93,7 @@ public class RefactorIntoStubAction extends URNSelectionAction {
         return canExec;
     }
     
-    private void addIndirectlyConnectedElements(Vector selectedModelElements, PathNode pn) {
+    private void addIndirectlyConnectedElements(Vector<Object> selectedModelElements, PathNode pn) {
         if (pn instanceof StartPoint || pn instanceof WaitingPlace) {
             for (Iterator iterator2 = pn.getPred().iterator(); iterator2.hasNext();) {
                 NodeConnection nc = (NodeConnection) iterator2.next();
@@ -109,7 +109,7 @@ public class RefactorIntoStubAction extends URNSelectionAction {
         }
     }
 
-    private void addConnectedElements(Vector selectedModelElements, Connect connect) {
+    private void addConnectedElements(Vector<Object> selectedModelElements, Connect connect) {
         if (!selectedModelElements.contains(connect))
             selectedModelElements.add(connect);
 
@@ -131,7 +131,7 @@ public class RefactorIntoStubAction extends URNSelectionAction {
     }
     protected Command getCommand() {
 
-        Vector selection = new Vector();
+        Vector<Object> selection = new Vector<Object>();
         buildSelection(getSelectedObjects(), selection);
 
         SelectionHelper sel = new SelectionHelper(getSelectedObjects());

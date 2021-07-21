@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -732,7 +733,7 @@ public class ProgressTests extends TestCase {
         }
         assertNotNull("no start point found", sp); //$NON-NLS-1$
 
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(sp);
         v.add(ep);
         IAction action = getAction(v, ConnectAction.CONNECT);
@@ -764,7 +765,7 @@ public class ProgressTests extends TestCase {
             }
         }
 
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(sp);
         IAction action = getAction(v, DisconnectAction.DISCONNECT);
         assertNotNull("Action not found in contextual menu!", action); //$NON-NLS-1$
@@ -848,7 +849,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no empty point found", ep); //$NON-NLS-1$
 
         // select the empty point and see if the addandfork action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
 
         IAction action = getAction(v, AddAndForkAction.ADDANDFORK);
@@ -915,7 +916,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no start point found", sp); //$NON-NLS-1$
 
         // select the empty point and see if the addandfork action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
         v.add(sp);
         return v;
@@ -954,7 +955,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no empty point found", ep); //$NON-NLS-1$
 
         // select the empty point and see if the action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
 
         IAction action = getAction(v, AddAndJoinAction.ADDANDJOIN);
@@ -988,7 +989,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no end point found", endpoint); //$NON-NLS-1$
 
         // select the empty point and see if the action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
         v.add(endpoint);
 
@@ -1066,7 +1067,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no and fork found", fork); //$NON-NLS-1$
 
         NodeConnection nc = (NodeConnection) fork.getSucc().get(0);
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(nc);
         IAction action = getAction(v, ActionFactory.DELETE.getId());
 
@@ -1123,7 +1124,7 @@ public class ProgressTests extends TestCase {
         }
         assertNotNull("no and fork found", fork); //$NON-NLS-1$
 
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(fork);
         IAction action = getAction(v, AddBranchAction.ADDBRANCH);
         assertNotNull("no action found", action); //$NON-NLS-1$
@@ -1139,7 +1140,7 @@ public class ProgressTests extends TestCase {
         }
         NodeConnection nc = (NodeConnection) fork.getSucc().get(0);
         // delete the end point.
-        v = new Vector();
+        v = new Vector<EObject>();
         v.add(nc.getTarget());
         action = getAction(v, ActionFactory.DELETE.getId());
         assertNotNull("no action found", action); //$NON-NLS-1$
@@ -1171,7 +1172,7 @@ public class ProgressTests extends TestCase {
         }
         assertNotNull("no and fork found", fork); //$NON-NLS-1$
 
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(fork);
         IAction action = getAction(v, AddBranchAction.ADDBRANCH);
         assertNotNull("no action found", action); //$NON-NLS-1$
@@ -1430,7 +1431,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no empty point found", ep); //$NON-NLS-1$
 
         // select the empty point and see if the action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
 
         IAction action = getAction(v, AddOrForkAction.ADDORFORK);
@@ -1538,7 +1539,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no empty point found", ep); //$NON-NLS-1$
 
         // select the empty point and see if the action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
 
         IAction action = getAction(v, AddOrJoinAction.ADDORJOIN);
@@ -1583,7 +1584,7 @@ public class ProgressTests extends TestCase {
         assertNotNull("no end point found", endpoint); //$NON-NLS-1$
 
         // select the empty point and see if the action is in the contextual menu
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(ep);
         v.add(endpoint);
 
@@ -1813,7 +1814,7 @@ public class ProgressTests extends TestCase {
      * Author: jkealey
      */
     public void testReqElemStubActions1() {
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(urn);
         IAction action = getAction(v, AddMapAction.ADDMAP);
         assertNotNull("Action not found in contextual menu!", action); //$NON-NLS-1$
@@ -1912,7 +1913,7 @@ public class ProgressTests extends TestCase {
         Command cmd = new SplitLinkCommand(getMap(), timer, nc, 49, 75);
         getGraphicalViewer().getEditDomain().getCommandStack().execute(cmd);
 
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(timer);
         IAction action = getAction(v, AddTimeoutPathAction.ADDTIMEOUTPATH);
 
@@ -2005,7 +2006,7 @@ public class ProgressTests extends TestCase {
      * Author: jkealey
      */
     public void testReqExportBitmap2() {
-        Vector v = new Vector();
+        Vector<EObject> v = new Vector<EObject>();
         v.add(getMap());
         IAction action = getAction(v, ExportAction.EXPORT);
 

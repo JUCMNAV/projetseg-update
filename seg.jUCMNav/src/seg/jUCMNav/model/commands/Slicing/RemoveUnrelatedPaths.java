@@ -36,7 +36,6 @@ import ucm.map.Stub;
 import ucm.map.Timer;
 import ucm.map.UCMmap;
 import ucm.map.WaitingPlace;
-import ucm.scenario.ScenarioDef;
 import ucm.scenario.ScenarioGroup;
 import urn.URNspec;
 import urncore.IURNContainerRef;
@@ -1551,7 +1550,7 @@ public class RemoveUnrelatedPaths {
 				 {
 					 for(Object o:Sgroup.getScenarios())
 					 {
-						 ScenarioDef def=(ScenarioDef) o;
+						 //ScenarioDef def=(ScenarioDef) o;
 						 
 					 }
 				 }

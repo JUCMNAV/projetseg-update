@@ -5,7 +5,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 
 import seg.jUCMNav.Messages;
-import seg.jUCMNav.model.commands.change.SetCommand;
 import seg.jUCMNav.model.commands.transformations.ChangeStubTypeCommand;
 import seg.jUCMNav.model.util.StubHelper;
 import seg.jUCMNav.model.util.StubKind;
@@ -45,7 +44,7 @@ public class StubKindPropertySection extends AbstractChoicePropertySection {
     protected void itemSelected(int index) {
         if (index != lastSelection) {
             Stub s = (Stub) eObject;
-            SetCommand c;
+            //SetCommand c;
 
             CommandStack cs = StackHelper.getStack(propertySheetPage);
             if (cs != null) {

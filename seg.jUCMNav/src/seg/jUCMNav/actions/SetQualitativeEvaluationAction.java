@@ -24,7 +24,7 @@ import seg.jUCMNav.strategies.util.ReusedElementUtil;
 
 public class SetQualitativeEvaluationAction extends URNSelectionAction {
     public static final String SET_QUALITATIVE_EVALUATION = "seg.jUCMNav.SET_QUALITATIVE_EVALUATION"; //$NON-NLS-1$
-    private Vector intElementRefs;
+    private Vector<IntentionalElementRef> intElementRefs;
     private int id;
     private static String[] values = { "Satisfied", "Weakly Satisfied", "None", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             "Weakly Denied", "Denied", "Conflict", "Unknown", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
@@ -97,7 +97,7 @@ public class SetQualitativeEvaluationAction extends URNSelectionAction {
             }
         }
 
-        intElementRefs = new Vector(); // all tests passed, create list
+        intElementRefs = new Vector<IntentionalElementRef>(); // all tests passed, create list
 
         for (Iterator iter = getSelectedObjects().iterator(); iter.hasNext();) {
             IntentionalElementRef ier = (IntentionalElementRef) (((IntentionalElementEditPart) iter.next()).getModel());

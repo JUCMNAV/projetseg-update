@@ -186,13 +186,13 @@ public class ActionRegistryManager implements IDisposable {
     private ActionRegistry actionRegistry;
 
     /** the list of action ids that are editor actions */
-    private List editorActionIDs = new ArrayList();
+    private List<String> editorActionIDs = new ArrayList<String>();
 
     /** the list of action ids that are to EditPart actions */
-    private List editPartActionIDs = new ArrayList();
+    private List<String> editPartActionIDs = new ArrayList<String>();
 
     /** the list of action ids that are to CommandStack actions */
-    private List stackActionIDs = new ArrayList();
+    private List<String> stackActionIDs = new ArrayList<String>();
 
     /**
      * 

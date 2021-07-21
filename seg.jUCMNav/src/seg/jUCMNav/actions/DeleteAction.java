@@ -19,7 +19,6 @@ import seg.jUCMNav.model.commands.delete.DeleteUselessStartNCEndCommand;
 import seg.jUCMNav.model.util.MetadataHelper;
 import ucm.map.UCMmap;
 import ucm.scenario.ScenarioDef;
-import urn.URNspec;
 //import seg.jUCMNav.actions.SelectionHelper; // Never Used
 /**
  * DeleteAction overridden from framework to delete small paths created after a mass deletion.
@@ -72,7 +71,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
     
     public List getSelectedObjectsForDeletion() {
         List list = getSelectedObjects();
-        Vector result = new Vector();
+        Vector<Object> result = new Vector<Object>();
         for (Iterator iterator = list.iterator(); iterator.hasNext();) {
             Object o = (Object) iterator.next();
            
@@ -89,7 +88,7 @@ public class DeleteAction extends org.eclipse.gef.ui.actions.DeleteAction {
      * Performs the delete action on the selected objects.
      */
     public void run() {
-        URNspec urn = ((UCMNavMultiPageEditor) getWorkbenchPart()).getModel();
+        //URNspec urn = ((UCMNavMultiPageEditor) getWorkbenchPart()).getModel();
         Command cmd = createDeleteSmallPaths();
         List objects = getSelectedObjectsForDeletion();
         if (objects.size() > 0) {

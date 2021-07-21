@@ -30,12 +30,13 @@ public class ExportMSC extends ExportScenarios implements IURNExport, IURNExport
             return;
 
         if (!scenarioDefExists(urn)) { // No scenario definition. Avoid Invalid thread access exception.
-            jUCMNavErrorDialog warningMessage = new jUCMNavErrorDialog(Messages.getString("ExportMSC.NoScenarioDefined")); //$NON-NLS-1$
+            @SuppressWarnings("unused")
+			jUCMNavErrorDialog warningMessage = new jUCMNavErrorDialog(Messages.getString("ExportMSC.NoScenarioDefined")); //$NON-NLS-1$
             return;
         }
         this.newFilename = filename;
 
-        Vector v = new Vector();
+        Vector<MscTraversalListener> v = new Vector<MscTraversalListener>();
         // TODO: find original filename
         v.add(new MscTraversalListener(this.oldFilename, this.newFilename, ScenarioExportPreferences.getExportType()));
 

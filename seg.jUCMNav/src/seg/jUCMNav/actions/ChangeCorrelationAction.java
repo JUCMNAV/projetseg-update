@@ -22,7 +22,7 @@ import seg.jUCMNav.strategies.util.ReusedElementUtil;
  * @author damyot
  */
 public class ChangeCorrelationAction extends URNSelectionAction {
-    private Vector linkRefs;
+    private Vector<LinkRef> linkRefs;
 
     public static final String CHANGECORRELATION = "seg.jUCMNav.ChangeCorrelation"; //$NON-NLS-1$
 
@@ -50,7 +50,7 @@ public class ChangeCorrelationAction extends URNSelectionAction {
                 return false;
         }
 
-        linkRefs = new Vector(); // all tests passed, create list
+        linkRefs = new Vector<LinkRef>(); // all tests passed, create list
 
         for (Iterator iter = getSelectedObjects().iterator(); iter.hasNext();) {
             LinkRef lr = (LinkRef) (((LinkRefEditPart) iter.next()).getModel());
