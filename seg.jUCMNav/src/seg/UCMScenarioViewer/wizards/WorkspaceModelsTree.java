@@ -69,7 +69,7 @@ public class WorkspaceModelsTree extends Tree {
             return;
         }
         
-        TreeItem ti = findItem(this, res, new Comparator() {
+        TreeItem ti = findItem(this, res, new Comparator<Object>() {
             public int compare(Object o1, Object o2) {
                 
                 return o1.equals(o2) ? 0 : -1;
@@ -181,14 +181,14 @@ public class WorkspaceModelsTree extends Tree {
         }
 
         private static class NonLeafNode extends Node {
-            private LinkedList data = new LinkedList();
-            private LinkedList children = new LinkedList();
+            private LinkedList<IResource> data = new LinkedList<IResource>();
+            private LinkedList<Node> children = new LinkedList<Node>();
 
             public NonLeafNode(IContainer data) {
                 this.data.add(data);
             }
 
-            public List getChildren() {
+            public List<Node> getChildren() {
                 return children;
             }
 
@@ -197,7 +197,7 @@ public class WorkspaceModelsTree extends Tree {
             }
 
             public Node getChild(int index) {
-                return (Node) children.get(index);
+                return children.get(index);
             }
 
             public int countChildren() {
@@ -205,7 +205,7 @@ public class WorkspaceModelsTree extends Tree {
             }
 
             public IResource getData() {
-                return (IResource) data.getLast();
+                return data.getLast();
             }
 
             public ImageDescriptor getImageDescriptor() {
@@ -218,8 +218,8 @@ public class WorkspaceModelsTree extends Tree {
 
             public String toString() {
                 StringBuffer buffer = new StringBuffer();
-                for (Iterator i = data.iterator(); i.hasNext();) {
-                    IResource element = (IResource) i.next();
+                for (Iterator<IResource> i = data.iterator(); i.hasNext();) {
+                    IResource element = i.next();
                     buffer.append(element.getName());
                     if (i.hasNext()) {
                         buffer.append("/");
@@ -239,8 +239,8 @@ public class WorkspaceModelsTree extends Tree {
 
         private static TreeItem fillNonLeafTreeItem(TreeItem item, NonLeafNode node, IResource defaultSelected) {
             TreeItem selectedItem = null;
-            for (Iterator i = node.getChildren().iterator(); i.hasNext();) {
-                Node child = (Node) i.next();
+            for (Iterator<Node> i = node.getChildren().iterator(); i.hasNext();) {
+                Node child = i.next();
                 TreeItem childItem = createNodeTreeItem(item, child);
 
                 if (! child.isLeaf()) {
@@ -296,7 +296,7 @@ public class WorkspaceModelsTree extends Tree {
                     node.addChild(child);
                 }
             }
-            Collections.sort(node.getChildren(), new Comparator() {
+            Collections.sort(node.getChildren(), new Comparator<Object>() {
                 public int compare(Object o1, Object o2) {
                     if (o1 instanceof Node && o2 instanceof Node) {
                         Node node1 = (Node) o1;
@@ -336,7 +336,7 @@ public class WorkspaceModelsTree extends Tree {
         return null;
     }
 
-    public static TreeItem findItem(Tree tree, Object data, Comparator c) {
+    public static TreeItem findItem(Tree tree, Object data, Comparator<Object> c) {
         if (tree == null || data == null) {
             return null;
         }
@@ -354,7 +354,7 @@ public class WorkspaceModelsTree extends Tree {
         return null;
     }
 
-    private static TreeItem findItem(TreeItem parent, Object data, Comparator c) {
+    private static TreeItem findItem(TreeItem parent, Object data, Comparator<Object> c) {
         if (c.compare(data, parent.getData()) == 0) {
             return parent;
         }

@@ -23,7 +23,7 @@ public class ScenarioParser {
 
 	public Scenario parseScenario() {
 
-		HashMap lifeLines = new HashMap();
+		HashMap<Instance, LifeLine> lifeLines = new HashMap<Instance, LifeLine>();
 		for (Iterator iter = src.getInstances().iterator(); iter.hasNext();) {
 			Instance instance = (Instance) iter.next();
 

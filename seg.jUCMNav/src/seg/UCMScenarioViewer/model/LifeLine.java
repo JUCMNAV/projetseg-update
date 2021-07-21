@@ -27,8 +27,8 @@ import seg.UCMScenarioViewer.utils.Properties;
 public class LifeLine extends AbstractModelElement {
 	
     private static final long serialVersionUID = 1L;
-    private ArrayList sourceConnections = new ArrayList();
-	private ArrayList targetConnections = new ArrayList(); 
+    private ArrayList<Message> sourceConnections = new ArrayList<Message>();
+	private ArrayList<Message> targetConnections = new ArrayList<Message>(); 
 	
 	public LifeLine() {}
 
@@ -112,14 +112,14 @@ public class LifeLine extends AbstractModelElement {
 	
 	public void addSourceConncetion(Message m) {
 		if (sourceConnections == null) {
-			sourceConnections = new ArrayList();
+			sourceConnections = new ArrayList<Message>();
 		}
 		sourceConnections.add(m);
 	}
 	
 	public void addTargetConncetion(Message m) {
 		if (targetConnections == null) {
-			targetConnections = new ArrayList();
+			targetConnections = new ArrayList<Message>();
 		}
 		targetConnections.add(m);
 	}

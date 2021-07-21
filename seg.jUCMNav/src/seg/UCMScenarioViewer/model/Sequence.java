@@ -162,7 +162,7 @@ public class Sequence extends AbstractModelElement {
 	 * @see seg.UCMViewer.model.AbstractModelElement#getViewChildren()
 	 */
 	public List getViewChildren() {
-		ArrayList list = new ArrayList();
+		ArrayList<Object> list = new ArrayList<Object>();
 		Iterator i = getChildren().iterator();
 		while (i.hasNext()) {
 			Object element = i.next();

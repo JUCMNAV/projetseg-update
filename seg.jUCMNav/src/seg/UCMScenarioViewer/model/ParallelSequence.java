@@ -165,7 +165,7 @@ public class ParallelSequence extends SequenceElement {
 	}
 	
 	public List getSplitPoints() {
-		ArrayList list = new ArrayList();
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		Iterator i = getChildren().iterator();
 		i.next(); // start from second child always.
 		while (i.hasNext()) {

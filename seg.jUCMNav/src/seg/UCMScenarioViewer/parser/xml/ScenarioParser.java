@@ -30,8 +30,8 @@ public class ScenarioParser {
 			String id = "";
 			String name = "";
 			String component = "";
-			HashMap lifeLines = new HashMap();
-			HashMap componentNames = new HashMap();
+			HashMap<String, LifeLine> lifeLines = new HashMap<String, LifeLine>();
+			HashMap<String, String> componentNames = new HashMap<String, String>();
 
 			while (keepParsing) {
 				ParseEvent event = parser.read();

@@ -26,7 +26,7 @@ public class ScenarioParser {
 			line = lines;
 			boolean outLoop = false, inLoop = true, exitLoop = false;
 			LifeLine lifeL;
-			HashMap lifeLines = new HashMap();
+			HashMap<String, LifeLine> lifeLines = new HashMap<String, LifeLine>();
 
 			while (inLoop) {
 				StringTokenizer st = new StringTokenizer(line, "\' ,;:");

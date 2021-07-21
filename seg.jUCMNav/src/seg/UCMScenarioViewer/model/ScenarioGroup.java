@@ -105,7 +105,7 @@ public class ScenarioGroup extends AbstractModelElement {
 	 */
 	public List getViewChildren() {
 		if (!getChildren().isEmpty()) {
-			ArrayList list = new ArrayList();
+			ArrayList<Scenario> list = new ArrayList<Scenario>();
 			list.add(getSelectedScenario());
 			return list;
 		}

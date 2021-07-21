@@ -476,7 +476,7 @@ public class UCMScenarioViewer extends GraphicalEditor {
 
 		ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
 
-		List zoomLevels = new ArrayList(3);
+		List<String> zoomLevels = new ArrayList<String>(3);
 		zoomLevels.add(ZoomManager.FIT_ALL);
 		zoomLevels.add(ZoomManager.FIT_WIDTH);
 		zoomLevels.add(ZoomManager.FIT_HEIGHT);

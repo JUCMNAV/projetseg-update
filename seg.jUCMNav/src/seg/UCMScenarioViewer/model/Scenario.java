@@ -74,7 +74,7 @@ public class Scenario extends AbstractModelElement {
 	private void addLifeLine(LifeLine lifeline) {
 		Object childLifeLines = children.get(LIFELINES);
 		if (childLifeLines == null) {
-			ArrayList lifelines = new ArrayList();
+			ArrayList<LifeLine> lifelines = new ArrayList<LifeLine>();
 			lifelines.add(lifeline);
 			return;
 		}

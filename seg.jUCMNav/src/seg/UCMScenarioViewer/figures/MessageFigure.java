@@ -58,7 +58,7 @@ public class MessageFigure extends PolylineConnection {
 	}
 	
 	public void setBendingPoints() {
-		ArrayList bendpoints = new ArrayList(); 
+		ArrayList<RelativeBendpoint> bendpoints = new ArrayList<RelativeBendpoint>(); 
 		RelativeBendpoint p1 = new RelativeBendpoint(this), p2 = new RelativeBendpoint(this);
 		p1.setWeight(0); p2.setWeight(0);
 		p1.setRelativeDimensions(new Dimension(-3*label.getTextBounds().height, 0), new Dimension(0,0));
