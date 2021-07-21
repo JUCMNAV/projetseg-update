@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -896,9 +897,16 @@ public class ManageChangeEditorPage extends WizardPage {
     	affectedProperties.setEnabled(true);
     	changes.deselectAll();
     	Date today = new Date();
-    	startCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
+    	
+    	// Fix for deprecated use of getYear() and others in Date
+    	Calendar todayCal = new GregorianCalendar();
+    	todayCal.setTime(today);
+
+    	startCalendar.setDate(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DAY_OF_MONTH));   	
+//    	startCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
     	startCalendar.setTime(0, 0, 0);
-    	endCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
+    	endCalendar.setDate(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DAY_OF_MONTH));   	
+//    	endCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
     	endCalendar.setTime(0, 0, 0);
     	newValueText.setText("");
     	newValueDecomp.deselectAll();
@@ -954,11 +962,21 @@ public class ManageChangeEditorPage extends WizardPage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	startCalendar.setDate(start.getYear() + 1900, start.getMonth(), start.getDate());
+    	
+    	// Fix for deprecated use of getYear() and others in Date
+    	Calendar startCal = new GregorianCalendar();
+    	Calendar endCal = new GregorianCalendar();
+    	startCal.setTime(start);
+    	endCal.setTime(end);
+
+    	startCalendar.setDate(startCal.get(Calendar.YEAR), startCal.get(Calendar.MONTH), startCal.get(Calendar.DAY_OF_MONTH));
+//    	startCalendar.setDate(start.getYear() + 1900, start.getMonth(), start.getDate());
+
     	startCalendar.setTime(0, 0, 0);
     	startCalendar.update();
+    	endCalendar.setDate(endCal.get(Calendar.YEAR), endCal.get(Calendar.MONTH), endCal.get(Calendar.DAY_OF_MONTH));
+//    	endCalendar.setDate(end.getYear() + 1900, end.getMonth(), end.getDate());
     	endCalendar.setTime(0, 0, 0);
-    	endCalendar.setDate(end.getYear() + 1900, end.getMonth(), end.getDate());
     	endCalendar.update();
     	addButton.setEnabled(false);
     	updButton.setEnabled(true);
@@ -1523,16 +1541,22 @@ public class ManageChangeEditorPage extends WizardPage {
 
     }
     
-    @SuppressWarnings("deprecation")
 	public void resetPage(){
     	dynamicContexts.deselectAll();
     	affectedProperties.deselectAll();
     	affectedProperties.setEnabled(true);
     	changes.deselectAll();
     	Date today = new Date();
-    	startCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
+    	
+    	// Fix for deprecated use of getYear() and others in Date
+    	Calendar todayCal = new GregorianCalendar();
+    	todayCal.setTime(today);
+
+    	startCalendar.setDate(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DAY_OF_MONTH));   	
+//    	startCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
     	startCalendar.setTime(0, 0, 0);
-    	endCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
+    	endCalendar.setDate(todayCal.get(Calendar.YEAR), todayCal.get(Calendar.MONTH), todayCal.get(Calendar.DAY_OF_MONTH));   	
+//    	endCalendar.setDate(today.getYear()+1900, today.getMonth(), today.getDate());
     	endCalendar.setTime(0, 0, 0);
     	newValueText.setText("");
     	newValueQuad.setText("");
