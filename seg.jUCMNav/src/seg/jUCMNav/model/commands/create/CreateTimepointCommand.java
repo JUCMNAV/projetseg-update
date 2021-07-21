@@ -97,8 +97,9 @@ public class CreateTimepointCommand extends Command implements JUCMNavCommand {
      * @see seg.jUCMNav.model.commands.JUCMNavCommand#testPreConditions()
      */
     public void testPreConditions() {
-        assert urn != null && tp != null && group != null && tpDate != null: "pre something null"; //$NON-NLS-1$
-        assert !group.getTimepoints().contains(tp) : "pre timepoint in model"; //$NON-NLS-1$
+        assert urn != null && group != null && tpDate != null: "pre something null"; //$NON-NLS-1$
+        if (tp != null) 
+        	assert !group.getTimepoints().contains(tp) : "pre timepoint in model"; //$NON-NLS-1$
     }
 
     /*
