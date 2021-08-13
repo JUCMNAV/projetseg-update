@@ -34,41 +34,42 @@ import ucmscenarios.Event;
 import ucmscenarios.EventType;
 import ucmscenarios.Instance;
 import ucmscenarios.Message;
+import ucmscenarios.Metadata;
 import ucmscenarios.ModelElement;
 import ucmscenarios.Parallel;
 import ucmscenarios.ScenarioSpec;
 import ucmscenarios.Sequence;
 import ucmscenarios.UcmscenariosFactory;
-import ucmscenarios.Metadata;
 import urn.URNspec;
 import urncore.Component;
 import urncore.Condition;
 import urncore.Responsibility;
 import urncore.URNmodelElement;
 
-
 /**
  * Generates an scenario xml from a URNspec produced by MscTraversalListener
  * 
- * TODO: all id's are from the generated URN, not the source. TODO: scenario preconditions/postconditions
+ * TODO: all id's are from the generated URN, not the source. TODO: scenario
+ * preconditions/postconditions
  * 
  * @author jkealey
  * 
  */
 public class ScenarioGenerator {
 
-    //private static int msgId = 0;
+    // private static int msgId = 0;
     private ucmscenarios.Component _environmentComponent;
     private Instance _lastEnvironmentInstance;
 
-    // TODO: parallel is only an approximation in the current implementation; works well except for parallel scenariostartpoints that merge into each other
+    // TODO: parallel is only an approximation in the current implementation; works
+    // well except for parallel scenariostartpoints that merge into each other
     private boolean ARE_SCENARIO_STARTPOINTS_PARALLEL = false;
 
     // factory
     private UcmscenariosFactory f = UcmscenariosFactory.eINSTANCE;
     private HashMap<Component, ucmscenarios.Component> hmCompDefToComponent;
 
-    private HashMap hmCompRefToInstance;
+    private HashMap<ComponentRef, Instance> hmCompRefToInstance;
     private HashMap<PathNode, Object> processedPathNodes;
 
     private HashMap<PathNode, ArrayList> queuedMessages;
@@ -83,12 +84,11 @@ public class ScenarioGenerator {
     }
 
     /**
-     * For each of the and-fork's branches, create a sub-branch (child of parallel) until the next and-join or until the end of the path if none exists.
+     * For each of the and-fork's branches, create a sub-branch (child of parallel)
+     * until the next and-join or until the end of the path if none exists.
      * 
-     * @param seq
-     *            where to insert
-     * @param fork
-     *            what to insert
+     * @param seq  where to insert
+     * @param fork what to insert
      * @return the fork's ComponentRef
      */
     private ComponentRef addAllBranches(Sequence seq, AndFork fork) {
@@ -108,11 +108,13 @@ public class ScenarioGenerator {
         for (int i = 0; i < fork.getSucc().size(); i++) {
 
             // follow all other branches
-            HashSet ncs = new HashSet();
+            HashSet ncs = new HashSet<Object>();
             ncs.addAll(fork.getSucc());
             ncs.remove(fork.getSucc().get(i));
-            QFindReachableNodes qReachableNodes = new ReachableNodeFinder.QFindReachableNodes(fork, ncs, QFindReachableNodes.DIRECTION_FORWARD);
-            ReachableNodeFinder.RReachableNodes rReachableNodes = (ReachableNodeFinder.RReachableNodes) GraphExplorer.run(qReachableNodes);
+            QFindReachableNodes qReachableNodes = new ReachableNodeFinder.QFindReachableNodes(fork, ncs,
+                    QFindReachableNodes.DIRECTION_FORWARD);
+            ReachableNodeFinder.RReachableNodes rReachableNodes = (ReachableNodeFinder.RReachableNodes) GraphExplorer
+                    .run(qReachableNodes);
             Vector vReachable = rReachableNodes.getNodes();
 
             if (common == null) // first one, keep the whole list
@@ -123,14 +125,15 @@ public class ScenarioGenerator {
         }
 
         common.remove(fork);
-        // at this point, common contains only the path nodes that are common to all of the and-fork's branches
+        // at this point, common contains only the path nodes that are common to all of
+        // the and-fork's branches
 
         // create all subbranches, stopping at the common and-join if it exists.
         for (int i = 0; i < fork.getSucc().size(); i++) {
             NodeConnection nc = (NodeConnection) fork.getSucc().get(i);
             Sequence subseq = f.createSequence();
 
-            ComponentRef branchCompRef = addPath(subseq, (PathNode) nc.getTarget(), common.size() == 0 ? null : (PathNode) common.firstElement());
+            addPath(subseq, (PathNode) nc.getTarget(), common.size() == 0 ? null : (PathNode) common.firstElement());
             subseq.setParent(par);
         }
         return compRef;
@@ -140,8 +143,7 @@ public class ScenarioGenerator {
     /**
      * Adds all component definitions under a specific scenario.
      * 
-     * @param scenarios
-     *            the scenario
+     * @param scenarios the scenario
      */
     private void addComponentDefinitions(ScenarioSpec scenarios) {
 
@@ -153,10 +155,9 @@ public class ScenarioGenerator {
 
         _environmentComponent = comp;
 
-        for (Iterator iter = urnspec.getUrndef().getComponents().iterator(); iter.hasNext();) {
+        for (Iterator<?> iter = urnspec.getUrndef().getComponents().iterator(); iter.hasNext();) {
             Component element = (Component) iter.next();
-           
-            
+
             comp = f.createComponent();
             setIdNameDesc(element, comp);
             comp.setScenarioSpec(scenarios);
@@ -167,41 +168,39 @@ public class ScenarioGenerator {
     /**
      * Creates instances for each component reference in the given map.
      * 
-     * @param scenario
-     *            where to add the instances
-     * @param map
-     *            the map containing the component references.
+     * @param scenario where to add the instances
+     * @param map      the map containing the component references.
      */
-	/*
-	 * private void addComponentReferences(ucmscenarios.ScenarioDef scenario, UCMmap
-	 * map) { Instance instance = f.createInstance(); instance.setId("I0");
-	 * //$NON-NLS-1$
-	 * instance.setName(Messages.getString("ScenarioGenerator.Environment"));
-	 * //$NON-NLS-1$ instance.setDescription(Messages.getString(
-	 * "ScenarioGenerator.TheExternalEnvironment")); //$NON-NLS-1$
-	 * instance.setScenario(scenario);
-	 * instance.setDefinition(_environmentComponent); _lastEnvironmentInstance =
-	 * instance; for (Iterator iter = map.getContRefs().iterator(); iter.hasNext();)
-	 * { ComponentRef element = (ComponentRef) iter.next(); instance =
-	 * f.createInstance(); setIdNameDesc(element, instance); // refs have no useful
-	 * names. instance.setName(((Component) element.getContDef()).getName());
-	 * instance.setScenario(scenario); hmCompRefToInstance.put(element, instance); }
-	 * }
-	 */
+
+    private void addComponentReferences(ucmscenarios.ScenarioDef scenario, UCMmap map) {
+        Instance instance = f.createInstance();
+        instance.setId("I0"); //$NON-NLS-1$
+        instance.setName(Messages.getString("ScenarioGenerator.Environment")); //$NON-NLS-1$
+        instance.setDescription(Messages.getString("ScenarioGenerator.TheExternalEnvironment")); //$NON-NLS-1$
+        instance.setScenario(scenario);
+        instance.setDefinition(_environmentComponent);
+        _lastEnvironmentInstance = instance;
+        for (Iterator iter = map.getContRefs().iterator(); iter.hasNext();) {
+            ComponentRef element = (ComponentRef) iter.next();
+            instance = f.createInstance();
+            setIdNameDesc(element, instance);
+            // refs have no useful names.
+            instance.setName(((Component) element.getContDef()).getName());
+            instance.setScenario(scenario);
+            hmCompRefToInstance.put(element, instance);
+        }
+    }
 
     /**
      * Creates a condition
      * 
-     * @param seq
-     *            where to add it
-     * @param wp
-     *            from which waiting place.
+     * @param seq where to add it
+     * @param wp  from which waiting place.
      * @return the component reference to which the waiting place was bound.
      */
     private ComponentRef addCondition(Sequence seq, WaitingPlace wp) {
         ComponentRef compRef = (ComponentRef) wp.getContRef();
-        
-        
+
         Condition cond = ((NodeConnection) wp.getSucc().get(0)).getCondition();
         assert cond != null;
 
@@ -217,7 +216,8 @@ public class ScenarioGenerator {
         condition.setInstance(getInstance(compRef));
 
         // add preconditions before start point.
-        if (MetadataHelper.getMetaData(wp, "isPreCondition") != null && "true".equalsIgnoreCase(MetadataHelper.getMetaData(wp, "isPreCondition"))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (MetadataHelper.getMetaData(wp, "isPreCondition") != null //$NON-NLS-1$
+                && "true".equalsIgnoreCase(MetadataHelper.getMetaData(wp, "isPreCondition"))) //$NON-NLS-1$ //$NON-NLS-2$
         {
             if (seq.getChildren().size() > 0 && seq.getChildren().get(seq.getChildren().size() - 1) instanceof Event) {
                 Event event = (Event) seq.getChildren().get(seq.getChildren().size() - 1);
@@ -237,10 +237,8 @@ public class ScenarioGenerator {
     /**
      * Creates an event from a responsibility reference.
      * 
-     * @param seq
-     *            where to add the event
-     * @param respref
-     *            the source element
+     * @param seq     where to add the event
+     * @param respref the source element
      * @return the component reference to which the responsibility is bound.
      */
     private ComponentRef addDo(Sequence seq, RespRef respref) {
@@ -260,10 +258,8 @@ public class ScenarioGenerator {
     /**
      * Creates an event.
      * 
-     * @param seq
-     *            where to add the event
-     * @param pn
-     *            the source element.
+     * @param seq where to add the event
+     * @param pn  the source element.
      * @return the component reference to which the path node is bound.
      */
     private ComponentRef addDoSimple(Sequence seq, PathNode pn) {
@@ -274,8 +270,6 @@ public class ScenarioGenerator {
         ComponentRef compRef = (ComponentRef) pn.getContRef();
         action.setInstance(getInstance(compRef));
 
-        
-        
         if (pn instanceof StartPoint)
             action.setType(EventType.START_POINT_LITERAL);
         else if (pn instanceof EndPoint)
@@ -284,20 +278,23 @@ public class ScenarioGenerator {
             action.setType(EventType.TIMEOUT_LITERAL);
         } else if (pn instanceof DirectionArrow) {
             EventType type = EventType.get(MetadataHelper.getMetaData(pn, "type")); //$NON-NLS-1$
-            action.setType(type);  
-            if (type == EventType.WP_ENTER_LITERAL){
-                action.setName(MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceEnter")); //$NON-NLS-1$ //$NON-NLS-2$
-                if (MetadataHelper.getMetaData(pn, "period") != null )
-                	MetadataHelper.addMetaData(urnspec, action, "period", MetadataHelper.getMetaData(pn, "period"));
-                }
-            else if (type == EventType.WP_LEAVE_LITERAL) {
-                action.setName(MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceLeave")); //$NON-NLS-1$ //$NON-NLS-2$
-            } else if (type == EventType.TIMER_SET_LITERAL){
-            	action.setName(MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceSet")); //$NON-NLS-1$ //$NON-NLS-2$
-            	  if (MetadataHelper.getMetaData(pn, "period") != null )
-                  	MetadataHelper.addMetaData(urnspec, action, "period", MetadataHelper.getMetaData(pn, "period"));
-            }else if (type == EventType.TIMER_RESET_LITERAL) {
-                action.setName(MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceReset")); //$NON-NLS-1$ //$NON-NLS-2$
+            action.setType(type);
+            if (type == EventType.WP_ENTER_LITERAL) {
+                action.setName(
+                        MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceEnter")); //$NON-NLS-1$ //$NON-NLS-2$
+                if (MetadataHelper.getMetaData(pn, "period") != null)
+                    MetadataHelper.addMetaData(urnspec, action, "period", MetadataHelper.getMetaData(pn, "period"));
+            } else if (type == EventType.WP_LEAVE_LITERAL) {
+                action.setName(
+                        MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceLeave")); //$NON-NLS-1$ //$NON-NLS-2$
+            } else if (type == EventType.TIMER_SET_LITERAL) {
+                action.setName(
+                        MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceSet")); //$NON-NLS-1$ //$NON-NLS-2$
+                if (MetadataHelper.getMetaData(pn, "period") != null)
+                    MetadataHelper.addMetaData(urnspec, action, "period", MetadataHelper.getMetaData(pn, "period"));
+            } else if (type == EventType.TIMER_RESET_LITERAL) {
+                action.setName(
+                        MetadataHelper.getMetaData(pn, "name") + Messages.getString("ScenarioGenerator.SpaceReset")); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
 
@@ -308,16 +305,11 @@ public class ScenarioGenerator {
     /**
      * Creates a message between two instances.
      * 
-     * @param element
-     *            where to add it
-     * @param from
-     *            the sending instance
-     * @param to
-     *            the receiving instance
-     * @param src
-     *            what event caused the message
-     * @param target
-     *            what event is blocked until this message?
+     * @param element where to add it
+     * @param from    the sending instance
+     * @param to      the receiving instance
+     * @param src     what event caused the message
+     * @param target  what event is blocked until this message?
      * @return the message
      */
     private Message addMessage(Sequence element, ComponentRef from, ComponentRef to, PathNode src, PathNode target) {
@@ -327,21 +319,16 @@ public class ScenarioGenerator {
     /**
      * Creates a message between two isntances.
      * 
-     * @param element
-     *            where to add it
-     * @param index
-     *            what position should this message have in the queue.
-     * @param from
-     *            the sending instance
-     * @param to
-     *            the receiving instance
-     * @param src
-     *            what event caused the message
-     * @param target
-     *            what event is blocked until this message?
+     * @param element where to add it
+     * @param index   what position should this message have in the queue.
+     * @param from    the sending instance
+     * @param to      the receiving instance
+     * @param src     what event caused the message
+     * @param target  what event is blocked until this message?
      * @return the message
      */
-    private Message addMessage(Sequence element, int index, ComponentRef from, ComponentRef to, PathNode src, PathNode target) {
+    private Message addMessage(Sequence element, int index, ComponentRef from, ComponentRef to, PathNode src,
+            PathNode target) {
         Message msg = f.createMessage();
 
         // msg.setId("M" + ++msgId);
@@ -374,7 +361,8 @@ public class ScenarioGenerator {
                 element.getChildren().add(index, msg);
         } else {
             // this is normal for queued messages
-            // System.out.println("Creating a message but we have no element to add it to!");
+            // System.out.println("Creating a message but we have no element to add it
+            // to!");
         }
 
         return msg;
@@ -383,28 +371,27 @@ public class ScenarioGenerator {
     /**
      * Adds a path
      * 
-     * @param seq
-     *            where to add it
-     * @param start
-     *            where to start
-     * @param stopAtNode
-     *            where to stop, null if stop at end point
+     * @param seq        where to add it
+     * @param start      where to start
+     * @param stopAtNode where to stop, null if stop at end point
      * @return the initial component reference.
      */
     private ComponentRef addPath(Sequence seq, PathNode start, PathNode stopAtNode) {
-        QFindReachableNodes qReachableNodes = new ReachableNodeFinder.QFindReachableNodes(start, new HashSet(), QFindReachableNodes.DIRECTION_FORWARD);
-        ReachableNodeFinder.RReachableNodes rReachableNodes = (ReachableNodeFinder.RReachableNodes) GraphExplorer.run(qReachableNodes);
-        Vector vReachable = rReachableNodes.getNodes();
+        QFindReachableNodes qReachableNodes = new ReachableNodeFinder.QFindReachableNodes(start, new HashSet<Object>(),
+                QFindReachableNodes.DIRECTION_FORWARD);
+        ReachableNodeFinder.RReachableNodes rReachableNodes = (ReachableNodeFinder.RReachableNodes) GraphExplorer
+                .run(qReachableNodes);
+        Vector<?> vReachable = rReachableNodes.getNodes();
         ComponentRef initialCompRef = (ComponentRef) start.getContRef();
         ComponentRef compRef = null;
-        //int index = -1;
+        // int index = -1;
         for (int i = 0; i < vReachable.size(); i++) {
             PathNode pn = (PathNode) vReachable.get(i);
 
             // add queued messages
             if (queuedMessages.containsKey(pn)) {
-                ArrayList msgs = queuedMessages.get(pn);
-                for (Iterator iter = msgs.iterator(); iter.hasNext();) {
+                ArrayList<?> msgs = queuedMessages.get(pn);
+                for (Iterator<?> iter = msgs.iterator(); iter.hasNext();) {
                     Message msg = (Message) iter.next();
                     msg.setSequence(seq);
                 }
@@ -426,7 +413,9 @@ public class ScenarioGenerator {
             } else if (pn instanceof DirectionArrow) {
                 type = EventType.get(MetadataHelper.getMetaData(pn, "type")); //$NON-NLS-1$
                 // these types are ignored.
-                if (type == EventType.CONNECT_END_LITERAL || type == EventType.CONNECT_START_LITERAL) { // || type == EventType.TRIGGER_END_LITERAL) {
+                if (type == EventType.CONNECT_END_LITERAL || type == EventType.CONNECT_START_LITERAL) { // || type ==
+                    // EventType.TRIGGER_END_LITERAL)
+                    // {
                     // continue;
                     compRef = (ComponentRef) pn.getContRef();
                 } else if (type == EventType.TRIGGER_END_LITERAL) {
@@ -449,7 +438,7 @@ public class ScenarioGenerator {
 
                 processedPathNodes.put(pn, new Object[] { seq, Integer.valueOf(seq.getChildren().size()) });
             } else {
-                //System.out.println("unexpected pathnode"); //$NON-NLS-1$
+                // System.out.println("unexpected pathnode"); //$NON-NLS-1$
                 continue;
             }
 
@@ -459,11 +448,11 @@ public class ScenarioGenerator {
 
             // infer messages to be sent.
             // find the next responsibilities
-            QFindResponsibilities qReachableResponsibilities = new ResponsibilityFinder.QFindResponsibilities(pn, new HashSet(),
-                    QFindResponsibilities.DIRECTION_FORWARD, false, true);
+            QFindResponsibilities qReachableResponsibilities = new ResponsibilityFinder.QFindResponsibilities(pn,
+                    new HashSet<Object>(), QFindResponsibilities.DIRECTION_FORWARD, false, true);
             ResponsibilityFinder.RNextResponsibilities rReachableResponsibilities = (ResponsibilityFinder.RNextResponsibilities) GraphExplorer
                     .run(qReachableResponsibilities);
-            Vector vResponsibilities = rReachableResponsibilities.getNodes();
+            Vector<?> vResponsibilities = rReachableResponsibilities.getNodes();
 
             int count = 0;
             for (int j = 0; j < vResponsibilities.size(); j++) {
@@ -509,7 +498,7 @@ public class ScenarioGenerator {
     private void enqueueMessage(ComponentRef compRef, PathNode pn, PathNode next, ComponentRef nextCompRef) {
         Message msg = addMessage(null, compRef, nextCompRef, pn, next);
         if (!queuedMessages.containsKey(next))
-            queuedMessages.put(next, new ArrayList());
+            queuedMessages.put(next, new ArrayList<Object>());
 
         queuedMessages.get(next).add(msg);
     }
@@ -517,12 +506,10 @@ public class ScenarioGenerator {
     /**
      * Creates a path for the given scenario
      * 
-     * @param out
-     *            where to add it
-     * @param in
-     *            which scenario should be added (starting at its scenario start points)
-     * @param map
-     *            the source map containing the path nodes.
+     * @param out where to add it
+     * @param in  which scenario should be added (starting at its scenario start
+     *            points)
+     * @param map the source map containing the path nodes.
      */
     private void addPath(ucmscenarios.ScenarioDef out, ScenarioDef in, UCMmap map) {
         Sequence seq = f.createSequence();
@@ -541,8 +528,10 @@ public class ScenarioGenerator {
                     StartPoint sp = ssp.getStartPoint();
 
                     Sequence seq2 = f.createSequence();
-                    // TODO: we assume they are in parallel but we may run into merged paths from different scenario start points
-                    // TODO: look at code below for sequencing, but move the nodes after the join point on seq, instead of their original sequence inside
+                    // TODO: we assume they are in parallel but we may run into merged paths from
+                    // different scenario start points
+                    // TODO: look at code below for sequencing, but move the nodes after the join
+                    // point on seq, instead of their original sequence inside
                     // parallel
                     addPath(seq2, sp, null);
                     seq2.setParent(par);
@@ -558,9 +547,10 @@ public class ScenarioGenerator {
 
             for (int i = 0; i < in.getStartPoints().size(); i++) {
                 ScenarioStartPoint ssp = (ScenarioStartPoint) in.getStartPoints().get(i);
-                QFindReachableNodes qReachableNodes = new ReachableNodeFinder.QFindReachableNodes(ssp.getStartPoint(), new HashSet(),
-                        QFindReachableNodes.DIRECTION_FORWARD);
-                ReachableNodeFinder.RReachableNodes rReachableNodes = (ReachableNodeFinder.RReachableNodes) GraphExplorer.run(qReachableNodes);
+                QFindReachableNodes qReachableNodes = new ReachableNodeFinder.QFindReachableNodes(ssp.getStartPoint(),
+                        new HashSet<Object>(), QFindReachableNodes.DIRECTION_FORWARD);
+                ReachableNodeFinder.RReachableNodes rReachableNodes = (ReachableNodeFinder.RReachableNodes) GraphExplorer
+                        .run(qReachableNodes);
                 reachable[i] = rReachableNodes.getNodes();
             }
 
@@ -578,10 +568,11 @@ public class ScenarioGenerator {
                 // for (int j = i - 1; j < in.getStartPoints().size(); j++) {
                 for (int j = 0; j < i; j++) {
                     // if (j<0 || j==i)break;
-                    Vector curr = (Vector) reachable[i].clone();
+                    Vector<?> curr = (Vector<?>) reachable[i].clone();
                     curr.retainAll(reachable[j]);
 
-                    // basically, we're try to figure out if seq2 was merged into an and-join. if so, we need to add seq2 as a child before and-join
+                    // basically, we're try to figure out if seq2 was merged into an and-join. if
+                    // so, we need to add seq2 as a child before and-join
                     if (curr.size() > 0) {
                         PathNode join = (PathNode) curr.firstElement();
                         assert join instanceof AndJoin;
@@ -591,16 +582,20 @@ public class ScenarioGenerator {
                         Sequence location_seq = (Sequence) location[0];
                         Integer location_pos = (Integer) location[1];
 
-                        // location_seq.getChildren().add(location_pos.intValue() == 0 ? 0 : location_pos.intValue() - 1, seq2);
+                        // location_seq.getChildren().add(location_pos.intValue() == 0 ? 0 :
+                        // location_pos.intValue() - 1, seq2);
 
                         int where = -1;
 
-                        // the following if checks to see if we're inserting a path right after a timer reset or waiting place leave (which are consecutive). if
+                        // the following if checks to see if we're inserting a path right after a timer
+                        // reset or waiting place leave (which are consecutive). if
                         // so, lets insert ourselves in between the two
-                        if (location_pos.intValue() > 0 && location_pos.intValue() - 1 < location_seq.getChildren().size()
+                        if (location_pos.intValue() > 0
+                                && location_pos.intValue() - 1 < location_seq.getChildren().size()
                                 && location_seq.getChildren().get(location_pos.intValue() - 1) instanceof Event) {
                             Event previous = (Event) location_seq.getChildren().get(location_pos.intValue() - 1);
-                            if (previous.getType().getValue() == EventType.TIMER_RESET || previous.getType().getValue() == EventType.WP_LEAVE) {
+                            if (previous.getType().getValue() == EventType.TIMER_RESET
+                                    || previous.getType().getValue() == EventType.WP_LEAVE) {
                                 location_seq.getChildren().add(location_pos.intValue() - 1, seq2);
                                 where = location_pos.intValue();
                             }
@@ -645,52 +640,51 @@ public class ScenarioGenerator {
     /**
      * Add a scenario
      * 
-     * @param in
-     *            the source scenario
-     * @param out
-     *            the target scenario
-     * @return false if this scenario does not have any start points, true otherwise.
+     * @param in  the source scenario
+     * @param out the target scenario
+     * @return false if this scenario does not have any start points, true
+     *         otherwise.
      */
-	/*
-	 * private boolean addScenario(ScenarioDef in, ucmscenarios.ScenarioDef out) {
-	 * processedPathNodes = new HashMap(); queuedMessages = new HashMap();
-	 * 
-	 * if (in.getStartPoints().size() > 0) { // assumption: all SSP point to the
-	 * same map.
-	 * 
-	 * ScenarioStartPoint ssp = (ScenarioStartPoint) in.getStartPoints().get(0);
-	 * UCMmap map = (UCMmap) ssp.getStartPoint().getDiagram();
-	 * 
-	 * addComponentReferences(out, map);
-	 * 
-	 * addPath(out, in, map);
-	 * 
-	 * if (_lastEnvironmentInstance.getSent().size() == 0 &&
-	 * _lastEnvironmentInstance.getReceived().size() == 0 &&
-	 * _lastEnvironmentInstance.getElements().size() == 0) {
-	 * _lastEnvironmentInstance.setDefinition(null);
-	 * _lastEnvironmentInstance.setScenario(null); }
-	 * 
-	 * return true; } else return false; }
-	 */
+
+    private boolean addScenario(ScenarioDef in, ucmscenarios.ScenarioDef out) {
+        processedPathNodes = new HashMap<PathNode, Object>();
+        queuedMessages = new HashMap<PathNode, ArrayList>();
+
+        if (in.getStartPoints().size() > 0) { // assumption: all SSP point to the same map.
+
+            ScenarioStartPoint ssp = (ScenarioStartPoint) in.getStartPoints().get(0);
+            UCMmap map = (UCMmap) ssp.getStartPoint().getDiagram();
+
+            addComponentReferences(out, map);
+
+            addPath(out, in, map);
+
+            if (_lastEnvironmentInstance.getSent().size() == 0 && _lastEnvironmentInstance.getReceived().size() == 0
+                    && _lastEnvironmentInstance.getElements().size() == 0) {
+                _lastEnvironmentInstance.setDefinition(null);
+                _lastEnvironmentInstance.setScenario(null);
+            }
+
+            return true;
+        } else
+            return false;
+    }
 
     /**
      * Add all scenarios in the group, if they have start points.
      * 
-     * @param in
-     *            the source scenario group
-     * @param out
-     *            the target scenario group
+     * @param in  the source scenario group
+     * @param out the target scenario group
      */
     private void addScenarios(ScenarioGroup in, ucmscenarios.ScenarioGroup out) {
 
-        for (Iterator iter = in.getScenarios().iterator(); iter.hasNext();) {
+        for (Iterator<?> iter = in.getScenarios().iterator(); iter.hasNext();) {
             ScenarioDef element = (ScenarioDef) iter.next();
 
             ucmscenarios.ScenarioDef scenario = f.createScenarioDef();
             setIdNameDesc(element, scenario);
 
-            //boolean b = addScenario(element, scenario);
+            addScenario(element, scenario);
 
             for (Iterator<Object> iterator = processedPathNodes.values().iterator(); iterator.hasNext();) {
                 Object model = iterator.next();
@@ -698,13 +692,15 @@ public class ScenarioGenerator {
                 // if timer reset at end of child sequence, move it outside after the parallel
                 if (model instanceof Parallel) {
                     Parallel parallel = (Parallel) model;
-                    for (Iterator it = parallel.getChildren().iterator(); it.hasNext();) {
+                    for (Iterator<?> it = parallel.getChildren().iterator(); it.hasNext();) {
                         Sequence child = (Sequence) it.next();
-                        if (child.getChildren().size() > 0 && child.getChildren().get(child.getChildren().size() - 1) instanceof Event) {
+                        if (child.getChildren().size() > 0
+                                && child.getChildren().get(child.getChildren().size() - 1) instanceof Event) {
                             Event ev = (Event) child.getChildren().get(child.getChildren().size() - 1);
                             if (ev.getType() == EventType.TIMER_RESET_LITERAL) {
                                 ev.setSequence(null);
-                                parallel.getSequence().getChildren().add(parallel.getSequence().getChildren().indexOf(parallel) + 1, ev);
+                                parallel.getSequence().getChildren()
+                                .add(parallel.getSequence().getChildren().indexOf(parallel) + 1, ev);
                             }
                         }
                     }
@@ -722,50 +718,46 @@ public class ScenarioGenerator {
     /**
      * Make sure we don't get any NPEs by replacing null with an empty string.
      * 
-     * @param s
-     *            the string to convert
+     * @param s the string to convert
      * @return a non-null String
      */
-    private String fix(String s) {
-        if (s == null)
-            return ""; //$NON-NLS-1$
-        else
-            return s;
-    }
+    //  private String fix(String s) {
+    //      if (s == null)
+    //          return ""; //$NON-NLS-1$
+    //      else
+    //          return s;
+    //  }
 
     /**
      * Returns the target component related to a source component definition.
      * 
-     * @param comp
-     *            the component definition
+     * @param comp the component definition
      * @return the component.
      */
-	/*
-	 * private ucmscenarios.Component getComponent(Component comp) {
-	 * 
-	 * if (hmCompDefToComponent.containsKey(comp)) return (ucmscenarios.Component)
-	 * hmCompDefToComponent.get(comp); else return _environmentComponent;
-	 * 
-	 * }
-	 */
+    /*
+     * private ucmscenarios.Component getComponent(Component comp) {
+     * 
+     * if (hmCompDefToComponent.containsKey(comp)) return (ucmscenarios.Component)
+     * hmCompDefToComponent.get(comp); else return _environmentComponent;
+     * 
+     * }
+     */
 
     /**
      * Returns the component reference's definition
      * 
-     * @param element
-     *            the reference
+     * @param element the reference
      * @return the definition
      */
-	/*
-	 * private Component getDef(ComponentRef element) { return ((Component)
-	 * element.getContDef()); }
-	 */
+    /*
+     * private Component getDef(ComponentRef element) { return ((Component)
+     * element.getContDef()); }
+     */
 
     /**
      * Returns the responsibility reference's definition
      * 
-     * @param element
-     *            the reference
+     * @param element the reference
      * @return the definition
      */
     private Responsibility getDef(RespRef element) {
@@ -773,16 +765,16 @@ public class ScenarioGenerator {
     }
 
     /**
-     * Returns the instance associated with a component reference. Returns the environment instance if none is found.
+     * Returns the instance associated with a component reference. Returns the
+     * environment instance if none is found.
      * 
-     * @param comp
-     *            the reference
+     * @param comp the reference
      * @return the instance
      */
     private Instance getInstance(ComponentRef comp) {
 
         if (hmCompRefToInstance.containsKey(comp))
-            return (Instance) hmCompRefToInstance.get(comp);
+            return hmCompRefToInstance.get(comp);
         else
             return _lastEnvironmentInstance;
     }
@@ -790,16 +782,15 @@ public class ScenarioGenerator {
     /**
      * Returns the condition's label, or its expression if it is null.
      * 
-     * @param cond
-     *            the condition
+     * @param cond the condition
      * @return a string representing the condition
      */
-	/*
-	 * private String getLabel(Condition cond) { if (cond.getLabel() != null &&
-	 * cond.getLabel().length() > 0) return "[" + cond.getLabel() + "]";
-	 * //$NON-NLS-1$ //$NON-NLS-2$ else return "[" + cond.getExpression() + "]";
-	 * //$NON-NLS-1$ //$NON-NLS-2$ }
-	 */
+    /*
+     * private String getLabel(Condition cond) { if (cond.getLabel() != null &&
+     * cond.getLabel().length() > 0) return "[" + cond.getLabel() + "]";
+     * //$NON-NLS-1$ //$NON-NLS-2$ else return "[" + cond.getExpression() + "]";
+     * //$NON-NLS-1$ //$NON-NLS-2$ }
+     */
 
     /**
      * Returns the target scenario; caches the result for future calls.
@@ -809,7 +800,7 @@ public class ScenarioGenerator {
     public ScenarioSpec getScenarioDocument() {
         if (this.scenariospec == null) {
             this.hmCompDefToComponent = new HashMap<Component, ucmscenarios.Component>();
-            this.hmCompRefToInstance = new HashMap();
+            this.hmCompRefToInstance = new HashMap<ComponentRef, Instance>();
 
             scenariospec = f.createScenarioSpec();
 
@@ -827,7 +818,7 @@ public class ScenarioGenerator {
 
             addComponentDefinitions(scenariospec);
 
-            for (Iterator iter = urnspec.getUcmspec().getScenarioGroups().iterator(); iter.hasNext();) {
+            for (Iterator<?> iter = urnspec.getUcmspec().getScenarioGroups().iterator(); iter.hasNext();) {
                 ScenarioGroup element = (ScenarioGroup) iter.next();
                 ucmscenarios.ScenarioGroup group = f.createScenarioGroup();
 
@@ -851,44 +842,38 @@ public class ScenarioGenerator {
     /**
      * Save the model to the given path.
      * 
-     * @param path
-     *            the path
+     * @param path the path
      */
     public void save(File path) {
-        UcmScenariosModelManager mgr = new UcmScenariosModelManager();        
+        UcmScenariosModelManager mgr = new UcmScenariosModelManager();
         mgr.createScenarioSpec(path, getScenarioDocument());
     }
 
     /**
-     * Sets a target element's id, name, and description to that of the source element.,
+     * Sets a target element's id, name, and description to that of the source
+     * element.,
      * 
-     * @param in
-     *            the source element
-     * @param out
-     *            the target element
+     * @param in  the source element
+     * @param out the target element
      */
     private void setIdNameDesc(URNmodelElement in, ModelElement out) {
         out.setId(in.getId());
         out.setName(in.getName());
         out.setDescription(in.getDescription());
-        
-        if(!in.getMetadata().isEmpty() && in.getMetadata() != null ){
-        	
-            for ( Object currentObj : in.getMetadata()){
-            	urncore.Metadata currentMetadata = (urncore.Metadata)currentObj;
-            	//System.out.println("We are accessing metadata" + in.getMetadata().get(0) + "   Metadata objet = " + in);
+
+        if (!in.getMetadata().isEmpty() && in.getMetadata() != null) {
+
+
+            for (Object currentObject : in.getMetadata()) {
+                urncore.Metadata currentUrnMetadata = (urncore.Metadata) currentObject;
+
+                Metadata currentScenMetadata = f.createMetadata();
+                currentScenMetadata.setName(currentUrnMetadata.getName());
+                currentScenMetadata.setValue(currentUrnMetadata.getValue());
+
+                out.getMetadata().add(currentScenMetadata);
             }
-        	
-        	for ( Object currentObject : in.getMetadata()){
-        		urncore.Metadata currentUrnMetadata = (urncore.Metadata) currentObject;
-        		
-        		Metadata currentScenMetadata = f.createMetadata();
-        		currentScenMetadata.setName(currentUrnMetadata.getName());
-        		currentScenMetadata.setValue(currentUrnMetadata.getValue());
-        	
-        		out.getMetadata().add(currentScenMetadata);
-        	}
         }
-        	
+
     }
 }
