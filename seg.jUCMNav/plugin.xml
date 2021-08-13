@@ -71,7 +71,7 @@
                id="seg.jUCMNav.actions.SwitchModelLanguageDelegate"
                icon="icons/SwitchModelLanguage.gif"
                label="%SwitchModelLanguage"
-               menubarPath="seg.jUCMnav/ext"
+               menubarPath="seg.jUCMNav/ext"
                style="push"
                tooltip="%SwitchLanguage">
          </action>
@@ -92,7 +92,7 @@
                icon="src/seg/jUCMNav/icons/Metadata.gif"
                id="seg.jUCMNav.AddStereotypeDefinitions"
                label="%AddStereotypeDefinitions"
-               menubarPath="seg.jUCMnav/ext"
+               menubarPath="seg.jUCMNav/ext"
                style="push"
                tooltip="%AddStereotypeDefinitions"/>
          <action
@@ -101,7 +101,7 @@
                icon="icons/syntax.gif"
                id="seg.jUCMNav.actions.scenarios.VerifySyntaxActionDelegate"
                label="%VerifyPseudoCodeSyntax"
-               menubarPath="seg.jUCMnav/ext"
+               menubarPath="seg.jUCMNav/ext"
                style="push"
                tooltip="%VerifySyntax"/>
 		 <action
@@ -110,7 +110,7 @@
                icon="icons/ocl.gif"
                id="seg.jUCMNav.actions.staticAnalysis.VerifyStaticSemanticDelegate"
                label="%VerifyStaticSemantics"
-               menubarPath="seg.jUCMnav/ext"
+               menubarPath="seg.jUCMNav/ext"
                style="push"
                tooltip="%VerifyStaticSemantics"/>
    <action
@@ -119,7 +119,7 @@
          icon="icons/metrics.gif"
          id="seg.jUCMNav.actions.matrics.CalculateMatricsActionDelegate"
          label="%CalculateMetrics"
-         menubarPath="seg.jUCMnav/ext"
+         menubarPath="seg.jUCMNav/ext"
          style="push"
          tooltip="%CalculateMetrics">
    </action>
@@ -129,7 +129,7 @@
                icon="icons/ucm16.gif"
                id="seg.jUCMNav.AddMap"
                label="%AddUseCaseMap"
-               menubarPath="seg.jUCMnav/ext"
+               menubarPath="seg.jUCMNav/ext"
                style="push"
                tooltip="%AddUseCaseMap"/>
          <action
@@ -138,7 +138,7 @@
                icon="icons/grl16.gif"
                id="seg.jUCMNav.AddGrlGraph"
                label="%AddGrlDiagram"
-               menubarPath="seg.jUCMnav/ext"
+               menubarPath="seg.jUCMNav/ext"
                style="push"
                tooltip="%AddGrlDiagram"/>
    <action
@@ -1208,7 +1208,7 @@
                label="CreateNew">
             <command
                   commandId="seg.jUCMNav.command.editor.createNew"
-                  icon="src/seg/jUCMNav/icons/urnlink-bidir.gif"
+                  icon="icons/urnlink-bidir.gif"
                   label="EditorCreateNew"
                   style="push"
                   tooltip="Create And Link to New Element">
