@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: jUCMNav
 Bundle-SymbolicName: seg.jUCMNav;singleton:=true
-Bundle-Version: 8.0
+Bundle-Version: 9.0
 Bundle-ClassPath: jUCMNav.jar,
  lib/jdom.jar,
  lib/itext-2.0.6.jar,
@@ -19,10 +19,12 @@ Bundle-ClassPath: jUCMNav.jar,
  lib/core.jar,
  lib/jaxb-api.jar,
  lib/jsr173_1.0_api.jar
+ lib/org.eclipse.e4.core.contexts_1.4.0.v20150828-0818.jar
+ lib/org.swtchart.jar
 Bundle-Activator: seg.jUCMNav.JUCMNavPlugin
 Bundle-Vendor: UseCaseMaps.org
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: .,
  ExamplesJaCoP,
  ExamplesJaCoP.nonogramRepository,
